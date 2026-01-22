@@ -332,9 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (result.success) {
                 closeModal('loginModal');
                 window.location.href = 'user-dashboard.html';
-            } else {
-                alert('Login failed: ' + result.error);
-            }
+            } 
         });
     }
 
@@ -358,9 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeModal('registerModal');
                 openModal('loginModal');
                 alert('Registration successful! Please login.');
-            } else {
-                alert('Registration failed: ' + result.error);
-            }
+            } 
         });
     }
 
