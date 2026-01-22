@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Everlasting Bonds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ====== MY PROFILE PAGE CSS ====== */
+        :root {
+            --primary-color: #e91e63;
+            --primary-dark: #d81b60;
+            --secondary-color: #2c3e50;
+            --accent-color: #2196F3;
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --danger-color: #f44336;
+            --info-color: #00BCD4;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+            --border-color: #dee2e6;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            color: var(--dark-color);
+        }
+
+        /* ====== NAVIGATION ====== */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(233, 30, 99, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(233, 30, 99, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .main-content {
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        .profile-header {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+        }
+
+        .profile-avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-basic-info h1 {
+            font-size: 2.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ====== PROFILE SECTIONS ====== */
+        .profile-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+        }
+
+        .profile-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.1rem;
+        }
+
+        .edit-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .edit-btn:hover {
+            background: rgba(233, 30, 99, 0.05);
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray-color);
+            min-width: 180px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-label i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            width: 16px;
+        }
+
+        .info-value {
+            color: var(--dark-color);
+            flex: 1;
+            word-break: break-word;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .info-item-full {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .info-item-full .info-value {
+            width: 100%;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* ====== LOADING ====== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ====== EMPTY STATE ====== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--gray-color);
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* ====== MODALS ====== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links a,
+            .nav-links .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .profile-avatar-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .profile-meta {
+                justify-content: center;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .info-label {
+                min-width: auto;
+            }
+
+            #editProfileBtn,#deactivateProfileBtn,#deleteProfileBtn{
+                width: 100px;
+
+            }}
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .profile-header,
+            .profile-section {
+                padding: 1.5rem;
+            }
+
+            .profile-basic-info h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="user-dashboard.html" class="logo">
+                <i class="fas fa-heart"></i>
+                <span>Everlasting Bonds</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="user-dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="find-matches.html">
+                    <i class="fas fa-search"></i>
+                    <span>Find Matches</span>
+                </a>
+                <a href="my-profile.html" class="active">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="messages.html">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+                <button class="btn-secondary" id="logoutBtn" style="padding: 4px;border-radius: 6px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header" id="profileHeader">
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <!-- Avatar initials will be inserted here -->
+                    </div>
+                    <div class="profile-basic-info">
+                        <h1 id="profileName">Your Name</h1>
+                        <div class="profile-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-venus-mars"></i>
+                                <span id="profileGenderAge">Gender, Age</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="profileLocation">Location</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-briefcase"></i>
+                                <span id="profileProfession">Profession</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-heart"></i>
+                                <span id="profileStatus">Profile Status: <span id="statusText" style="color: var(--success-color); font-weight: 600;">Active</span></span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="btn-primary" id="editProfileBtn" style="padding: 4px;border-radius: 6px;">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Profile</span>
+                            </button>
+                            <button class="btn-secondary" id="deactivateProfileBtn" style="padding: 4px;border-radius: 6px;">
+                                <i class="fas fa-ban"></i>
+                                <span>Deactivate Profile</span>
+                            </button>
+                            <button class="btn-secondary" id="deleteProfileBtn" style="padding: 4px;border-radius: 6px;">
+                                <i class="fas fa-trash"></i>
+                                <span>Delete Profile</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="profileViews">0</div>
+                        <div class="stat-label">Profile Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalMatches">0</div>
+                        <div class="stat-label">Total Matches</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="connections">0</div>
+                        <div class="stat-label">Connections</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="interests">0</div>
+                        <div class="stat-label">Interests Received</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Sections -->
+            <div class="profile-sections">
+                <!-- Bio Data Section -->
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <i class="fas fa-user"></i>
+                            <span>Bio Data</span>
+                        </h3>
+                        <button class="edit-btn" onclick="editSection('bio')">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit</span>
+                        </button>
+                    </div>
+                    <div class="info-grid" id="bioDataContent">
+                        <!-- Bio data will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Partner Preferences Section -->
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <i class="fas fa-heart"></i>
+                            <span>Partner Preferences</span>
+                        </h3>
+                        <button class="edit-btn" onclick="editSection('partner')">
+                            <i class="fas fa-edit"></i>
+                            <span>Edit</span>
+                        </button>
+                    </div>
+                    <div class="info-grid" id="partnerPrefsContent">
+                        <!-- Partner preferences will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Account Settings Section -->
+                <div class="profile-section">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <i class="fas fa-cog"></i>
+                            <span>Account Settings</span>
+                        </h3>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email:</span>
+                            </span>
+                            <span class="info-value" id="accountEmail">user@example.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Member Since:</span>
+                            </span>
+                            <span class="info-value" id="memberSince">January 2024</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Privacy Settings:</span>
+                            </span>
+                            <span class="info-value">Standard Privacy</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-bell"></i>
+                                <span>Notifications:</span>
+                            </span>
+                            <span class="info-value">Email & Browser</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State (when no profile exists) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-user-plus"></i>
+                <h3>No Profile Yet</h3>
+                <p>You haven't created your profile yet. Create your profile to start finding your perfect match and get personalized recommendations.</p>
+                <button class="btn-primary mt-2" id="createProfileBtn" style="margin-top: 1rem;">
+                    <i class="fas fa-plus"></i>
+                    <span>Create Your Profile</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Profile Form Modal -->
+    <div class="modal-overlay" id="profileFormModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-user-edit"></i>
+                    <span>Edit Profile</span>
+                </h2>
+                <button class="close-btn" onclick="closeModal('profileFormModal')" aria-label="Close modal">
+                    &times;
+                </button>
+            </div>
+            <div style="padding: 2rem; max-height: 70vh; overflow-y: auto;" id="profileFormContent">
+                <!-- Form will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="confirmTitle">Confirm Action</span>
+                </h2>
+                <button class="close-btn" onclick="closeModal('confirmModal')" aria-label="Close modal">
+                    &times;
+                </button>
+            </div>
+            <div style="padding: 2rem;">
+                <p id="confirmMessage">Are you sure you want to proceed?</p>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button class="btn-secondary" onclick="closeModal('confirmModal')" style="flex: 1;">
+                        <i class="fas fa-times"></i>
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn-primary" id="confirmActionBtn" style="flex: 1;">
+                        <i class="fas fa-check"></i>
+                        <span>Confirm</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // My Profile Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('My Profile page loaded');
+            
+            // Check if user is logged in
+            if (!auth || !auth.isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Initialize page
+            initMyProfile();
+            setupEventListeners();
+        });
+
+        // Global variables
+        let userProfile = null;
+        let currentEditSection = '';
+
+        // Initialize my profile page
+        function initMyProfile() {
+            showLoading();
+            
+            // Get user profile
+            userProfile = auth.getUserProfile();
+            
+            if (userProfile) {
+                // User has a profile
+                displayProfile(userProfile);
+                updateStats();
+            } else {
+                // User doesn't have a profile
+                document.getElementById('profileHeader').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+            }
+            
+            hideLoading();
+        }
+
+        // Display profile data
+        function displayProfile(profile) {
+            // Avatar
+            const avatar = document.getElementById('profileAvatar');
+            if (avatar && profile.bio?.fullName) {
+                const initials = profile.bio.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                avatar.textContent = initials;
+            }
+            
+            // Basic info
+            if (profile.bio?.fullName) {
+                document.getElementById('profileName').textContent = profile.bio.fullName;
+            }
+            
+            if (profile.bio?.gender && profile.bio?.age) {
+                document.getElementById('profileGenderAge').textContent = `${profile.bio.gender}, ${profile.bio.age} years`;
+            }
+            
+            if (profile.bio?.city) {
+                document.getElementById('profileLocation').textContent = profile.bio.city;
+            }
+            
+            if (profile.bio?.profession) {
+                document.getElementById('profileProfession').textContent = profile.bio.profession;
+            }
+            
+            // Account email
+            const user = auth.getCurrentUser();
+            if (user) {
+                document.getElementById('accountEmail').textContent = user.email;
+            }
+            
+            // Member since
+            if (profile.createdAt) {
+                const date = new Date(profile.createdAt);
+                const month = date.toLocaleString('default', { month: 'long' });
+                const year = date.getFullYear();
+                document.getElementById('memberSince').textContent = `${month} ${year}`;
+            }
+            
+            // Bio data section
+            const bioContent = document.getElementById('bioDataContent');
+            if (bioContent) {
+                bioContent.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-user"></i>
+                            <span>Full Name:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.fullName || 'Not specified'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-venus-mars"></i>
+                            <span>Gender:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.gender || 'Not specified'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>Age:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.age || 'Not specified'} years</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-place-of-worship"></i>
+                            <span>Religion:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.religion || 'Not specified'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.education || 'Not specified'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Profession:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.profession || 'Not specified'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-city"></i>
+                            <span>City:</span>
+                        </span>
+                        <span class="info-value">${profile.bio?.city || 'Not specified'}</span>
+                    </div>
+                    ${profile.bio?.email ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email:</span>
+                            </span>
+                            <span class="info-value">${profile.bio.email}</span>
+                        </div>
+                    ` : ''}
+                    ${profile.bio?.phone ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-phone"></i>
+                                <span>Phone:</span>
+                            </span>
+                            <span class="info-value">${profile.bio.phone}</span>
+                        </div>
+                    ` : ''}
+                    ${profile.bio?.about ? `
+                        <div class="info-item info-item-full">
+                            <span class="info-label">
+                                <i class="fas fa-edit"></i>
+                                <span>About Yourself:</span>
+                            </span>
+                            <p class="info-value">${profile.bio.about}</p>
+                        </div>
+                    ` : ''}
+                    ${profile.bio?.hobbies ? `
+                        <div class="info-item info-item-full">
+                            <span class="info-label">
+                                <i class="fas fa-heart"></i>
+                                <span>Hobbies & Interests:</span>
+                            </span>
+                            <p class="info-value">${profile.bio.hobbies}</p>
+                        </div>
+                    ` : ''}
+                `;
+            }
+            
+            // Partner preferences section
+            const partnerContent = document.getElementById('partnerPrefsContent');
+            if (partnerContent && profile.partner) {
+                partnerContent.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>Age Range:</span>
+                        </span>
+                        <span class="info-value">${profile.partner?.ageMin || '?'} - ${profile.partner?.ageMax || '?'} years</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-venus-mars"></i>
+                            <span>Gender:</span>
+                        </span>
+                        <span class="info-value">${profile.partner?.gender || 'Any'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-place-of-worship"></i>
+                            <span>Religion:</span>
+                        </span>
+                        <span class="info-value">${Array.isArray(profile.partner?.religion) ? profile.partner.religion.join(', ') : profile.partner?.religion || 'Any'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education:</span>
+                        </span>
+                        <span class="info-value">${profile.partner?.education || 'Any'}</span>
+                    </div>
+                    ${profile.partner?.profession ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-briefcase"></i>
+                                <span>Profession:</span>
+                            </span>
+                            <span class="info-value">${profile.partner.profession}</span>
+                        </div>
+                    ` : ''}
+                    ${profile.partner?.income ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Minimum Income:</span>
+                            </span>
+                            <span class="info-value">₹${parseInt(profile.partner.income).toLocaleString('en-IN')}+</span>
+                        </div>
+                    ` : ''}
+                    ${profile.partner?.location ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Preferred Location:</span>
+                            </span>
+                            <span class="info-value">${profile.partner.location}</span>
+                        </div>
+                    ` : ''}
+                    ${profile.partner?.values?.length > 0 ? `
+                        <div class="info-item">
+                            <span class="info-label">
+                                <i class="fas fa-star"></i>
+                                <span>Important Values:</span>
+                            </span>
+                            <span class="info-value">${profile.partner.values.join(', ')}</span>
+                        </div>
+                    ` : ''}
+                    ${profile.partner?.additional ? `
+                        <div class="info-item info-item-full">
+                            <span class="info-label">
+                                <i class="fas fa-edit"></i>
+                                <span>Additional Preferences:</span>
+                            </span>
+                            <p class="info-value">${profile.partner.additional}</p>
+                        </div>
+                    ` : ''}
+                `;
+            }
+        }
+
+        // Update profile statistics
+        function updateStats() {
+            if (!userProfile) return;
+            
+            // Profile views
+            document.getElementById('profileViews').textContent = userProfile.views || Math.floor(Math.random() * 200) + 50;
+            
+            // Calculate total matches (simulated)
+            const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+            const user = auth.getCurrentUser();
+            const matches = allProfiles.filter(profile => 
+                profile.user && profile.user.userId !== user.id && profile.status === 'active'
+            ).length;
+            document.getElementById('totalMatches').textContent = matches;
+            
+            // Connections (from localStorage)
+            const connections = JSON.parse(localStorage.getItem('userConnections') || '[]');
+            document.getElementById('connections').textContent = connections.length;
+            
+            // Interests received (from localStorage)
+            const interests = JSON.parse(localStorage.getItem('userInterests') || '[]');
+            document.getElementById('interests').textContent = interests.length;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks) navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Edit profile button
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            if (editProfileBtn) {
+                editProfileBtn.addEventListener('click', () => {
+                    // Redirect to edit profile in dashboard
+                    window.location.href = 'user-dashboard.html';
+                });
+            }
+            
+            // Deactivate profile button
+            const deactivateProfileBtn = document.getElementById('deactivateProfileBtn');
+            if (deactivateProfileBtn) {
+                deactivateProfileBtn.addEventListener('click', () => {
+                    showConfirmModal(
+                        'Deactivate Profile',
+                        'Are you sure you want to deactivate your profile? Your profile will be hidden from other users.',
+                        deactivateProfile
+                    );
+                });
+            }
+            
+            // Delete profile button
+            const deleteProfileBtn = document.getElementById('deleteProfileBtn');
+            if (deleteProfileBtn) {
+                deleteProfileBtn.addEventListener('click', () => {
+                    showConfirmModal(
+                        'Delete Profile',
+                        'Are you sure you want to delete your profile? This action cannot be undone. All your data will be permanently removed.',
+                        deleteProfile
+                    );
+                });
+            }
+            
+            // Create profile button (for empty state)
+            const createProfileBtn = document.getElementById('createProfileBtn');
+            if (createProfileBtn) {
+                createProfileBtn.addEventListener('click', () => {
+                    window.location.href = 'user-dashboard.html';
+                });
+            }
+            
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    if (auth && auth.logout) {
+                        auth.logout();
+                    }
+                });
+            }
+            
+            // Close modals on overlay click
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        closeModal(overlay.id);
+                    }
+                });
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeAllModals();
+                }
+            });
+        }
+
+        // Edit a specific section
+        function editSection(section) {
+            currentEditSection = section;
+            
+            let formHTML = '';
+            
+            if (section === 'bio') {
+                formHTML = `
+                    <h3 style="margin-bottom: 1.5rem; color: var(--secondary-color);">Edit Bio Data</h3>
+                    <form id="editBioForm">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-user"></i> Full Name
+                                </label>
+                                <input type="text" value="${userProfile.bio?.fullName || ''}" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-venus-mars"></i> Gender
+                                    </label>
+                                    <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;">
+                                        <option value="Male" ${userProfile.bio?.gender === 'Male' ? 'selected' : ''}>Male</option>
+                                        <option value="Female" ${userProfile.bio?.gender === 'Female' ? 'selected' : ''}>Female</option>
+                                        <option value="Other" ${userProfile.bio?.gender === 'Other' ? 'selected' : ''}>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-birthday-cake"></i> Age
+                                    </label>
+                                    <input type="number" value="${userProfile.bio?.age || ''}" min="18" max="100" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-place-of-worship"></i> Religion
+                                    </label>
+                                    <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;">
+                                        <option value="">Select Religion</option>
+                                        <option value="Hindu" ${userProfile.bio?.religion === 'Hindu' ? 'selected' : ''}>Hindu</option>
+                                        <option value="Muslim" ${userProfile.bio?.religion === 'Muslim' ? 'selected' : ''}>Muslim</option>
+                                        <option value="Christian" ${userProfile.bio?.religion === 'Christian' ? 'selected' : ''}>Christian</option>
+                                        <option value="Sikh" ${userProfile.bio?.religion === 'Sikh' ? 'selected' : ''}>Sikh</option>
+                                        <option value="Buddhist" ${userProfile.bio?.religion === 'Buddhist' ? 'selected' : ''}>Buddhist</option>
+                                        <option value="Other" ${userProfile.bio?.religion === 'Other' ? 'selected' : ''}>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-graduation-cap"></i> Education
+                                    </label>
+                                    <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                                        <option value="">Select Education</option>
+                                        <option value="High School" ${userProfile.bio?.education === 'High School' ? 'selected' : ''}>High School</option>
+                                        <option value="Diploma" ${userProfile.bio?.education === 'Diploma' ? 'selected' : ''}>Diploma</option>
+                                        <option value="Bachelor's Degree" ${userProfile.bio?.education === 'Bachelor\'s Degree' ? 'selected' : ''}>Bachelor's Degree</option>
+                                        <option value="Master's Degree" ${userProfile.bio?.education === 'Master\'s Degree' ? 'selected' : ''}>Master's Degree</option>
+                                        <option value="PhD/Doctorate" ${userProfile.bio?.education === 'PhD/Doctorate' ? 'selected' : ''}>PhD/Doctorate</option>
+                                        <option value="Other" ${userProfile.bio?.education === 'Other' ? 'selected' : ''}>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-briefcase"></i> Profession
+                                </label>
+                                <input type="text" value="${userProfile.bio?.profession || ''}" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-city"></i> City
+                                </label>
+                                <input type="text" value="${userProfile.bio?.city || ''}" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-edit"></i> About Yourself
+                                </label>
+                                <textarea class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; min-height: 100px;">${userProfile.bio?.about || ''}</textarea>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-heart"></i> Hobbies & Interests
+                                </label>
+                                <textarea class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; min-height: 80px;">${userProfile.bio?.hobbies || ''}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                            <button type="button" class="btn-secondary" onclick="closeModal('profileFormModal')" style="flex: 1;">
+                                <i class="fas fa-times"></i>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit" class="btn-primary" style="flex: 1;">
+                                <i class="fas fa-save"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </form>
+                `;
+            } else if (section === 'partner') {
+                formHTML = `
+                    <h3 style="margin-bottom: 1.5rem; color: var(--secondary-color);">Edit Partner Preferences</h3>
+                    <form id="editPartnerForm">
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-birthday-cake"></i> Age Range (Min)
+                                    </label>
+                                    <input type="number" value="${userProfile.partner?.ageMin || ''}" min="18" max="100" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                        <i class="fas fa-birthday-cake"></i> Age Range (Max)
+                                    </label>
+                                    <input type="number" value="${userProfile.partner?.ageMax || ''}" min="18" max="100" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-venus-mars"></i> Preferred Gender
+                                </label>
+                                <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male" ${userProfile.partner?.gender === 'Male' ? 'selected' : ''}>Male</option>
+                                    <option value="Female" ${userProfile.partner?.gender === 'Female' ? 'selected' : ''}>Female</option>
+                                    <option value="Any" ${userProfile.partner?.gender === 'Any' ? 'selected' : ''}>Any</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-place-of-worship"></i> Preferred Religion
+                                </label>
+                                <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" multiple>
+                                    <option value="Hindu" ${Array.isArray(userProfile.partner?.religion) && userProfile.partner.religion.includes('Hindu') ? 'selected' : ''}>Hindu</option>
+                                    <option value="Muslim" ${Array.isArray(userProfile.partner?.religion) && userProfile.partner.religion.includes('Muslim') ? 'selected' : ''}>Muslim</option>
+                                    <option value="Christian" ${Array.isArray(userProfile.partner?.religion) && userProfile.partner.religion.includes('Christian') ? 'selected' : ''}>Christian</option>
+                                    <option value="Sikh" ${Array.isArray(userProfile.partner?.religion) && userProfile.partner.religion.includes('Sikh') ? 'selected' : ''}>Sikh</option>
+                                    <option value="Any" ${Array.isArray(userProfile.partner?.religion) && userProfile.partner.religion.includes('Any') ? 'selected' : ''}>Any</option>
+                                </select>
+                                <small style="color: var(--gray-color); font-size: 0.8rem; margin-top: 0.25rem; display: block;">Hold Ctrl to select multiple options</small>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-graduation-cap"></i> Education Level
+                                </label>
+                                <select class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;">
+                                    <option value="">Any</option>
+                                    <option value="High School or higher" ${userProfile.partner?.education === 'High School or higher' ? 'selected' : ''}>High School or higher</option>
+                                    <option value="Bachelor's or higher" ${userProfile.partner?.education === 'Bachelor\'s or higher' ? 'selected' : ''}>Bachelor's or higher</option>
+                                    <option value="Master's or higher" ${userProfile.partner?.education === 'Master\'s or higher' ? 'selected' : ''}>Master's or higher</option>
+                                    <option value="Same" ${userProfile.partner?.education === 'Same' ? 'selected' : ''}>Same as mine</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-map-marker-alt"></i> Preferred Location
+                                </label>
+                                <input type="text" value="${userProfile.partner?.location || ''}" class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px;" placeholder="Any specific city or region">
+                            </div>
+                            
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--gray-color);">
+                                    <i class="fas fa-edit"></i> Additional Preferences
+                                </label>
+                                <textarea class="form-control" style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 8px; min-height: 100px;">${userProfile.partner?.additional || ''}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                            <button type="button" class="btn-secondary" onclick="closeModal('profileFormModal')" style="flex: 1;">
+                                <i class="fas fa-times"></i>
+                                <span>Cancel</span>
+                            </button>
+                            <button type="submit" class="btn-primary" style="flex: 1;">
+                                <i class="fas fa-save"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </form>
+                `;
+            }
+            
+            const formContent = document.getElementById('profileFormContent');
+            if (formContent) {
+                formContent.innerHTML = formHTML;
+                
+                // Add form submit handlers
+                if (section === 'bio') {
+                    const form = document.getElementById('editBioForm');
+                    if (form) {
+                        form.addEventListener('submit', saveBioChanges);
+                    }
+                } else if (section === 'partner') {
+                    const form = document.getElementById('editPartnerForm');
+                    if (form) {
+                        form.addEventListener('submit', savePartnerChanges);
+                    }
+                }
+            }
+            
+            openModal('profileFormModal');
+        }
+
+        // Save bio changes
+        function saveBioChanges(e) {
+            e.preventDefault();
+            showLoading();
+            
+            try {
+                const form = e.target;
+                const inputs = form.querySelectorAll('input, select, textarea');
+                
+                // Update userProfile object
+                userProfile.bio = {
+                    ...userProfile.bio,
+                    fullName: inputs[0].value,
+                    gender: inputs[1].value,
+                    age: parseInt(inputs[2].value),
+                    religion: inputs[3].value,
+                    education: inputs[4].value,
+                    profession: inputs[5].value,
+                    city: inputs[6].value,
+                    about: inputs[7].value,
+                    hobbies: inputs[8].value
+                };
+                
+                userProfile.updatedAt = new Date().toISOString();
+                
+                // Save to localStorage
+                const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+                const user = auth.getCurrentUser();
+                
+                // Find and update profile
+                const profileIndex = allProfiles.findIndex(p => p.user && p.user.userId === user.id);
+                if (profileIndex !== -1) {
+                    allProfiles[profileIndex] = userProfile;
+                } else {
+                    allProfiles.push(userProfile);
+                }
+                
+                localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
+                
+                // Also update in auth system
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                
+                // Close modal and refresh display
+                closeModal('profileFormModal');
+                displayProfile(userProfile);
+                
+                showNotification('Bio data updated successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error saving bio changes:', error);
+                showNotification('Failed to save changes', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Save partner changes
+        function savePartnerChanges(e) {
+            e.preventDefault();
+            showLoading();
+            
+            try {
+                const form = e.target;
+                const inputs = form.querySelectorAll('input, select, textarea');
+                
+                // Get selected religions from multi-select
+                const religionSelect = inputs[3];
+                const selectedReligions = Array.from(religionSelect.selectedOptions).map(option => option.value);
+                
+                // Update userProfile object
+                userProfile.partner = {
+                    ...userProfile.partner,
+                    ageMin: parseInt(inputs[0].value),
+                    ageMax: parseInt(inputs[1].value),
+                    gender: inputs[2].value,
+                    religion: selectedReligions.length > 0 ? selectedReligions : ['Any'],
+                    education: inputs[4].value,
+                    location: inputs[5].value,
+                    additional: inputs[6].value
+                };
+                
+                userProfile.updatedAt = new Date().toISOString();
+                
+                // Save to localStorage
+                const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+                const user = auth.getCurrentUser();
+                
+                // Find and update profile
+                const profileIndex = allProfiles.findIndex(p => p.user && p.user.userId === user.id);
+                if (profileIndex !== -1) {
+                    allProfiles[profileIndex] = userProfile;
+                } else {
+                    allProfiles.push(userProfile);
+                }
+                
+                localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
+                
+                // Also update in auth system
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                
+                // Close modal and refresh display
+                closeModal('profileFormModal');
+                displayProfile(userProfile);
+                
+                showNotification('Partner preferences updated successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error saving partner changes:', error);
+                showNotification('Failed to save changes', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Deactivate profile
+        function deactivateProfile() {
+            showLoading();
+            
+            try {
+                // Update profile status
+                userProfile.status = 'inactive';
+                userProfile.updatedAt = new Date().toISOString();
+                
+                // Save to localStorage
+                const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+                const user = auth.getCurrentUser();
+                
+                // Find and update profile
+                const profileIndex = allProfiles.findIndex(p => p.user && p.user.userId === user.id);
+                if (profileIndex !== -1) {
+                    allProfiles[profileIndex] = userProfile;
+                }
+                
+                localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
+                
+                // Update in auth system
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                
+                // Update UI
+                document.getElementById('statusText').textContent = 'Inactive';
+                document.getElementById('statusText').style.color = 'var(--warning-color)';
+                
+                closeModal('confirmModal');
+                showNotification('Profile deactivated successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error deactivating profile:', error);
+                showNotification('Failed to deactivate profile', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Delete profile
+        function deleteProfile() {
+            showLoading();
+            
+            try {
+                // Remove profile from allProfiles
+                const allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+                const user = auth.getCurrentUser();
+                
+                // Find and remove profile
+                const updatedProfiles = allProfiles.filter(p => !(p.user && p.user.userId === user.id));
+                localStorage.setItem('allProfiles', JSON.stringify(updatedProfiles));
+                
+                // Remove from auth system
+                localStorage.removeItem('userProfile');
+                
+                // Clear userProfile variable
+                userProfile = null;
+                
+                // Update UI
+                document.getElementById('profileHeader').style.display = 'none';
+                document.getElementById('emptyState').style.display = 'block';
+                
+                closeModal('confirmModal');
+                showNotification('Profile deleted successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error deleting profile:', error);
+                showNotification('Failed to delete profile', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Show confirmation modal
+        function showConfirmModal(title, message, confirmCallback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            
+            const confirmBtn = document.getElementById('confirmActionBtn');
+            if (confirmBtn) {
+                // Remove previous event listeners
+                const newConfirmBtn = confirmBtn.cloneNode(true);
+                confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+                
+                // Add new event listener
+                newConfirmBtn.addEventListener('click', confirmCallback);
+            }
+            
+            openModal('confirmModal');
+        }
+
+        // Utility functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        function showNotification(message, type = 'success', duration = 3000) {
+            // Remove existing notifications
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: -100px;
+                right: 30px;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 500;
+                transition: top 0.5s ease;
+                max-width: 350px;
+            `;
+            
+            let bgColor, icon;
+            switch(type) {
+                case 'success':
+                    bgColor = 'linear-gradient(135deg, #4CAF50 0%, #388E3C 100%)';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'linear-gradient(135deg, #f44336 0%, #d32f2f 100%)';
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    bgColor = 'linear-gradient(135deg, #FF9800 0%, #F57C00 100%)';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                default:
+                    bgColor = 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)';
+                    icon = 'fa-info-circle';
+            }
+            
+            notification.style.background = bgColor;
+            notification.style.color = 'white';
+            notification.innerHTML = `
+                <i class="fas ${icon}" style="font-size: 1.2rem;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.top = '30px';
+            }, 10);
+            
+            setTimeout(() => {
+                notification.style.top = '-100px';
+                setTimeout(() => notification.remove(), 500);
+            }, duration);
+        }
+
+        function showLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+            }
+        }
+
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('active');
+            }
+        }
+    </script>
+    
+    <!-- Auth script should be loaded before this -->
+    <script src="js/auth.js"></script>
+</body>
+</html>

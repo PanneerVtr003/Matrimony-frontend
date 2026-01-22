@@ -1,0 +1,2546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Matches - Everlasting Bonds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ====== FIND MATCHES PAGE CSS ====== */
+        
+        :root {
+            --primary-color: #e91e63;
+            --primary-dark: #d81b60;
+            --secondary-color: #2c3e50;
+            --accent-color: #2196F3;
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --danger-color: #f44336;
+            --info-color: #00BCD4;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+            --border-color: #dee2e6;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            color: var(--dark-color);
+        }
+
+        /* ====== NAVIGATION ====== */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            background: rgba(233, 30, 99, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(233, 30, 99, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .main-content {
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* ====== SEARCH FILTERS ====== */
+        .search-section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .search-header h2 {
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+        }
+
+        .search-header h2 i {
+            color: var(--primary-color);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .filter-group label i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .filter-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .filter-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+        }
+
+        .range-inputs {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .range-inputs .filter-control {
+            flex: 1;
+        }
+
+        .range-separator {
+            color: var(--gray-color);
+            font-weight: 600;
+        }
+
+        .checkbox-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        /* ====== RESULTS SECTION ====== */
+        .results-section {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .results-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ====== SIDEBAR STATS ====== */
+        .sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .sidebar h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar h3 i {
+            color: var(--primary-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .stat-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            background: white;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-tags {
+            margin-top: 2rem;
+        }
+
+        .filter-tags h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(233, 30, 99, 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag i {
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .tag i:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ====== MATCHES GRID ====== */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .matches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .match-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(233, 30, 99, 0.2);
+        }
+
+        .match-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .match-avatar {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .match-info {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .match-info h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .match-meta {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .compatibility-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .compatibility-meter {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .compatibility-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #ff4081, #e91e63);
+            transition: width 1s ease;
+        }
+
+        .match-details {
+            padding: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--gray-color);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-label i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        .detail-value {
+            color: var(--dark-color);
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .match-actions {
+            padding: 1.25rem 1.5rem;
+            background: #f8f9fa;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            flex: 1;
+            max-width: 140px;
+            font-size: 0.85rem;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .quick-action-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* ====== PAGINATION ====== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin: 0 1rem;
+        }
+
+        /* ====== EMPTY STATE ====== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: var(--gray-color);
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* ====== LOADING ====== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ====== MODALS ====== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                z-index: 999;
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links a,
+            .nav-links .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .search-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .range-inputs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .search-actions {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .match-card {
+                margin-bottom: 1rem;
+            }
+
+            .match-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .search-section,
+            .sidebar {
+                padding: 1.5rem;
+            }
+
+            .match-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .match-avatar {
+                margin: 0 auto;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .detail-label,
+            .detail-value {
+                width: 100%;
+                text-align: left;
+            }
+
+            .modal {
+                width: 95%;
+                margin: 1rem;
+            }
+        }
+
+        /* ====== ANIMATIONS ====== */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ====== SCROLLBAR ====== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="user-dashboard.html" class="logo">
+                <i class="fas fa-heart"></i>
+                <span>Everlasting Bonds</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="user-dashboard.html">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="find-matches.html" class="active">
+                    <i class="fas fa-search"></i>
+                    <span>Find Matches</span>
+                </a>
+                <a href="my-profile.html">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="messages.html">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+                <button class="btn-secondary" id="logoutBtn" style="width: 70px;height: 25px;border-radius: 6px;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span >Logout</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Search & Filters Section -->
+            <section class="search-section">
+                <div class="search-header">
+                    <h2>
+                        <i class="fas fa-search"></i>
+                        <span>Find Your Perfect Match</span>
+                    </h2>
+                    <button class="btn-secondary" id="resetFiltersBtn" style="width: 100px;height: 30px;border-radius: 6px;">
+                        <i class="fas fa-redo"></i>
+                        <span>Reset Filters</span>
+                    </button>
+                </div>
+
+                <div class="filters-grid">
+                    <!-- Age Range -->
+                    <div class="filter-group">
+                        <label for="ageRangeMin">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>Age Range</span>
+                        </label>
+                        <div class="range-inputs">
+                            <input type="number" id="ageRangeMin" class="filter-control" placeholder="Min" min="18" max="100">
+                            <span class="range-separator">to</span>
+                            <input type="number" id="ageRangeMax" class="filter-control" placeholder="Max" min="18" max="100">
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="filter-group">
+                        <label for="genderFilter">
+                            <i class="fas fa-venus-mars"></i>
+                            <span>Gender</span>
+                        </label>
+                        <select id="genderFilter" class="filter-control">
+                            <option value="">Any Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <!-- Religion -->
+                    <div class="filter-group">
+                        <label for="religionFilter">
+                            <i class="fas fa-place-of-worship"></i>
+                            <span>Religion</span>
+                        </label>
+                        <select id="religionFilter" class="filter-control">
+                            <option value="">Any Religion</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Muslim">Muslim</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Sikh">Sikh</option>
+                            <option value="Buddhist">Buddhist</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="filter-group">
+                        <label for="educationFilter">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education</span>
+                        </label>
+                        <select id="educationFilter" class="filter-control">
+                            <option value="">Any Education</option>
+                            <option value="High School">High School</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Master's Degree">Master's Degree</option>
+                            <option value="PhD/Doctorate">PhD/Doctorate</option>
+                        </select>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="filter-group">
+                        <label for="locationFilter">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Location</span>
+                        </label>
+                        <input type="text" id="locationFilter" class="filter-control" placeholder="City or Country">
+                    </div>
+
+                    <!-- Profession -->
+                    <div class="filter-group">
+                        <label for="professionFilter">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Profession</span>
+                        </label>
+                        <input type="text" id="professionFilter" class="filter-control" placeholder="e.g., Doctor, Engineer">
+                    </div>
+
+                    <!-- Income Range -->
+                    <div class="filter-group">
+                        <label for="incomeRangeMin">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Annual Income (₹)</span>
+                        </label>
+                        <div class="range-inputs">
+                            <input type="number" id="incomeRangeMin" class="filter-control" placeholder="Min" min="0">
+                            <span class="range-separator">to</span>
+                            <input type="number" id="incomeRangeMax" class="filter-control" placeholder="Max" min="0">
+                        </div>
+                    </div>
+
+                    <!-- Compatibility Score -->
+                    <div class="filter-group">
+                        <label for="compatibilityMin">
+                            <i class="fas fa-percentage"></i>
+                            <span>Compatibility Score</span>
+                        </label>
+                        <input type="range" id="compatibilityMin" class="filter-control" min="0" max="100" value="50">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--gray-color);">
+                            <span>0%</span>
+                            <span id="compatibilityValue">50%+</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+
+                    <!-- Additional Filters -->
+                    <div class="filter-group">
+                        <label>
+                            <i class="fas fa-filter"></i>
+                            <span>Additional Filters</span>
+                        </label>
+                        <div class="checkbox-filters">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="filterVerified" checked>
+                                <label for="filterVerified" style="margin: 0; font-weight: normal;">Verified Only</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="filterOnline">
+                                <label for="filterOnline" style="margin: 0; font-weight: normal;">Online Now</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="filterHasPhoto">
+                                <label for="filterHasPhoto" style="margin: 0; font-weight: normal;">Has Photo</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-actions">
+                    <button class="btn-secondary" id="saveFiltersBtn" style="padding: 4px;border-radius: 6px;">
+                        <i class="fas fa-save"></i>
+                        <span>Save Search</span>
+                    </button>
+                    <button class="btn-primary" id="applyFiltersBtn" style="padding: 4px;border-radius: 6px;">
+                        <i class="fas fa-search"></i>
+                        <span>Find Matches</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <!-- Sidebar Stats -->
+                <aside class="sidebar">
+                    <h3><i class="fas fa-chart-bar"></i> Search Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalMatchesCount">0</div>
+                            <div class="stat-label">Total Matches</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="avgCompatibility">0%</div>
+                            <div class="stat-label">Avg Compatibility</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="newToday">0</div>
+                            <div class="stat-label">New Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="onlineNow">0</div>
+                            <div class="stat-label">Online Now</div>
+                        </div>
+                    </div>
+
+                    <div class="filter-tags">
+                        <h4><i class="fas fa-tags"></i> Active Filters</h4>
+                        <div class="tags-container" id="activeFilters">
+                            <!-- Filter tags will be added here -->
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                        <h4><i class="fas fa-lightbulb"></i> Tips</h4>
+                        <ul style="margin-top: 1rem; padding-left: 1.2rem; color: var(--gray-color); font-size: 0.9rem;">
+                            <li style="margin-bottom: 0.5rem;">Be specific with your search criteria</li>
+                            <li style="margin-bottom: 0.5rem;">Higher compatibility scores mean better matches</li>
+                            <li style="margin-bottom: 0.5rem;">Save your favorite searches for quick access</li>
+                            <li>Connect with multiple matches to increase chances</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- Matches Grid -->
+                <div class="matches-container">
+                    <div class="matches-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="color: var(--secondary-color); display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-users"></i>
+                            <span>Recommended Matches</span>
+                        </h3>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn-secondary" id="sortMatchesBtn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fas fa-sort"></i>
+                                <span>Sort By</span>
+                            </button>
+                            <button class="btn-secondary" id="refreshMatchesBtn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Matches Grid -->
+                    <div class="matches-grid" id="matchesGrid">
+                        <!-- Match cards will be loaded here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <i class="fas fa-search"></i>
+                        <h3>No Matches Found</h3>
+                        <p>Try adjusting your search criteria or check back later for new profiles.</p>
+                        <button class="btn-primary mt-2" id="resetAndSearchBtn" style="margin-top: 1rem;">
+                            <i class="fas fa-redo"></i>
+                            <span>Reset & Search Again</span>
+                        </button>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination" id="pagination" style="display: none;">
+                        <button class="page-btn" id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                        <button class="page-btn" id="nextPage" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Match Profile Modal -->
+    <div class="modal-overlay" id="matchProfileModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-user-circle"></i>
+                    <span>Match Profile</span>
+                </h2>
+                <button class="close-btn" onclick="closeModal('matchProfileModal')" aria-label="Close modal">
+                    &times;
+                </button>
+            </div>
+            <div id="matchProfileContent" class="modal-body" style="padding: 2rem; max-height: 70vh; overflow-y: auto;">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer" style="padding: 1.5rem 2rem; background: #f8f9fa; border-top: 1px solid var(--border-color); display: flex; gap: 1rem;">
+                <button class="btn-secondary" onclick="closeModal('matchProfileModal')">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <button class="btn-primary" id="sendInterestBtn">
+                    <i class="fas fa-heart"></i>
+                    <span>Send Interest</span>
+                </button>
+                <button class="btn-secondary" id="connectBtn">
+                    <i class="fas fa-handshake"></i>
+                    <span>Connect</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Search Modal -->
+    <div class="modal-overlay" id="saveSearchModal">
+        <div class="modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-save"></i>
+                    <span>Save Search</span>
+                </h2>
+                <button class="close-btn" onclick="closeModal('saveSearchModal')" aria-label="Close modal">
+                    &times;
+                </button>
+            </div>
+            <div style="padding: 2rem;">
+                <div class="filter-group">
+                    <label for="searchName">
+                        <i class="fas fa-tag"></i>
+                        <span>Search Name</span>
+                    </label>
+                    <input type="text" id="searchName" class="filter-control" placeholder="e.g., Delhi Professionals">
+                </div>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button class="btn-secondary" onclick="closeModal('saveSearchModal')" style="flex: 1;">
+                        <i class="fas fa-times"></i>
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn-primary" id="confirmSaveSearchBtn" style="flex: 1;">
+                        <i class="fas fa-save"></i>
+                        <span>Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Find Matches Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Find Matches page loaded');
+            
+            // Check if user is logged in
+            if (!auth || !auth.isLoggedIn()) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Initialize page
+            initFindMatches();
+            setupEventListeners();
+            loadMatches();
+        });
+
+        // Global variables
+        let allProfiles = [];
+        let filteredProfiles = [];
+        let currentPage = 1;
+        const profilesPerPage = 6;
+        let currentSort = 'compatibility';
+        let activeFilters = {};
+
+        // Initialize find matches page
+        function initFindMatches() {
+            // Load all profiles
+            allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+            
+            // If no profiles, load demo profiles
+            if (allProfiles.length === 0) {
+                loadDemoProfiles();
+            }
+            
+            // Get user profile
+            const userProfile = auth.getUserProfile();
+            if (userProfile) {
+                // Set initial filters based on user preferences
+                setInitialFilters(userProfile);
+            }
+            
+            // Update compatibility slider value
+            updateCompatibilitySlider();
+        }
+
+        // Load demo profiles
+        function loadDemoProfiles() {
+            const demoProfiles = [
+                {
+                    _id: 'demo_1',
+                    bio: {
+                        fullName: 'Alexander Johnson',
+                        gender: 'Male',
+                        age: 32,
+                        religion: 'Christian',
+                        education: 'MBA',
+                        profession: 'Investment Banker',
+                        email: 'alex.j@example.com',
+                        phone: '+1 (555) 123-4567',
+                        about: 'Ambitious professional seeking a meaningful connection with someone who shares similar values.',
+                        hobbies: 'Investing, Golf, Wine Tasting',
+                        city: 'New York'
+                    },
+                    partner: {
+                        ageMin: 28,
+                        ageMax: 35,
+                        gender: 'Female',
+                        religion: ['Christian', 'Any'],
+                        education: 'Bachelor\'s or higher',
+                        profession: 'Professional',
+                        location: 'Northeast USA',
+                        income: '100000',
+                        values: ['ambition', 'family', 'faith'],
+                        additional: 'Looking for someone with strong family values and career ambition'
+                    },
+                    status: 'active',
+                    views: 145,
+                    createdAt: '2024-01-10T09:30:00Z',
+                    updatedAt: '2024-01-15T14:20:00Z',
+                    verified: true,
+                    online: true,
+                    hasPhoto: true,
+                    compatibility: 92
+                },
+                {
+                    _id: 'demo_2',
+                    bio: {
+                        fullName: 'Keerthana',
+                        gender: 'Female',
+                        age: 21,
+                        religion: 'Hindu',
+                        education: 'Master\'s in Computer Science',
+                        profession: 'Data Scientist',
+                        email: 'sophia.w@example.com',
+                        phone: '+1 (555) 987-6543',
+                        about: 'Tech enthusiast who loves hiking, photography, and exploring new cultures.',
+                        hobbies: 'Hiking, Photography, Coding',
+                        city: 'Tamil Nadu'
+                    },
+                    partner: {
+                        ageMin: 21,
+                        ageMax: 24,
+                        gender: 'Male',
+                        religion: ['Hindu', 'Any'],
+                        education: 'Master\'s or higher',
+                        profession: 'Tech Professional',
+                        location: 'Tamil Nadu',
+                        income: '200000',
+                        values: ['adventure', 'learning', 'balance'],
+                        additional: 'Seeking a partner who values work-life balance and adventure'
+                    },
+                    status: 'active',
+                    views: 189,
+                    createdAt: '2024-01-12T11:15:00Z',
+                    updatedAt: '2024-01-16T10:45:00Z',
+                    verified: true,
+                    online: false,
+                    hasPhoto: true,
+                    compatibility: 85
+                },
+                {
+                    _id: 'demo_3',
+                    bio: {
+                        fullName: 'Michael Chen',
+                        gender: 'Male',
+                        age: 35,
+                        religion: 'Buddhist',
+                        education: 'PhD in Engineering',
+                        profession: 'Engineering Director',
+                        email: 'michael.c@example.com',
+                        phone: '+1 (555) 456-7890',
+                        about: 'Engineer with passion for sustainable technology and outdoor adventures.',
+                        hobbies: 'Mountain Biking, DIY Projects, Meditation',
+                        city: 'Seattle'
+                    },
+                    partner: {
+                        ageMin: 28,
+                        ageMax: 35,
+                        gender: 'Female',
+                        religion: ['Buddhist', 'Any'],
+                        education: 'Bachelor\'s or higher',
+                        profession: 'Professional',
+                        location: 'Pacific Northwest',
+                        income: '80000',
+                        values: ['sustainability', 'mindfulness', 'adventure'],
+                        additional: 'Looking for someone who values environmental consciousness'
+                    },
+                    status: 'active',
+                    views: 92,
+                    createdAt: '2024-01-14T14:45:00Z',
+                    updatedAt: '2024-01-17T16:30:00Z',
+                    verified: false,
+                    online: true,
+                    hasPhoto: false,
+                    compatibility: 78
+                },
+                {
+                    _id: 'demo_4',
+                    bio: {
+                        fullName: 'Isabella ',
+                        gender: 'Female',
+                        age: 26,
+                        religion: 'Catholic',
+                        education: 'Bachelor\'s in Nursing',
+                        profession: 'Registered Nurse',
+                        email: 'isabella.m@example.com',
+                        phone: '+1 (555) 789-0123',
+                        about: 'Compassionate healthcare professional who enjoys helping others and traveling.',
+                        hobbies: 'Yoga, Cooking, Traveling',
+                        city: 'Miami'
+                    },
+                    partner: {
+                        ageMin: 27,
+                        ageMax: 34,
+                        gender: 'Male',
+                        religion: ['Catholic', 'Christian'],
+                        education: 'Bachelor\'s or higher',
+                        profession: 'Healthcare/Professional',
+                        location: 'Florida',
+                        income: '70000',
+                        values: ['compassion', 'family', 'faith'],
+                        additional: 'Seeking a caring partner with strong family values'
+                    },
+                    status: 'active',
+                    views: 167,
+                    createdAt: '2024-01-16T10:00:00Z',
+                    updatedAt: '2024-01-18T12:15:00Z',
+                    verified: true,
+                    online: false,
+                    hasPhoto: true,
+                    compatibility: 91
+                },
+                {
+                    _id: 'demo_5',
+                    bio: {
+                        fullName: 'Rajesh Kumar',
+                        gender: 'Male',
+                        age: 30,
+                        religion: 'Hindu',
+                        education: 'MBA',
+                        profession: 'Business Consultant',
+                        email: 'rajesh.k@example.com',
+                        phone: '+91 9876543210',
+                        about: 'Entrepreneurial spirit with love for travel and food.',
+                        hobbies: 'Travel, Cooking, Reading',
+                        city: 'Delhi'
+                    },
+                    partner: {
+                        ageMin: 25,
+                        ageMax: 32,
+                        gender: 'Female',
+                        religion: ['Hindu'],
+                        education: 'Bachelor\'s or higher',
+                        profession: 'Professional',
+                        location: 'North India',
+                        income: '500000',
+                        values: ['family', 'ambition', 'culture'],
+                        additional: 'Looking for a family-oriented partner'
+                    },
+                    status: 'active',
+                    views: 210,
+                    createdAt: '2024-01-20T08:00:00Z',
+                    updatedAt: '2024-01-22T14:30:00Z',
+                    verified: true,
+                    online: true,
+                    hasPhoto: true,
+                    compatibility: 88
+                },
+                {
+                    _id: 'demo_6',
+                    bio: {
+                        fullName: 'Priya Sharma',
+                        gender: 'Female',
+                        age: 28,
+                        religion: 'Hindu',
+                        education: 'MSc in Chemistry',
+                        profession: 'Research Scientist',
+                        email: 'priya.s@example.com',
+                        phone: '+91 8765432109',
+                        about: 'Science enthusiast who enjoys classical music and painting.',
+                        hobbies: 'Painting, Music, Science',
+                        city: 'Bangalore'
+                    },
+                    partner: {
+                        ageMin: 18,
+                        ageMax: 22,
+                        gender: 'Male',
+                        religion: ['Hindu'],
+                        education: 'Master\'s or higher',
+                        profession: 'Science/IT Professional',
+                        location: 'South India',
+                        income: '800000',
+                        values: ['education', 'culture', 'family'],
+                        additional: 'Seeking an educated professional with cultural values'
+                    },
+                    status: 'active',
+                    views: 180,
+                    createdAt: '2024-01-18T11:20:00Z',
+                    updatedAt: '2024-01-21T09:45:00Z',
+                    verified: true,
+                    online: false,
+                    hasPhoto: true,
+                    compatibility: 84
+                }
+            ];
+            
+            allProfiles = demoProfiles;
+            localStorage.setItem('allProfiles', JSON.stringify(demoProfiles));
+            console.log('Loaded demo profiles for Find Matches page');
+        }
+
+        // Set initial filters based on user preferences
+        function setInitialFilters(userProfile) {
+            if (userProfile.partner) {
+                const prefs = userProfile.partner;
+                
+                // Age range
+                if (prefs.ageMin) {
+                    document.getElementById('ageRangeMin').value = prefs.ageMin;
+                }
+                if (prefs.ageMax) {
+                    document.getElementById('ageRangeMax').value = prefs.ageMax;
+                }
+                
+                // Gender
+                if (prefs.gender && prefs.gender !== 'Any') {
+                    document.getElementById('genderFilter').value = prefs.gender;
+                }
+                
+                // Location
+                if (prefs.location && prefs.location !== 'Any') {
+                    document.getElementById('locationFilter').value = prefs.location;
+                }
+            }
+        }
+
+        // Update compatibility slider value display
+        function updateCompatibilitySlider() {
+            const slider = document.getElementById('compatibilityMin');
+            const valueDisplay = document.getElementById('compatibilityValue');
+            
+            if (slider && valueDisplay) {
+                slider.addEventListener('input', function() {
+                    valueDisplay.textContent = this.value + '%+';
+                });
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks) navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Apply filters button
+            const applyFiltersBtn = document.getElementById('applyFiltersBtn');
+            if (applyFiltersBtn) {
+                applyFiltersBtn.addEventListener('click', applyFilters);
+            }
+            
+            // Reset filters button
+            const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+            if (resetFiltersBtn) {
+                resetFiltersBtn.addEventListener('click', resetFilters);
+            }
+            
+            // Save filters button
+            const saveFiltersBtn = document.getElementById('saveFiltersBtn');
+            if (saveFiltersBtn) {
+                saveFiltersBtn.addEventListener('click', openSaveSearchModal);
+            }
+            
+            // Refresh matches button
+            const refreshMatchesBtn = document.getElementById('refreshMatchesBtn');
+            if (refreshMatchesBtn) {
+                refreshMatchesBtn.addEventListener('click', loadMatches);
+            }
+            
+            // Sort matches button
+            const sortMatchesBtn = document.getElementById('sortMatchesBtn');
+            if (sortMatchesBtn) {
+                sortMatchesBtn.addEventListener('click', openSortOptions);
+            }
+            
+            // Reset and search button
+            const resetAndSearchBtn = document.getElementById('resetAndSearchBtn');
+            if (resetAndSearchBtn) {
+                resetAndSearchBtn.addEventListener('click', () => {
+                    resetFilters();
+                    loadMatches();
+                });
+            }
+            
+            // Confirm save search button
+            const confirmSaveSearchBtn = document.getElementById('confirmSaveSearchBtn');
+            if (confirmSaveSearchBtn) {
+                confirmSaveSearchBtn.addEventListener('click', saveSearch);
+            }
+            
+            // Pagination buttons
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+            
+            if (prevPageBtn) {
+                prevPageBtn.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayMatches();
+                    }
+                });
+            }
+            
+            if (nextPageBtn) {
+                nextPageBtn.addEventListener('click', () => {
+                    const totalPages = Math.ceil(filteredProfiles.length / profilesPerPage);
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        displayMatches();
+                    }
+                });
+            }
+            
+            // Close modals on overlay click
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        closeModal(overlay.id);
+                    }
+                });
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeAllModals();
+                }
+            });
+            
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    if (auth && auth.logout) {
+                        auth.logout();
+                    }
+                });
+            }
+        }
+
+        // Apply filters and load matches
+        function applyFilters() {
+            showLoading();
+            
+            // Get current user
+            const user = auth.getCurrentUser();
+            if (!user) return;
+            
+            // Collect filter values
+            activeFilters = {
+                ageMin: document.getElementById('ageRangeMin').value ? parseInt(document.getElementById('ageRangeMin').value) : null,
+                ageMax: document.getElementById('ageRangeMax').value ? parseInt(document.getElementById('ageRangeMax').value) : null,
+                gender: document.getElementById('genderFilter').value || null,
+                religion: document.getElementById('religionFilter').value || null,
+                education: document.getElementById('educationFilter').value || null,
+                location: document.getElementById('locationFilter').value ? document.getElementById('locationFilter').value.toLowerCase() : null,
+                profession: document.getElementById('professionFilter').value ? document.getElementById('professionFilter').value.toLowerCase() : null,
+                incomeMin: document.getElementById('incomeRangeMin').value ? parseInt(document.getElementById('incomeRangeMin').value) : null,
+                incomeMax: document.getElementById('incomeRangeMax').value ? parseInt(document.getElementById('incomeRangeMax').value) : null,
+                compatibilityMin: parseInt(document.getElementById('compatibilityMin').value) || 0,
+                verifiedOnly: document.getElementById('filterVerified').checked,
+                onlineNow: document.getElementById('filterOnline').checked,
+                hasPhoto: document.getElementById('filterHasPhoto').checked
+            };
+            
+            // Filter profiles
+            filteredProfiles = allProfiles.filter(profile => {
+                // Skip user's own profile
+                if (profile.user && profile.user.userId === user.id) return false;
+                
+                // Check basic profile status
+                if (profile.status !== 'active') return false;
+                
+                // Check verified filter
+                if (activeFilters.verifiedOnly && !profile.verified) return false;
+                
+                // Check online filter
+                if (activeFilters.onlineNow && !profile.online) return false;
+                
+                // Check photo filter
+                if (activeFilters.hasPhoto && !profile.hasPhoto) return false;
+                
+                // Check age filter
+                if (activeFilters.ageMin && profile.bio.age < activeFilters.ageMin) return false;
+                if (activeFilters.ageMax && profile.bio.age > activeFilters.ageMax) return false;
+                
+                // Check gender filter
+                if (activeFilters.gender && profile.bio.gender !== activeFilters.gender) return false;
+                
+                // Check religion filter
+                if (activeFilters.religion && profile.bio.religion !== activeFilters.religion) return false;
+                
+                // Check education filter
+                if (activeFilters.education && profile.bio.education !== activeFilters.education) return false;
+                
+                // Check location filter
+                if (activeFilters.location && !profile.bio.city.toLowerCase().includes(activeFilters.location)) return false;
+                
+                // Check profession filter
+                if (activeFilters.profession && !profile.bio.profession.toLowerCase().includes(activeFilters.profession)) return false;
+                
+                // Check income filter
+                if (activeFilters.incomeMin && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) < activeFilters.incomeMin)) return false;
+                if (activeFilters.incomeMax && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) > activeFilters.incomeMax)) return false;
+                
+                // Check compatibility filter
+                if (activeFilters.compatibilityMin && (!profile.compatibility || profile.compatibility < activeFilters.compatibilityMin)) return false;
+                
+                return true;
+            });
+            
+            // Sort by current sort option
+            sortProfiles();
+            
+            // Reset to first page
+            currentPage = 1;
+            
+            // Display matches
+            displayMatches();
+            
+            // Update stats
+            updateStats();
+            
+            // Update active filters display
+            updateActiveFiltersDisplay();
+            
+            hideLoading();
+            showNotification('Filters applied successfully!', 'success');
+        }
+
+        // Sort profiles based on current sort option
+        function sortProfiles() {
+            switch(currentSort) {
+                case 'compatibility':
+                    filteredProfiles.sort((a, b) => (b.compatibility || 0) - (a.compatibility || 0));
+                    break;
+                case 'newest':
+                    filteredProfiles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+                case 'age':
+                    filteredProfiles.sort((a, b) => a.bio.age - b.bio.age);
+                    break;
+                case 'name':
+                    filteredProfiles.sort((a, b) => a.bio.fullName.localeCompare(b.bio.fullName));
+                    break;
+            }
+        }
+
+        // Display matches in grid
+        function displayMatches() {
+            const grid = document.getElementById('matchesGrid');
+            const emptyState = document.getElementById('emptyState');
+            const pagination = document.getElementById('pagination');
+            
+            if (!grid) return;
+            
+            if (filteredProfiles.length === 0) {
+                grid.innerHTML = '';
+                grid.style.display = 'none';
+                if (emptyState) emptyState.style.display = 'block';
+                if (pagination) pagination.style.display = 'none';
+                return;
+            }
+            
+            // Show grid, hide empty state
+            grid.style.display = 'grid';
+            if (emptyState) emptyState.style.display = 'none';
+            
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * profilesPerPage;
+            const endIndex = startIndex + profilesPerPage;
+            const currentProfiles = filteredProfiles.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(filteredProfiles.length / profilesPerPage);
+            
+            // Generate match cards
+            grid.innerHTML = currentProfiles.map((profile, index) => {
+                const initials = profile.bio.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                const compatibility = profile.compatibility || Math.floor(Math.random() * 30) + 70;
+                const matchLevel = getMatchLevel(compatibility);
+                
+                return `
+                    <div class="match-card fade-in" style="animation-delay: ${index * 0.1}s">
+                        <div class="match-header">
+                            <button class="quick-action-btn" onclick="quickAction('${profile._id}', 'favorite')" title="Add to favorites">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <div class="match-avatar">${initials}</div>
+                            <div class="match-info">
+                                <h4>${profile.bio.fullName}</h4>
+                                <div class="match-meta">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <span>${profile.bio.age} years</span>
+                                    <i class="fas fa-map-marker-alt" style="margin-left: 10px;"></i>
+                                    <span>${profile.bio.city}</span>
+                                </div>
+                                <div class="compatibility-badge">
+                                    <i class="fas fa-percentage"></i>
+                                    <span>${compatibility}% Match</span>
+                                </div>
+                                <div class="compatibility-meter">
+                                    <div class="compatibility-fill" style="width: ${compatibility}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="match-details">
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Education:</span>
+                                </span>
+                                <span class="detail-value">${profile.bio.education}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    <i class="fas fa-briefcase"></i>
+                                    <span>Profession:</span>
+                                </span>
+                                <span class="detail-value">${profile.bio.profession}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    <i class="fas fa-place-of-worship"></i>
+                                    <span>Religion:</span>
+                                </span>
+                                <span class="detail-value">${profile.bio.religion}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Interests:</span>
+                                </span>
+                                <span class="detail-value">${profile.bio.hobbies ? profile.bio.hobbies.substring(0, 30) + '...' : 'Not specified'}</span>
+                            </div>
+                        </div>
+                        <div class="match-actions">
+                            <button class="btn-primary action-btn" onclick="viewMatch('${profile._id}')">
+                                <i class="fas fa-eye"></i>
+                                <span>View Profile</span>
+                            </button>
+                            <button class="btn-secondary action-btn" onclick="sendInterest('${profile._id}')">
+                                <i class="fas fa-heart"></i>
+                                <span>Send Interest</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Update pagination
+            if (pagination) {
+                if (totalPages > 1) {
+                    pagination.style.display = 'flex';
+                    
+                    const prevPageBtn = document.getElementById('prevPage');
+                    const nextPageBtn = document.getElementById('nextPage');
+                    const pageInfo = document.getElementById('pageInfo');
+                    
+                    if (prevPageBtn) prevPageBtn.disabled = currentPage === 1;
+                    if (nextPageBtn) nextPageBtn.disabled = currentPage === totalPages;
+                    if (pageInfo) pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                } else {
+                    pagination.style.display = 'none';
+                }
+            }
+        }
+
+        // Get match level based on compatibility score
+        function getMatchLevel(score) {
+            if (score >= 90) return { text: 'Excellent Match', class: 'excellent' };
+            if (score >= 75) return { text: 'Great Match', class: 'great' };
+            if (score >= 60) return { text: 'Good Match', class: 'good' };
+            if (score >= 40) return { text: 'Fair Match', class: 'fair' };
+            return { text: 'Basic Match', class: 'basic' };
+        }
+
+        // Update stats in sidebar
+        function updateStats() {
+            // Total matches
+            const totalMatchesElement = document.getElementById('totalMatchesCount');
+            if (totalMatchesElement) {
+                totalMatchesElement.textContent = filteredProfiles.length;
+            }
+            
+            // Average compatibility
+            const avgCompatibilityElement = document.getElementById('avgCompatibility');
+            if (avgCompatibilityElement && filteredProfiles.length > 0) {
+                const totalCompatibility = filteredProfiles.reduce((sum, profile) => sum + (profile.compatibility || 0), 0);
+                const average = Math.round(totalCompatibility / filteredProfiles.length);
+                avgCompatibilityElement.textContent = average + '%';
+            }
+            
+            // New today (simulated)
+            const newTodayElement = document.getElementById('newToday');
+            if (newTodayElement) {
+                const newToday = Math.min(5, filteredProfiles.length);
+                newTodayElement.textContent = newToday;
+            }
+            
+            // Online now (simulated)
+            const onlineNowElement = document.getElementById('onlineNow');
+            if (onlineNowElement) {
+                const onlineNow = filteredProfiles.filter(p => p.online).length;
+                onlineNowElement.textContent = onlineNow;
+            }
+        }
+
+        // Update active filters display
+        function updateActiveFiltersDisplay() {
+            const container = document.getElementById('activeFilters');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            Object.entries(activeFilters).forEach(([key, value]) => {
+                if (value !== null && value !== false && value !== 0) {
+                    let label = '';
+                    let displayValue = value;
+                    
+                    switch(key) {
+                        case 'ageMin':
+                            label = 'Min Age';
+                            break;
+                        case 'ageMax':
+                            label = 'Max Age';
+                            break;
+                        case 'gender':
+                            label = 'Gender';
+                            break;
+                        case 'religion':
+                            label = 'Religion';
+                            break;
+                        case 'education':
+                            label = 'Education';
+                            break;
+                        case 'location':
+                            label = 'Location';
+                            displayValue = value.charAt(0).toUpperCase() + value.slice(1);
+                            break;
+                        case 'profession':
+                            label = 'Profession';
+                            displayValue = value.charAt(0).toUpperCase() + value.slice(1);
+                            break;
+                        case 'incomeMin':
+                            label = 'Min Income';
+                            displayValue = '₹' + value.toLocaleString();
+                            break;
+                        case 'incomeMax':
+                            label = 'Max Income';
+                            displayValue = '₹' + value.toLocaleString();
+                            break;
+                        case 'compatibilityMin':
+                            label = 'Compatibility';
+                            displayValue = value + '%+';
+                            break;
+                        case 'verifiedOnly':
+                            label = 'Verified Only';
+                            displayValue = '';
+                            break;
+                        case 'onlineNow':
+                            label = 'Online Now';
+                            displayValue = '';
+                            break;
+                        case 'hasPhoto':
+                            label = 'Has Photo';
+                            displayValue = '';
+                            break;
+                    }
+                    
+                    if (label) {
+                        const tag = document.createElement('div');
+                        tag.className = 'tag';
+                        tag.innerHTML = `
+                            <span>${label}${displayValue ? ': ' + displayValue : ''}</span>
+                            <i class="fas fa-times" onclick="removeFilter('${key}')"></i>
+                        `;
+                        container.appendChild(tag);
+                    }
+                }
+            });
+        }
+
+        // Remove a specific filter
+        function removeFilter(filterKey) {
+            // Reset the corresponding form element
+            switch(filterKey) {
+                case 'ageMin':
+                    document.getElementById('ageRangeMin').value = '';
+                    break;
+                case 'ageMax':
+                    document.getElementById('ageRangeMax').value = '';
+                    break;
+                case 'gender':
+                    document.getElementById('genderFilter').value = '';
+                    break;
+                case 'religion':
+                    document.getElementById('religionFilter').value = '';
+                    break;
+                case 'education':
+                    document.getElementById('educationFilter').value = '';
+                    break;
+                case 'location':
+                    document.getElementById('locationFilter').value = '';
+                    break;
+                case 'profession':
+                    document.getElementById('professionFilter').value = '';
+                    break;
+                case 'incomeMin':
+                    document.getElementById('incomeRangeMin').value = '';
+                    break;
+                case 'incomeMax':
+                    document.getElementById('incomeRangeMax').value = '';
+                    break;
+                case 'compatibilityMin':
+                    document.getElementById('compatibilityMin').value = '50';
+                    document.getElementById('compatibilityValue').textContent = '50%+';
+                    break;
+                case 'verifiedOnly':
+                    document.getElementById('filterVerified').checked = false;
+                    break;
+                case 'onlineNow':
+                    document.getElementById('filterOnline').checked = false;
+                    break;
+                case 'hasPhoto':
+                    document.getElementById('filterHasPhoto').checked = false;
+                    break;
+            }
+            
+            // Reapply filters
+            applyFilters();
+        }
+
+        // Reset all filters
+        function resetFilters() {
+            // Reset all form elements
+            document.getElementById('ageRangeMin').value = '';
+            document.getElementById('ageRangeMax').value = '';
+            document.getElementById('genderFilter').value = '';
+            document.getElementById('religionFilter').value = '';
+            document.getElementById('educationFilter').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('professionFilter').value = '';
+            document.getElementById('incomeRangeMin').value = '';
+            document.getElementById('incomeRangeMax').value = '';
+            document.getElementById('compatibilityMin').value = '50';
+            document.getElementById('compatibilityValue').textContent = '50%+';
+            document.getElementById('filterVerified').checked = true;
+            document.getElementById('filterOnline').checked = false;
+            document.getElementById('filterHasPhoto').checked = false;
+            
+            // Clear active filters
+            activeFilters = {};
+            updateActiveFiltersDisplay();
+            
+            // Reset to show all profiles
+            const user = auth.getCurrentUser();
+            if (user) {
+                filteredProfiles = allProfiles.filter(profile => 
+                    profile.user && profile.user.userId !== user.id && profile.status === 'active'
+                );
+            } else {
+                filteredProfiles = allProfiles.filter(profile => profile.status === 'active');
+            }
+            
+            // Reset sort and pagination
+            currentSort = 'compatibility';
+            currentPage = 1;
+            
+            // Update display
+            displayMatches();
+            updateStats();
+            
+            showNotification('Filters reset successfully!', 'success');
+        }
+
+        // Load matches (initial load)
+        function loadMatches() {
+            showLoading();
+            
+            // Apply current filters or show all active profiles
+            if (Object.keys(activeFilters).length > 0) {
+                applyFilters();
+            } else {
+                resetFilters();
+            }
+            
+            setTimeout(() => {
+                hideLoading();
+                showNotification('Matches loaded successfully!', 'success');
+            }, 500);
+        }
+
+        // Open save search modal
+        function openSaveSearchModal() {
+            openModal('saveSearchModal');
+        }
+
+        // Save current search
+        function saveSearch() {
+            const searchName = document.getElementById('searchName').value.trim();
+            
+            if (!searchName) {
+                showNotification('Please enter a name for your search', 'error');
+                return;
+            }
+            
+            // Get saved searches
+            const savedSearches = JSON.parse(localStorage.getItem('savedSearches') || '[]');
+            
+            // Add new search
+            savedSearches.push({
+                name: searchName,
+                filters: activeFilters,
+                date: new Date().toISOString(),
+                matchCount: filteredProfiles.length
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('savedSearches', JSON.stringify(savedSearches));
+            
+            // Close modal
+            closeModal('saveSearchModal');
+            
+            // Reset input
+            document.getElementById('searchName').value = '';
+            
+            showNotification('Search saved successfully!', 'success');
+        }
+
+        // Open sort options
+        function openSortOptions() {
+            // Create sort options menu
+            const sortOptions = [
+                { id: 'compatibility', label: 'Compatibility Score', icon: 'fas fa-percentage' },
+                { id: 'newest', label: 'Newest First', icon: 'fas fa-calendar-plus' },
+                { id: 'age', label: 'Age (Young to Old)', icon: 'fas fa-sort-numeric-down' },
+                { id: 'name', label: 'Name (A to Z)', icon: 'fas fa-sort-alpha-down' }
+            ];
+            
+            // Create menu
+            const menu = document.createElement('div');
+            menu.style.cssText = `
+                position: absolute;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+                padding: 0.5rem;
+                z-index: 1000;
+                min-width: 200px;
+                border: 1px solid var(--border-color);
+            `;
+            
+            // Position near sort button
+            const sortBtn = document.getElementById('sortMatchesBtn');
+            if (sortBtn) {
+                const rect = sortBtn.getBoundingClientRect();
+                menu.style.top = (rect.bottom + window.scrollY) + 'px';
+                menu.style.right = (window.innerWidth - rect.right) + 'px';
+            }
+            
+            // Add options
+            sortOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    padding: 0.75rem 1rem;
+                    border: none;
+                    background: none;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    color: ${currentSort === option.id ? 'var(--primary-color)' : 'var(--dark-color)'};
+                    font-weight: ${currentSort === option.id ? '600' : '500'};
+                    transition: all 0.2s ease;
+                `;
+                button.innerHTML = `
+                    <i class="${option.icon}" style="font-size: 0.9rem;"></i>
+                    <span style="flex: 1; text-align: left;">${option.label}</span>
+                    ${currentSort === option.id ? '<i class="fas fa-check" style="color: var(--primary-color);"></i>' : ''}
+                `;
+                
+                button.addEventListener('mouseenter', () => {
+                    button.style.background = 'rgba(233, 30, 99, 0.05)';
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    button.style.background = 'none';
+                });
+                
+                button.addEventListener('click', () => {
+                    currentSort = option.id;
+                    sortProfiles();
+                    displayMatches();
+                    document.body.removeChild(menu);
+                    showNotification(`Sorted by ${option.label.toLowerCase()}`, 'info');
+                });
+                
+                menu.appendChild(button);
+            });
+            
+            // Add to document
+            document.body.appendChild(menu);
+            
+            // Close menu when clicking outside
+            const closeMenu = (e) => {
+                if (!menu.contains(e.target) && e.target !== sortBtn) {
+                    document.body.removeChild(menu);
+                    document.removeEventListener('click', closeMenu);
+                }
+            };
+            
+            setTimeout(() => {
+                document.addEventListener('click', closeMenu);
+            }, 100);
+        }
+
+        // Quick action (favorite/block)
+        function quickAction(profileId, action) {
+            if (action === 'favorite') {
+                // Add to favorites
+                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                if (!favorites.includes(profileId)) {
+                    favorites.push(profileId);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    showNotification('Added to favorites!', 'success');
+                } else {
+                    showNotification('Already in favorites!', 'info');
+                }
+            }
+        }
+
+        // View match profile
+        function viewMatch(profileId) {
+            const profile = allProfiles.find(p => p._id === profileId);
+            
+            if (profile) {
+                const content = document.getElementById('matchProfileContent');
+                if (content) {
+                    const initials = profile.bio.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    const compatibility = profile.compatibility || Math.floor(Math.random() * 30) + 70;
+                    
+                    content.innerHTML = `
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; color: white; margin: 0 auto 1rem;">
+                                ${initials}
+                            </div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${profile.bio.fullName}</h3>
+                            <p style="color: var(--gray-color); margin-bottom: 0.5rem;">
+                                <i class="fas fa-${profile.bio.gender === 'Male' ? 'mars' : 'venus'}"></i>
+                                ${profile.bio.gender}, ${profile.bio.age} years
+                            </p>
+                            <p style="color: var(--gray-color); margin-bottom: 1rem;">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${profile.bio.city}
+                            </p>
+                            <div class="compatibility-meter" style="max-width: 200px; margin: 0 auto;">
+                                <div class="compatibility-fill" style="width: ${compatibility}%"></div>
+                            </div>
+                            <p style="margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">
+                                <i class="fas fa-percentage"></i>
+                                ${compatibility}% Match Compatibility
+                            </p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color);">
+                                    <i class="fas fa-user"></i> Bio Data
+                                </h4>
+                                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                                    <div>
+                                        <small style="color: var(--gray-color);">Education:</small>
+                                        <p style="font-weight: 500;">${profile.bio.education}</p>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--gray-color);">Profession:</small>
+                                        <p style="font-weight: 500;">${profile.bio.profession}</p>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--gray-color);">Religion:</small>
+                                        <p style="font-weight: 500;">${profile.bio.religion}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color);">
+                                    <i class="fas fa-heart"></i> About
+                                </h4>
+                                <div style="margin-bottom: 1rem;">
+                                    <small style="color: var(--gray-color);">Hobbies & Interests:</small>
+                                    <p style="font-weight: 500;">${profile.bio.hobbies || 'Not specified'}</p>
+                                </div>
+                                <div>
+                                    <small style="color: var(--gray-color);">About:</small>
+                                    <p style="font-weight: 500; line-height: 1.6;">${profile.bio.about || 'Not specified'}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${profile.partner ? `
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color);">
+                                    <i class="fas fa-search"></i> Looking For
+                                </h4>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                    <div>
+                                        <small style="color: var(--gray-color);">Age Range:</small>
+                                        <p style="font-weight: 500;">${profile.partner.ageMin || '?'} - ${profile.partner.ageMax || '?'} years</p>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--gray-color);">Gender:</small>
+                                        <p style="font-weight: 500;">${profile.partner.gender || 'Any'}</p>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--gray-color);">Religion:</small>
+                                        <p style="font-weight: 500;">${Array.isArray(profile.partner.religion) ? profile.partner.religion.join(', ') : profile.partner.religion || 'Any'}</p>
+                                    </div>
+                                    <div>
+                                        <small style="color: var(--gray-color);">Location:</small>
+                                        <p style="font-weight: 500;">${profile.partner.location || 'Any'}</p>
+                                    </div>
+                                </div>
+                                ${profile.partner.additional ? `
+                                    <div style="margin-top: 1rem;">
+                                        <small style="color: var(--gray-color);">Additional Preferences:</small>
+                                        <p style="font-weight: 500; line-height: 1.6;">${profile.partner.additional}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+                    `;
+                }
+                
+                openModal('matchProfileModal');
+            }
+        }
+
+        // Send interest to a match
+        function sendInterest(profileId) {
+            const profile = allProfiles.find(p => p._id === profileId);
+            if (profile) {
+                // Save interest
+                const interests = JSON.parse(localStorage.getItem('userInterests') || '[]');
+                interests.push({
+                    profileId: profileId,
+                    profileName: profile.bio.fullName,
+                    sentAt: new Date().toISOString()
+                });
+                localStorage.setItem('userInterests', JSON.stringify(interests));
+                
+                showNotification(`Interest sent to ${profile.bio.fullName}! They'll be notified.`, 'success');
+            }
+        }
+
+        // Utility functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        function showNotification(message, type = 'success', duration = 3000) {
+            // Remove existing notifications
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: -100px;
+                right: 30px;
+                padding: 1rem 1.5rem;
+                border-radius: var(--border-radius);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 500;
+                transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                max-width: 350px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            `;
+            
+            let bgColor, icon;
+            switch(type) {
+                case 'success':
+                    bgColor = 'linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(69, 160, 73, 0.95) 100%)';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(211, 47, 47, 0.95) 100%)';
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    bgColor = 'linear-gradient(135deg, rgba(255, 152, 0, 0.95) 0%, rgba(245, 124, 0, 0.95) 100%)';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                case 'info':
+                    bgColor = 'linear-gradient(135deg, rgba(33, 150, 243, 0.95) 0%, rgba(25, 118, 210, 0.95) 100%)';
+                    icon = 'fa-info-circle';
+                    break;
+                default:
+                    bgColor = 'linear-gradient(135deg, rgba(233, 30, 99, 0.95) 0%, rgba(216, 27, 96, 0.95) 100%)';
+                    icon = 'fa-info-circle';
+            }
+            
+            notification.style.background = bgColor;
+            notification.innerHTML = `
+                <i class="fas ${icon}" style="font-size: 1.2rem;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.top = '30px';
+            }, 10);
+            
+            setTimeout(() => {
+                notification.style.top = '-100px';
+                setTimeout(() => notification.remove(), 500);
+            }, duration);
+        }
+
+        function showLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+            }
+        }
+
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('active');
+            }
+        }
+    </script>
+    
+    <!-- Auth script should be loaded before this -->
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everlasting Bonds - Find Your Perfect Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-heart"></i>
+                Everlasting Bonds
+            </a>
+            <div class="nav-links">
+                <a href="#features"><i class="fas fa-star"></i> Features</a>
+                <a href="#stories"><i class="fas fa-users"></i> Success Stories</a>
+                <a href="#contact"><i class="fas fa-phone"></i> Contact</a>
+                <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin</a>
+                <button class="btn-primary" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="btn-secondary" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+         // Add this to your HTML or JavaScript file
+const menuToggle = document.createElement('button');
+menuToggle.className = 'menu-toggle';
+menuToggle.innerHTML = `
+    <span></span>
+    <span></span>
+    <span></span>
+`;
+menuToggle.style.color = "black";
+menuToggle.setAttribute('aria-label', 'Toggle menu');
+menuToggle.setAttribute('aria-expanded', 'false');
+
+// Insert after logo in navbar container
+const navbarContainer = document.querySelector('.navbar .container');
+const logo = document.querySelector('.logo');
+navbarContainer.insertBefore(menuToggle, logo.nextSibling);
+
+// Mobile menu functionality
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    navLinks.classList.toggle('active');
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', !expanded);
+});
+
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!navbarContainer.contains(e.target)) {
+        menuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }
+});
+    </script>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Your Perfect Life Partner</h1>
+                <p>Join thousands of successful matches based on compatibility, shared values, and mutual understanding.</p>
+                <div class="hero-buttons">
+                    <button class="btn-hero" id="getStartedBtn">
+                        <i class="fas fa-heart"></i> Get Started Today
+                    </button>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h3>10,000+</h3>
+                        <p>Successful Matches</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="totalProfilesCount">0</h3>
+                        <p>Active Profiles</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>95%</h3>
+                        <p>Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Happy Couple">
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Why Choose Everlasting Bonds?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Verified Profiles</h3>
+                    <p>All profiles undergo thorough verification for authenticity and security.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart Matching</h3>
+                    <p>AI-powered compatibility analysis based on values, interests, and lifestyle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy Protection</h3>
+                    <p>Your personal information is secure with advanced encryption.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>High Success Rate</h3>
+                    <p>Join over 10,000 couples who found love through our platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="stories" id="stories">
+        <div class="container">
+            <h2>Success Stories</h2>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Couple 1">
+                    </div>
+                    <div class="story-content">
+                        <h3>Rahul & Priya</h3>
+                        <p class="story-meta">Married • 2023</p>
+                        <p class="story-quote">"Found my soulmate through Everlasting Bonds. The compatibility matching was spot on!"</p>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Couple 2">
+                    </div>
+                    <div class="story-content">
+                        <h3>Amit & Neha</h3>
+                        <p class="story-meta">Engaged • 2024</p>
+                        <p class="story-quote">"The detailed profiles helped us understand each other better before we even met."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Register</h2>
+                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="registerEmail"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="registerPassword" class="form-control" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required minlength="6">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-heart"></i> Everlasting Bonds</h3>
+                    <p>Connecting hearts, creating families since 2010</p>
+                </div>
+                <!-- Add this inside the footer-content div -->
+<div class="footer-section">
+    <h4>Quick Links</h4>
+    <ul>
+        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+        <li><a href="#stories"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
+        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+        <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+        <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+    </ul>
+</div>
+
+<div class="footer-section">
+    <h4>Follow Us</h4>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+    </div>
+</div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@everlastingbonds.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Everlasting Bonds. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+<div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner"></div>
+</div>
+
+<style>
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.loading-spinner.active {
+    display: flex;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+    </footer>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
