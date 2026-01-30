@@ -1936,8 +1936,9 @@ select.form-control[multiple] {
     </div>
 
     <script src="js/auth.js"></script>
-    <script>
-    // User Dashboard JavaScript
+   <script>
+// User Dashboard JavaScript
+// User Dashboard JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     console.log('User Dashboard loaded');
     
@@ -1973,6 +1974,22 @@ let userProfile = null;
 let allProfiles = [];
 let matchedProfiles = [];
 
+// Remove duplicate profiles before displaying
+function removeDuplicateProfiles(profiles) {
+    const uniqueProfiles = [];
+    const seenIds = new Set();
+    
+    for (const profile of profiles) {
+        if (!seenIds.has(profile._id)) {
+            seenIds.add(profile._id);
+            uniqueProfiles.push(profile);
+        }
+    }
+    
+    console.log(`Removed ${profiles.length - uniqueProfiles.length} duplicate profiles`);
+    return uniqueProfiles;
+}
+
 // Initialize dashboard
 function initDashboard() {
     // Load user profile
@@ -1981,7 +1998,8 @@ function initDashboard() {
     // Load all profiles from localStorage
     allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
     
-    console.log('Total profiles in system:', allProfiles.length);
+    console.log('Current user profile:', userProfile);
+    console.log('Total profiles found:', allProfiles.length);
     
     if (userProfile) {
         // User has a profile
@@ -1990,6 +2008,15 @@ function initDashboard() {
         document.getElementById('emptyState').style.display = 'none';
         document.getElementById('profileActionsHeader').style.display = 'flex';
         document.getElementById('matchesSection').style.display = 'block';
+        
+        // Check if we need demo profiles (only load if total profiles are less than 6 including user)
+        if (allProfiles.length < 6) {
+            console.log('Few profiles found. Loading demo profiles...');
+            loadDemoProfiles();
+            
+            // Re-load all profiles after demo profiles are added
+            allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+        }
         
         // Calculate matches
         calculateMatches();
@@ -2010,6 +2037,365 @@ function initDashboard() {
         document.getElementById('profileActionsHeader').style.display = 'none';
         document.getElementById('matchesSection').style.display = 'none';
     }
+}
+
+// Load REAL Indian demo profiles (EXCLUDING CURRENT USER)
+function loadDemoProfiles() {
+    console.log('Loading REAL Indian demo profiles...');
+    
+    const currentUser = auth.getCurrentUser();
+    if (!currentUser) return;
+    
+    const demoProfiles = [
+        {
+            _id: 'profile_1001',
+            bio: {
+                fullName: 'Rajesh Kumar',
+                gender: 'Male',
+                age: 29,
+                religion: 'Hindu',
+                education: 'MBA',
+                profession: 'Business Analyst',
+                email: 'rajesh.k@example.com',
+                phone: '+91 98765 43210',
+                about: 'Traditional family-oriented professional looking for a caring life partner who values family and career balance.',
+                hobbies: 'Reading business books, cricket, classical music',
+                city: 'Chennai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 24,
+                ageMax: 28,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Bachelor\'s or higher',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '500000',
+                values: ['family', 'traditional values', 'career'],
+                additional: 'Looking for an educated, family-oriented girl with traditional values'
+            },
+            user: {
+                userId: 'demo_user_1',
+                email: 'demo1@indian.com',
+                name: 'Rajesh Demo'
+            },
+            status: 'active',
+            views: 150,
+            profileCompleteness: 95,
+            createdAt: '2024-02-15T10:30:00Z',
+            updatedAt: '2024-02-15T10:30:00Z'
+        },
+        {
+            _id: 'profile_1002',
+            bio: {
+                fullName: 'Keerthana Raman',
+                gender: 'Female',
+                age: 26,
+                religion: 'Hindu',
+                education: 'MSc Computer Science',
+                profession: 'Software Developer',
+                email: 'keerthana.r@example.com',
+                phone: '+91 87654 32109',
+                about: 'Modern professional who believes in gender equality and wants a partner who respects career ambitions.',
+                hobbies: 'Coding, Bharatanatyam, cooking traditional Tamil food',
+                city: 'Coimbatore, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 27,
+                ageMax: 32,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Master\'s or higher',
+                profession: 'IT Professional',
+                location: 'Tamil Nadu',
+                income: '800000',
+                values: ['career growth', 'equality', 'modern outlook'],
+                additional: 'Seeking an educated, open-minded professional'
+            },
+            user: {
+                userId: 'demo_user_2',
+                email: 'demo2@indian.com',
+                name: 'Keerthana Demo'
+            },
+            status: 'active',
+            views: 210,
+            profileCompleteness: 92,
+            createdAt: '2024-02-14T14:20:00Z',
+            updatedAt: '2024-02-14T14:20:00Z'
+        },
+        {
+            _id: 'profile_1003',
+            bio: {
+                fullName: 'Aravind Senthil',
+                gender: 'Male',
+                age: 31,
+                religion: 'Hindu',
+                education: 'B.Tech',
+                profession: 'Mechanical Engineer',
+                email: 'aravind.s@example.com',
+                phone: '+91 76543 21098',
+                about: 'Simple, hardworking person from a traditional Tamil family. Values honesty and simplicity in life.',
+                hobbies: 'Gardening, watching Tamil movies, traveling',
+                city: 'Madurai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 25,
+                ageMax: 30,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any respectful job',
+                location: 'Tamil Nadu',
+                income: '300000',
+                values: ['simplicity', 'honesty', 'family values'],
+                additional: 'Looking for a simple, homely girl'
+            },
+            user: {
+                userId: 'demo_user_3',
+                email: 'demo3@indian.com',
+                name: 'Aravind Demo'
+            },
+            status: 'active',
+            views: 95,
+            profileCompleteness: 88,
+            createdAt: '2024-02-13T11:15:00Z',
+            updatedAt: '2024-02-13T11:15:00Z'
+        },
+        {
+            _id: 'profile_1004',
+            bio: {
+                fullName: 'Indumathi Venkatesh',
+                gender: 'Female',
+                age: 27,
+                religion: 'Hindu',
+                education: 'B.Sc Nursing',
+                profession: 'Nurse',
+                email: 'indumathi.v@example.com',
+                phone: '+91 65432 10987',
+                about: 'Caring healthcare professional who wants to balance career and family life.',
+                hobbies: 'Yoga, cooking Tamil dishes, reading spiritual books',
+                city: 'Salem, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 28,
+                ageMax: 34,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '600000',
+                values: ['caring nature', 'responsibility', 'family'],
+                additional: 'Looking for a responsible, caring life partner'
+            },
+            user: {
+                userId: 'demo_user_4',
+                email: 'demo4@indian.com',
+                name: 'Indumathi Demo'
+            },
+            status: 'active',
+            views: 180,
+            profileCompleteness: 90,
+            createdAt: '2024-02-12T09:45:00Z',
+            updatedAt: '2024-02-12T09:45:00Z'
+        },
+        {
+            _id: 'profile_1005',
+            bio: {
+                fullName: 'Karthik Muthu',
+                gender: 'Male',
+                age: 33,
+                religion: 'Hindu',
+                education: 'CA',
+                profession: 'Chartered Accountant',
+                email: 'karthik.m@example.com',
+                phone: '+91 54321 09876',
+                about: 'Established professional looking for a life partner to build a happy Tamil family together.',
+                hobbies: 'Stock market analysis, cricket, classical Carnatic music',
+                city: 'Chennai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 26,
+                ageMax: 30,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '700000',
+                values: ['family', 'stability', 'traditional'],
+                additional: 'Seeking a homely, educated girl from good Tamil family'
+            },
+            user: {
+                userId: 'demo_user_5',
+                email: 'demo5@indian.com',
+                name: 'Karthik Demo'
+            },
+            status: 'active',
+            views: 120,
+            profileCompleteness: 93,
+            createdAt: '2024-02-11T16:30:00Z',
+            updatedAt: '2024-02-11T16:30:00Z'
+        },
+        {
+            _id: 'profile_1006',
+            bio: {
+                fullName: 'Divya Prakash',
+                gender: 'Female',
+                age: 25,
+                religion: 'Hindu',
+                education: 'B.Com',
+                profession: 'Accountant',
+                email: 'divya.p@example.com',
+                phone: '+91 98765 12340',
+                about: 'Traditional Tamil girl looking for a partner who respects family values and traditions.',
+                hobbies: 'Cooking, kolam drawing, listening to devotional songs',
+                city: 'Tiruchirappalli, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 27,
+                ageMax: 32,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any stable job',
+                location: 'Tamil Nadu',
+                income: '400000',
+                values: ['traditional values', 'respect', 'family'],
+                additional: 'Looking for a traditional Tamil boy with good family values'
+            },
+            user: {
+                userId: 'demo_user_6',
+                email: 'demo6@indian.com',
+                name: 'Divya Demo'
+            },
+            status: 'active',
+            views: 110,
+            profileCompleteness: 87,
+            createdAt: '2024-02-10T10:15:00Z',
+            updatedAt: '2024-02-10T10:15:00Z'
+        },
+        {
+            _id: 'profile_1007',
+            bio: {
+                fullName: 'Suresh Balaji',
+                gender: 'Male',
+                age: 30,
+                religion: 'Hindu',
+                education: 'MBA',
+                profession: 'Bank Manager',
+                email: 'suresh.b@example.com',
+                phone: '+91 87654 98765',
+                about: 'Bank professional from a traditional Tamil family looking for a compatible partner.',
+                hobbies: 'Reading, badminton, temple visits',
+                city: 'Erode, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 24,
+                ageMax: 28,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any',
+                location: 'Tamil Nadu',
+                income: '500000',
+                values: ['family values', 'stability', 'respect'],
+                additional: 'Looking for a traditional Tamil girl from good family'
+            },
+            user: {
+                userId: 'demo_user_7',
+                email: 'demo7@indian.com',
+                name: 'Suresh Demo'
+            },
+            status: 'active',
+            views: 95,
+            profileCompleteness: 89,
+            createdAt: '2024-02-09T15:45:00Z',
+            updatedAt: '2024-02-09T15:45:00Z'
+        },
+        {
+            _id: 'profile_1008',
+            bio: {
+                fullName: 'Anjali Sundar',
+                gender: 'Female',
+                age: 28,
+                religion: 'Hindu',
+                education: 'M.Pharm',
+                profession: 'Pharmacist',
+                email: 'anjali.s@example.com',
+                phone: '+91 76543 87654',
+                about: 'Healthcare professional with modern outlook but traditional values.',
+                hobbies: 'Dancing, cooking experiments, traveling',
+                city: 'Tirunelveli, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 28,
+                ageMax: 34,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '600000',
+                values: ['modern outlook', 'traditional values', 'career'],
+                additional: 'Looking for an educated professional with good values'
+            },
+            user: {
+                userId: 'demo_user_8',
+                email: 'demo8@indian.com',
+                name: 'Anjali Demo'
+            },
+            status: 'active',
+            views: 130,
+            profileCompleteness: 91,
+            createdAt: '2024-02-08T12:30:00Z',
+            updatedAt: '2024-02-08T12:30:00Z'
+        }
+    ];
+    
+    // Get existing profiles
+    let existingProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+    
+    // Track which demo profiles we're adding
+    let addedProfiles = 0;
+    
+    // Check each demo profile to see if it already exists
+    demoProfiles.forEach(demoProfile => {
+        // Check if this demo profile already exists (by _id)
+        const alreadyExists = existingProfiles.some(existingProfile => 
+            existingProfile._id === demoProfile._id
+        );
+        
+        // Only add if it doesn't exist
+        if (!alreadyExists) {
+            // Check if current user exists in existingProfiles
+            const currentUserExists = existingProfiles.some(profile => 
+                profile.user && profile.user.userId === currentUser.id
+            );
+            
+            // If current user doesn't have a profile yet, skip adding demo profiles
+            if (!currentUserExists) {
+                console.log('Current user profile not found yet. Skipping demo profiles.');
+                return;
+            }
+            
+            existingProfiles.push(demoProfile);
+            addedProfiles++;
+            console.log(`Added demo profile: ${demoProfile.bio?.fullName}`);
+        } else {
+            console.log(`Demo profile already exists: ${demoProfile.bio?.fullName}`);
+        }
+    });
+    
+    // Save to localStorage only if we added new profiles
+    if (addedProfiles > 0) {
+        localStorage.setItem('allProfiles', JSON.stringify(existingProfiles));
+        console.log(`Added ${addedProfiles} new demo profiles. Total profiles now: ${existingProfiles.length}`);
+    } else {
+        console.log('No new demo profiles to add. Demo profiles already exist.');
+    }
+    
+    return addedProfiles;
 }
 
 // Setup event listeners
@@ -2188,26 +2574,53 @@ function calculateMatches() {
         return;
     }
     
-    // Get all profiles except current user's
+    console.log('Current user ID:', user.id);
+    console.log('Current user email:', user.email);
+    
+    // Get all profiles except current user's profile
     const otherProfiles = allProfiles.filter(profile => {
-        // Skip if profile has no user object
-        if (!profile.user) return false;
+        // Skip profiles without user data
+        if (!profile.user) {
+            console.log('Skipping profile - no user data:', profile.bio?.fullName);
+            return false;
+        }
         
-        // Skip current user's own profile
-        return profile.user.userId !== user.id;
+        // Skip current user's own profile by comparing userId
+        if (profile.user.userId === user.id) {
+            console.log('Skipping own profile:', profile.bio?.fullName);
+            return false;
+        }
+        
+        // Skip if profile is not active
+        if (profile.status !== 'active') {
+            console.log('Skipping inactive profile:', profile.bio?.fullName);
+            return false;
+        }
+        
+        return true;
     });
     
-    console.log('Other profiles (excluding user):', otherProfiles.length);
+    console.log('Other profiles (excluding current user):', otherProfiles.length);
+    
+    // Remove duplicates from otherProfiles
+    const uniqueProfiles = removeDuplicateProfiles(otherProfiles);
     
     // Filter profiles based on bidirectional compatibility
-    matchedProfiles = otherProfiles.filter(profile => {
-        return isBidirectionalCompatible(profile);
+    matchedProfiles = uniqueProfiles.filter(profile => {
+        const isCompatible = isBidirectionalCompatible(profile);
+        return isCompatible;
     }).sort((a, b) => {
         // Sort by compatibility score (highest first)
-        return calculateCompatibilityScore(b) - calculateCompatibilityScore(a);
+        const scoreA = calculateCompatibilityScore(a);
+        const scoreB = calculateCompatibilityScore(b);
+        return scoreB - scoreA;
     });
     
-    console.log('Found matches:', matchedProfiles.length);
+    console.log('Found unique matches:', matchedProfiles.length);
+    
+    // Remove duplicates from matchedProfiles too
+    matchedProfiles = removeDuplicateProfiles(matchedProfiles);
+    console.log('After deduplication, matches:', matchedProfiles.length);
 }
 
 // Check bidirectional compatibility
@@ -2221,33 +2634,61 @@ function isBidirectionalCompatible(profile) {
     if (!candidate || !userPrefs) return false;
     
     // 1. Check if user's preferences match the candidate
-    const userWantsCandidate = checkCompatibility(userPrefs, candidate, userProfile.bio);
+    const userWantsCandidate = checkUserWantsCandidate(userPrefs, candidate);
     
     // 2. Check if candidate's preferences match the user
-    const candidateWantsUser = candidatePrefs ? checkCompatibility(candidatePrefs, userProfile.bio, candidate) : true;
+    const candidateWantsUser = checkCandidateWantsUser(candidatePrefs, userProfile.bio);
     
     return userWantsCandidate && candidateWantsUser;
 }
 
-// Helper function to check compatibility from one side
-function checkCompatibility(preferences, targetPerson, sourcePerson) {
+// Check if user wants candidate
+function checkUserWantsCandidate(userPrefs, candidate) {
     // Gender check
-    if (preferences.gender && preferences.gender !== 'Any') {
-        if (targetPerson.gender !== preferences.gender) {
+    if (userPrefs.gender && userPrefs.gender !== 'Any') {
+        if (candidate.gender !== userPrefs.gender) {
             return false;
         }
     }
     
     // Age check
-    if (preferences.ageMin && preferences.ageMax && targetPerson.age) {
-        if (targetPerson.age < preferences.ageMin || targetPerson.age > preferences.ageMax) {
+    if (userPrefs.ageMin && userPrefs.ageMax && candidate.age) {
+        if (candidate.age < userPrefs.ageMin || candidate.age > userPrefs.ageMax) {
             return false;
         }
     }
     
     // Religion check
-    if (preferences.religion && !preferences.religion.includes('Any')) {
-        if (!preferences.religion.includes(targetPerson.religion)) {
+    if (userPrefs.religion && !userPrefs.religion.includes('Any')) {
+        if (!userPrefs.religion.includes(candidate.religion)) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Check if candidate wants user
+function checkCandidateWantsUser(candidatePrefs, userBio) {
+    if (!candidatePrefs) return true; // If no preferences, accept all
+    
+    // Gender check
+    if (candidatePrefs.gender && candidatePrefs.gender !== 'Any') {
+        if (userBio.gender !== candidatePrefs.gender) {
+            return false;
+        }
+    }
+    
+    // Age check
+    if (candidatePrefs.ageMin && candidatePrefs.ageMax && userBio.age) {
+        if (userBio.age < candidatePrefs.ageMin || userBio.age > candidatePrefs.ageMax) {
+            return false;
+        }
+    }
+    
+    // Religion check
+    if (candidatePrefs.religion && !candidatePrefs.religion.includes('Any')) {
+        if (!candidatePrefs.religion.includes(userBio.religion)) {
             return false;
         }
     }
@@ -2278,9 +2719,12 @@ function calculateCompatibilityScore(profile) {
     
     // Location compatibility (10 points)
     if (userPrefs.location && userPrefs.location !== 'Any' && candidate.city) {
-        if (candidate.city.toLowerCase() === userPrefs.location.toLowerCase()) {
+        const userLocation = userPrefs.location.toLowerCase();
+        const candidateLocation = candidate.city.toLowerCase();
+        
+        if (candidateLocation === userLocation) {
             score += 10;
-        } else if (candidate.city.toLowerCase().includes(userPrefs.location.toLowerCase())) {
+        } else if (candidateLocation.includes(userLocation) || userLocation.includes(candidateLocation)) {
             score += 7;
         }
     }
@@ -2288,6 +2732,16 @@ function calculateCompatibilityScore(profile) {
     // Religion compatibility (10 points)
     if (userPrefs.religion && !userPrefs.religion.includes('Any') && candidate.religion) {
         if (userPrefs.religion.includes(candidate.religion)) {
+            score += 10;
+        }
+    }
+    
+    // Profession compatibility (10 points)
+    if (userPrefs.profession && candidate.profession) {
+        const userProfession = userPrefs.profession.toLowerCase();
+        const candidateProfession = candidate.profession.toLowerCase();
+        
+        if (candidateProfession.includes(userProfession) || userProfession.includes(candidateProfession)) {
             score += 10;
         }
     }
@@ -2317,9 +2771,12 @@ function calculateCompatibilityScore(profile) {
         
         // Location compatibility (10 points)
         if (candidatePrefs.location && candidatePrefs.location !== 'Any' && userBio.city) {
-            if (userBio.city.toLowerCase() === candidatePrefs.location.toLowerCase()) {
+            const candidateLocation = candidatePrefs.location.toLowerCase();
+            const userLocation = userBio.city.toLowerCase();
+            
+            if (userLocation === candidateLocation) {
                 score += 10;
-            } else if (userBio.city.toLowerCase().includes(candidatePrefs.location.toLowerCase())) {
+            } else if (userLocation.includes(candidateLocation) || candidateLocation.includes(userLocation)) {
                 score += 7;
             }
         }
@@ -2331,11 +2788,36 @@ function calculateCompatibilityScore(profile) {
             }
         }
         
-        // Profession compatibility (10 points)
-        if (candidatePrefs.profession && userBio.profession) {
-            if (userBio.profession.toLowerCase().includes(candidatePrefs.profession.toLowerCase()) ||
-                candidatePrefs.profession.toLowerCase().includes(userBio.profession.toLowerCase())) {
+        // Education compatibility (10 points)
+        if (candidatePrefs.education && userBio.education) {
+            const educationLevels = {
+                'High School': 1,
+                'Bachelor\'s Degree': 2,
+                'Master\'s Degree': 3,
+                'PhD/Doctorate': 4
+            };
+            
+            const userEdu = educationLevels[userBio.education] || 0;
+            const candidateEdu = educationLevels[candidatePrefs.education] || 0;
+            
+            if (candidatePrefs.education === 'Same') {
+                if (userEdu === candidateEdu) score += 10;
+            } else if (candidatePrefs.education === 'Bachelor\'s or higher') {
+                if (userEdu >= 2) score += 10;
+            } else if (candidatePrefs.education === 'Master\'s or higher') {
+                if (userEdu >= 3) score += 10;
+            }
+        }
+        
+        // Income compatibility (10 points)
+        if (candidatePrefs.income && userPrefs.income) {
+            const candidateIncome = parseInt(candidatePrefs.income) || 0;
+            const userIncome = parseInt(userPrefs.income) || 0;
+            
+            if (userIncome >= candidateIncome) {
                 score += 10;
+            } else if (userIncome >= candidateIncome * 0.7) {
+                score += 7;
             }
         }
     }
@@ -2637,9 +3119,17 @@ async function submitProfile() {
         
         const user = auth.getCurrentUser();
         
+        if (!user) {
+            showNotification('User not logged in', 'error');
+            hideLoading();
+            return;
+        }
+        
+        console.log('Creating profile for user:', user.email);
+        
         // Prepare profile data
         const profileData = {
-            _id: isEditMode ? currentProfileId : 'profile_' + Date.now(),
+            _id: isEditMode && currentProfileId ? currentProfileId : 'profile_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
             bio: {
                 fullName: document.getElementById('fullName').value.trim(),
                 gender: document.getElementById('gender').value,
@@ -2667,32 +3157,50 @@ async function submitProfile() {
             },
             status: 'active',
             views: 0,
-            createdAt: new Date().toISOString(),
+            profileCompleteness: calculateProfileCompleteness(),
+            createdAt: isEditMode ? userProfile?.createdAt || new Date().toISOString() : new Date().toISOString(),
             updatedAt: new Date().toISOString(),
+            // IMPORTANT: Store user information
             user: {
                 userId: user.id,
-                email: user.email
+                email: user.email,
+                name: user.name || user.email.split('@')[0]
             }
         };
         
-        // Save profile
-        const result = auth.saveProfileToAdminSystem(profileData);
+        console.log('Profile data to save:', profileData);
         
-        if (result.success) {
-            showNotification(`Profile ${isEditMode ? 'updated' : 'created'} successfully!`, 'success');
-            closeModal('profileFormModal');
-            
-            userProfile = result.profile;
-            allProfiles = auth.getAllProfiles();
-            initDashboard();
-            updateStats();
-            
-            setTimeout(() => {
-                viewMyProfile();
-            }, 500);
+        // Save profile to localStorage
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+        
+        // Also save to allProfiles
+        const existingProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+        
+        // Check if profile already exists
+        const existingIndex = existingProfiles.findIndex(p => p._id === profileData._id);
+        if (existingIndex >= 0) {
+            existingProfiles[existingIndex] = profileData;
         } else {
-            throw new Error(result.error);
+            existingProfiles.push(profileData);
         }
+        
+        localStorage.setItem('allProfiles', JSON.stringify(existingProfiles));
+        
+        showNotification(`Profile ${isEditMode ? 'updated' : 'created'} successfully!`, 'success');
+        closeModal('profileFormModal');
+        
+        // Reload all data
+        userProfile = profileData;
+        allProfiles = existingProfiles;
+        
+        // Re-initialize dashboard
+        initDashboard();
+        updateStats();
+        
+        // Show profile after creation
+        setTimeout(() => {
+            viewMyProfile();
+        }, 500);
         
     } catch (error) {
         console.error('Error saving profile:', error);
@@ -2700,6 +3208,24 @@ async function submitProfile() {
     } finally {
         hideLoading();
     }
+}
+
+// Calculate profile completeness percentage
+function calculateProfileCompleteness() {
+    const requiredFields = [
+        'fullName', 'gender', 'age', 'education', 'profession', 'profileEmail', 'phone', 'city'
+    ];
+    
+    let completedFields = 0;
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field && field.value.trim()) completedFields++;
+    });
+    
+    const totalRequired = requiredFields.length;
+    const completeness = Math.round((completedFields / totalRequired) * 100);
+    
+    return Math.min(completeness, 100);
 }
 
 // View my profile
@@ -2946,13 +3472,6 @@ function closeModal(modalId) {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-}
-
-function closeAllModals() {
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-        modal.style.display = 'none';
-    });
-    document.body.style.overflow = 'auto';
 }
 
 function showNotification(message, type = 'success', duration = 3000) {
