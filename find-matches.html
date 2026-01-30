@@ -1352,230 +1352,317 @@
         }
 
         // Load demo profiles
-        function loadDemoProfiles() {
-            const demoProfiles = [
-                {
-                    _id: 'demo_1',
-                    bio: {
-                        fullName: 'Alexander Johnson',
-                        gender: 'Male',
-                        age: 32,
-                        religion: 'Christian',
-                        education: 'MBA',
-                        profession: 'Investment Banker',
-                        email: 'alex.j@example.com',
-                        phone: '+1 (555) 123-4567',
-                        about: 'Ambitious professional seeking a meaningful connection with someone who shares similar values.',
-                        hobbies: 'Investing, Golf, Wine Tasting',
-                        city: 'New York'
-                    },
-                    partner: {
-                        ageMin: 28,
-                        ageMax: 35,
-                        gender: 'Female',
-                        religion: ['Christian', 'Any'],
-                        education: 'Bachelor\'s or higher',
-                        profession: 'Professional',
-                        location: 'Northeast USA',
-                        income: '100000',
-                        values: ['ambition', 'family', 'faith'],
-                        additional: 'Looking for someone with strong family values and career ambition'
-                    },
-                    status: 'active',
-                    views: 145,
-                    createdAt: '2024-01-10T09:30:00Z',
-                    updatedAt: '2024-01-15T14:20:00Z',
-                    verified: true,
-                    online: true,
-                    hasPhoto: true,
-                    compatibility: 92
-                },
-                {
-                    _id: 'demo_2',
-                    bio: {
-                        fullName: 'Keerthana',
-                        gender: 'Female',
-                        age: 21,
-                        religion: 'Hindu',
-                        education: 'Master\'s in Computer Science',
-                        profession: 'Data Scientist',
-                        email: 'sophia.w@example.com',
-                        phone: '+1 (555) 987-6543',
-                        about: 'Tech enthusiast who loves hiking, photography, and exploring new cultures.',
-                        hobbies: 'Hiking, Photography, Coding',
-                        city: 'Tamil Nadu'
-                    },
-                    partner: {
-                        ageMin: 21,
-                        ageMax: 24,
-                        gender: 'Male',
-                        religion: ['Hindu', 'Any'],
-                        education: 'Master\'s or higher',
-                        profession: 'Tech Professional',
-                        location: 'Tamil Nadu',
-                        income: '200000',
-                        values: ['adventure', 'learning', 'balance'],
-                        additional: 'Seeking a partner who values work-life balance and adventure'
-                    },
-                    status: 'active',
-                    views: 189,
-                    createdAt: '2024-01-12T11:15:00Z',
-                    updatedAt: '2024-01-16T10:45:00Z',
-                    verified: true,
-                    online: false,
-                    hasPhoto: true,
-                    compatibility: 85
-                },
-                {
-                    _id: 'demo_3',
-                    bio: {
-                        fullName: 'Michael Chen',
-                        gender: 'Male',
-                        age: 35,
-                        religion: 'Buddhist',
-                        education: 'PhD in Engineering',
-                        profession: 'Engineering Director',
-                        email: 'michael.c@example.com',
-                        phone: '+1 (555) 456-7890',
-                        about: 'Engineer with passion for sustainable technology and outdoor adventures.',
-                        hobbies: 'Mountain Biking, DIY Projects, Meditation',
-                        city: 'Seattle'
-                    },
-                    partner: {
-                        ageMin: 28,
-                        ageMax: 35,
-                        gender: 'Female',
-                        religion: ['Buddhist', 'Any'],
-                        education: 'Bachelor\'s or higher',
-                        profession: 'Professional',
-                        location: 'Pacific Northwest',
-                        income: '80000',
-                        values: ['sustainability', 'mindfulness', 'adventure'],
-                        additional: 'Looking for someone who values environmental consciousness'
-                    },
-                    status: 'active',
-                    views: 92,
-                    createdAt: '2024-01-14T14:45:00Z',
-                    updatedAt: '2024-01-17T16:30:00Z',
-                    verified: false,
-                    online: true,
-                    hasPhoto: false,
-                    compatibility: 78
-                },
-                {
-                    _id: 'demo_4',
-                    bio: {
-                        fullName: 'Isabella ',
-                        gender: 'Female',
-                        age: 26,
-                        religion: 'Catholic',
-                        education: 'Bachelor\'s in Nursing',
-                        profession: 'Registered Nurse',
-                        email: 'isabella.m@example.com',
-                        phone: '+1 (555) 789-0123',
-                        about: 'Compassionate healthcare professional who enjoys helping others and traveling.',
-                        hobbies: 'Yoga, Cooking, Traveling',
-                        city: 'Miami'
-                    },
-                    partner: {
-                        ageMin: 27,
-                        ageMax: 34,
-                        gender: 'Male',
-                        religion: ['Catholic', 'Christian'],
-                        education: 'Bachelor\'s or higher',
-                        profession: 'Healthcare/Professional',
-                        location: 'Florida',
-                        income: '70000',
-                        values: ['compassion', 'family', 'faith'],
-                        additional: 'Seeking a caring partner with strong family values'
-                    },
-                    status: 'active',
-                    views: 167,
-                    createdAt: '2024-01-16T10:00:00Z',
-                    updatedAt: '2024-01-18T12:15:00Z',
-                    verified: true,
-                    online: false,
-                    hasPhoto: true,
-                    compatibility: 91
-                },
-                {
-                    _id: 'demo_5',
-                    bio: {
-                        fullName: 'Rajesh Kumar',
-                        gender: 'Male',
-                        age: 30,
-                        religion: 'Hindu',
-                        education: 'MBA',
-                        profession: 'Business Consultant',
-                        email: 'rajesh.k@example.com',
-                        phone: '+91 9876543210',
-                        about: 'Entrepreneurial spirit with love for travel and food.',
-                        hobbies: 'Travel, Cooking, Reading',
-                        city: 'Delhi'
-                    },
-                    partner: {
-                        ageMin: 25,
-                        ageMax: 32,
-                        gender: 'Female',
-                        religion: ['Hindu'],
-                        education: 'Bachelor\'s or higher',
-                        profession: 'Professional',
-                        location: 'North India',
-                        income: '500000',
-                        values: ['family', 'ambition', 'culture'],
-                        additional: 'Looking for a family-oriented partner'
-                    },
-                    status: 'active',
-                    views: 210,
-                    createdAt: '2024-01-20T08:00:00Z',
-                    updatedAt: '2024-01-22T14:30:00Z',
-                    verified: true,
-                    online: true,
-                    hasPhoto: true,
-                    compatibility: 88
-                },
-                {
-                    _id: 'demo_6',
-                    bio: {
-                        fullName: 'Priya Sharma',
-                        gender: 'Female',
-                        age: 28,
-                        religion: 'Hindu',
-                        education: 'MSc in Chemistry',
-                        profession: 'Research Scientist',
-                        email: 'priya.s@example.com',
-                        phone: '+91 8765432109',
-                        about: 'Science enthusiast who enjoys classical music and painting.',
-                        hobbies: 'Painting, Music, Science',
-                        city: 'Bangalore'
-                    },
-                    partner: {
-                        ageMin: 18,
-                        ageMax: 22,
-                        gender: 'Male',
-                        religion: ['Hindu'],
-                        education: 'Master\'s or higher',
-                        profession: 'Science/IT Professional',
-                        location: 'South India',
-                        income: '800000',
-                        values: ['education', 'culture', 'family'],
-                        additional: 'Seeking an educated professional with cultural values'
-                    },
-                    status: 'active',
-                    views: 180,
-                    createdAt: '2024-01-18T11:20:00Z',
-                    updatedAt: '2024-01-21T09:45:00Z',
-                    verified: true,
-                    online: false,
-                    hasPhoto: true,
-                    compatibility: 84
-                }
-            ];
+        const demoProfiles = [
+        {
+            _id: 'profile_1001',
+            bio: {
+                fullName: 'Rajesh Kumar',
+                gender: 'Male',
+                age: 29,
+                religion: 'Hindu',
+                education: 'MBA',
+                profession: 'Business Analyst',
+                email: 'rajesh.k@example.com',
+                phone: '+91 98765 43210',
+                about: 'Traditional family-oriented professional looking for a caring life partner who values family and career balance.',
+                hobbies: 'Reading business books, cricket, classical music',
+                city: 'Chennai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 24,
+                ageMax: 28,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Bachelor\'s or higher',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '500000',
+                values: ['family', 'traditional values', 'career'],
+                additional: 'Looking for an educated, family-oriented girl with traditional values'
+            },
+            user: {
+                userId: 'demo_user_1',
+                email: 'demo1@indian.com',
+                name: 'Rajesh Demo'
+            },
+            status: 'active',
+            views: 150,
+            profileCompleteness: 95,
+            createdAt: '2024-02-15T10:30:00Z',
+            updatedAt: '2024-02-15T10:30:00Z'
+        },
+        {
+            _id: 'profile_1002',
+            bio: {
+                fullName: 'Keerthana Raman',
+                gender: 'Female',
+                age: 26,
+                religion: 'Hindu',
+                education: 'MSc Computer Science',
+                profession: 'Software Developer',
+                email: 'keerthana.r@example.com',
+                phone: '+91 87654 32109',
+                about: 'Modern professional who believes in gender equality and wants a partner who respects career ambitions.',
+                hobbies: 'Coding, Bharatanatyam, cooking traditional Tamil food',
+                city: 'Coimbatore, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 27,
+                ageMax: 32,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Master\'s or higher',
+                profession: 'IT Professional',
+                location: 'Tamil Nadu',
+                income: '800000',
+                values: ['career growth', 'equality', 'modern outlook'],
+                additional: 'Seeking an educated, open-minded professional'
+            },
+            user: {
+                userId: 'demo_user_2',
+                email: 'demo2@indian.com',
+                name: 'Keerthana Demo'
+            },
+            status: 'active',
+            views: 210,
+            profileCompleteness: 92,
+            createdAt: '2024-02-14T14:20:00Z',
+            updatedAt: '2024-02-14T14:20:00Z'
+        },
+        {
+            _id: 'profile_1003',
+            bio: {
+                fullName: 'Aravind Senthil',
+                gender: 'Male',
+                age: 31,
+                religion: 'Hindu',
+                education: 'B.Tech',
+                profession: 'Mechanical Engineer',
+                email: 'aravind.s@example.com',
+                phone: '+91 76543 21098',
+                about: 'Simple, hardworking person from a traditional Tamil family. Values honesty and simplicity in life.',
+                hobbies: 'Gardening, watching Tamil movies, traveling',
+                city: 'Madurai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 25,
+                ageMax: 30,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any respectful job',
+                location: 'Tamil Nadu',
+                income: '300000',
+                values: ['simplicity', 'honesty', 'family values'],
+                additional: 'Looking for a simple, homely girl'
+            },
+            user: {
+                userId: 'demo_user_3',
+                email: 'demo3@indian.com',
+                name: 'Aravind Demo'
+            },
+            status: 'active',
+            views: 95,
+            profileCompleteness: 88,
+            createdAt: '2024-02-13T11:15:00Z',
+            updatedAt: '2024-02-13T11:15:00Z'
+        },
+        {
+            _id: 'profile_1004',
+            bio: {
+                fullName: 'Indumathi Venkatesh',
+                gender: 'Female',
+                age: 27,
+                religion: 'Hindu',
+                education: 'B.Sc Nursing',
+                profession: 'Nurse',
+                email: 'indumathi.v@example.com',
+                phone: '+91 65432 10987',
+                about: 'Caring healthcare professional who wants to balance career and family life.',
+                hobbies: 'Yoga, cooking Tamil dishes, reading spiritual books',
+                city: 'Salem, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 28,
+                ageMax: 34,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '600000',
+                values: ['caring nature', 'responsibility', 'family'],
+                additional: 'Looking for a responsible, caring life partner'
+            },
+            user: {
+                userId: 'demo_user_4',
+                email: 'demo4@indian.com',
+                name: 'Indumathi Demo'
+            },
+            status: 'active',
+            views: 180,
+            profileCompleteness: 90,
+            createdAt: '2024-02-12T09:45:00Z',
+            updatedAt: '2024-02-12T09:45:00Z'
+        },
+        {
+            _id: 'profile_1005',
+            bio: {
+                fullName: 'Karthik Muthu',
+                gender: 'Male',
+                age: 33,
+                religion: 'Hindu',
+                education: 'CA',
+                profession: 'Chartered Accountant',
+                email: 'karthik.m@example.com',
+                phone: '+91 54321 09876',
+                about: 'Established professional looking for a life partner to build a happy Tamil family together.',
+                hobbies: 'Stock market analysis, cricket, classical Carnatic music',
+                city: 'Chennai, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 26,
+                ageMax: 30,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '700000',
+                values: ['family', 'stability', 'traditional'],
+                additional: 'Seeking a homely, educated girl from good Tamil family'
+            },
+            user: {
+                userId: 'demo_user_5',
+                email: 'demo5@indian.com',
+                name: 'Karthik Demo'
+            },
+            status: 'active',
+            views: 120,
+            profileCompleteness: 93,
+            createdAt: '2024-02-11T16:30:00Z',
+            updatedAt: '2024-02-11T16:30:00Z'
+        },
+        {
+            _id: 'profile_1006',
+            bio: {
+                fullName: 'Divya Prakash',
+                gender: 'Female',
+                age: 25,
+                religion: 'Hindu',
+                education: 'B.Com',
+                profession: 'Accountant',
+                email: 'divya.p@example.com',
+                phone: '+91 98765 12340',
+                about: 'Traditional Tamil girl looking for a partner who respects family values and traditions.',
+                hobbies: 'Cooking, kolam drawing, listening to devotional songs',
+                city: 'Tiruchirappalli, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 27,
+                ageMax: 32,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any stable job',
+                location: 'Tamil Nadu',
+                income: '400000',
+                values: ['traditional values', 'respect', 'family'],
+                additional: 'Looking for a traditional Tamil boy with good family values'
+            },
+            user: {
+                userId: 'demo_user_6',
+                email: 'demo6@indian.com',
+                name: 'Divya Demo'
+            },
+            status: 'active',
+            views: 110,
+            profileCompleteness: 87,
+            createdAt: '2024-02-10T10:15:00Z',
+            updatedAt: '2024-02-10T10:15:00Z'
+        },
+        {
+            _id: 'profile_1007',
+            bio: {
+                fullName: 'Suresh Balaji',
+                gender: 'Male',
+                age: 30,
+                religion: 'Hindu',
+                education: 'MBA',
+                profession: 'Bank Manager',
+                email: 'suresh.b@example.com',
+                phone: '+91 87654 98765',
+                about: 'Bank professional from a traditional Tamil family looking for a compatible partner.',
+                hobbies: 'Reading, badminton, temple visits',
+                city: 'Erode, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 24,
+                ageMax: 28,
+                gender: 'Female',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Any',
+                location: 'Tamil Nadu',
+                income: '500000',
+                values: ['family values', 'stability', 'respect'],
+                additional: 'Looking for a traditional Tamil girl from good family'
+            },
+            user: {
+                userId: 'demo_user_7',
+                email: 'demo7@indian.com',
+                name: 'Suresh Demo'
+            },
+            status: 'active',
+            views: 95,
+            profileCompleteness: 89,
+            createdAt: '2024-02-09T15:45:00Z',
+            updatedAt: '2024-02-09T15:45:00Z'
+        },
+        {
+            _id: 'profile_1008',
+            bio: {
+                fullName: 'Anjali Sundar',
+                gender: 'Female',
+                age: 28,
+                religion: 'Hindu',
+                education: 'M.Pharm',
+                profession: 'Pharmacist',
+                email: 'anjali.s@example.com',
+                phone: '+91 76543 87654',
+                about: 'Healthcare professional with modern outlook but traditional values.',
+                hobbies: 'Dancing, cooking experiments, traveling',
+                city: 'Tirunelveli, Tamil Nadu'
+            },
+            partner: {
+                ageMin: 28,
+                ageMax: 34,
+                gender: 'Male',
+                religion: ['Hindu'],
+                education: 'Graduate',
+                profession: 'Professional',
+                location: 'Tamil Nadu',
+                income: '600000',
+                values: ['modern outlook', 'traditional values', 'career'],
+                additional: 'Looking for an educated professional with good values'
+            },
+            user: {
+                userId: 'demo_user_8',
+                email: 'demo8@indian.com',
+                name: 'Anjali Demo'
+            },
+            status: 'active',
+            views: 130,
+            profileCompleteness: 91,
+            createdAt: '2024-02-08T12:30:00Z',
+            updatedAt: '2024-02-08T12:30:00Z'
+        }
+    ];
             
             allProfiles = demoProfiles;
             localStorage.setItem('allProfiles', JSON.stringify(demoProfiles));
             console.log('Loaded demo profiles for Find Matches page');
-        }
+        
 
         // Set initial filters based on user preferences
         function setInitialFilters(userProfile) {
@@ -1720,95 +1807,102 @@
             }
         }
 
-        // Apply filters and load matches
-        function applyFilters() {
-            showLoading();
-            
-            // Get current user
-            const user = auth.getCurrentUser();
-            if (!user) return;
-            
-            // Collect filter values
-            activeFilters = {
-                ageMin: document.getElementById('ageRangeMin').value ? parseInt(document.getElementById('ageRangeMin').value) : null,
-                ageMax: document.getElementById('ageRangeMax').value ? parseInt(document.getElementById('ageRangeMax').value) : null,
-                gender: document.getElementById('genderFilter').value || null,
-                religion: document.getElementById('religionFilter').value || null,
-                education: document.getElementById('educationFilter').value || null,
-                location: document.getElementById('locationFilter').value ? document.getElementById('locationFilter').value.toLowerCase() : null,
-                profession: document.getElementById('professionFilter').value ? document.getElementById('professionFilter').value.toLowerCase() : null,
-                incomeMin: document.getElementById('incomeRangeMin').value ? parseInt(document.getElementById('incomeRangeMin').value) : null,
-                incomeMax: document.getElementById('incomeRangeMax').value ? parseInt(document.getElementById('incomeRangeMax').value) : null,
-                compatibilityMin: parseInt(document.getElementById('compatibilityMin').value) || 0,
-                verifiedOnly: document.getElementById('filterVerified').checked,
-                onlineNow: document.getElementById('filterOnline').checked,
-                hasPhoto: document.getElementById('filterHasPhoto').checked
-            };
-            
-            // Filter profiles
-            filteredProfiles = allProfiles.filter(profile => {
-                // Skip user's own profile
-                if (profile.user && profile.user.userId === user.id) return false;
-                
-                // Check basic profile status
-                if (profile.status !== 'active') return false;
-                
-                // Check verified filter
-                if (activeFilters.verifiedOnly && !profile.verified) return false;
-                
-                // Check online filter
-                if (activeFilters.onlineNow && !profile.online) return false;
-                
-                // Check photo filter
-                if (activeFilters.hasPhoto && !profile.hasPhoto) return false;
-                
-                // Check age filter
-                if (activeFilters.ageMin && profile.bio.age < activeFilters.ageMin) return false;
-                if (activeFilters.ageMax && profile.bio.age > activeFilters.ageMax) return false;
-                
-                // Check gender filter
-                if (activeFilters.gender && profile.bio.gender !== activeFilters.gender) return false;
-                
-                // Check religion filter
-                if (activeFilters.religion && profile.bio.religion !== activeFilters.religion) return false;
-                
-                // Check education filter
-                if (activeFilters.education && profile.bio.education !== activeFilters.education) return false;
-                
-                // Check location filter
-                if (activeFilters.location && !profile.bio.city.toLowerCase().includes(activeFilters.location)) return false;
-                
-                // Check profession filter
-                if (activeFilters.profession && !profile.bio.profession.toLowerCase().includes(activeFilters.profession)) return false;
-                
-                // Check income filter
-                if (activeFilters.incomeMin && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) < activeFilters.incomeMin)) return false;
-                if (activeFilters.incomeMax && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) > activeFilters.incomeMax)) return false;
-                
-                // Check compatibility filter
-                if (activeFilters.compatibilityMin && (!profile.compatibility || profile.compatibility < activeFilters.compatibilityMin)) return false;
-                
-                return true;
-            });
-            
-            // Sort by current sort option
-            sortProfiles();
-            
-            // Reset to first page
-            currentPage = 1;
-            
-            // Display matches
-            displayMatches();
-            
-            // Update stats
-            updateStats();
-            
-            // Update active filters display
-            updateActiveFiltersDisplay();
-            
-            hideLoading();
-            showNotification('Filters applied successfully!', 'success');
+        // Apply filters and load matches - CORRECTED VERSION
+function applyFilters() {
+    showLoading();
+    
+    // Get current user
+    const user = auth.getCurrentUser();
+    if (!user) return;
+    
+    // Collect filter values
+    activeFilters = {
+        ageMin: document.getElementById('ageRangeMin').value ? parseInt(document.getElementById('ageRangeMin').value) : null,
+        ageMax: document.getElementById('ageRangeMax').value ? parseInt(document.getElementById('ageRangeMax').value) : null,
+        gender: document.getElementById('genderFilter').value || null,
+        religion: document.getElementById('religionFilter').value || null,
+        education: document.getElementById('educationFilter').value || null,
+        location: document.getElementById('locationFilter').value ? document.getElementById('locationFilter').value.toLowerCase() : null,
+        profession: document.getElementById('professionFilter').value ? document.getElementById('professionFilter').value.toLowerCase() : null,
+        incomeMin: document.getElementById('incomeRangeMin').value ? parseInt(document.getElementById('incomeRangeMin').value) : null,
+        incomeMax: document.getElementById('incomeRangeMax').value ? parseInt(document.getElementById('incomeRangeMax').value) : null,
+        compatibilityMin: parseInt(document.getElementById('compatibilityMin').value) || 0,
+        verifiedOnly: document.getElementById('filterVerified').checked,
+        onlineNow: document.getElementById('filterOnline').checked,
+        hasPhoto: document.getElementById('filterHasPhoto').checked
+    };
+    
+    // Filter profiles - EXCLUDE CURRENT USER'S PROFILE
+    filteredProfiles = allProfiles.filter(profile => {
+        // Skip user's own profile by checking userId
+        if (profile.user && profile.user.userId === user.id) {
+            return false;
         }
+        
+        // Skip profiles with same email as current user
+        if (profile.bio.email && user.email && profile.bio.email.toLowerCase() === user.email.toLowerCase()) {
+            return false;
+        }
+        
+        // Check basic profile status
+        if (profile.status !== 'active') return false;
+        
+        // Check verified filter
+        if (activeFilters.verifiedOnly && !profile.verified) return false;
+        
+        // Check online filter
+        if (activeFilters.onlineNow && !profile.online) return false;
+        
+        // Check photo filter
+        if (activeFilters.hasPhoto && !profile.hasPhoto) return false;
+        
+        // Check age filter
+        if (activeFilters.ageMin && profile.bio.age < activeFilters.ageMin) return false;
+        if (activeFilters.ageMax && profile.bio.age > activeFilters.ageMax) return false;
+        
+        // Check gender filter
+        if (activeFilters.gender && profile.bio.gender !== activeFilters.gender) return false;
+        
+        // Check religion filter
+        if (activeFilters.religion && profile.bio.religion !== activeFilters.religion) return false;
+        
+        // Check education filter
+        if (activeFilters.education && profile.bio.education !== activeFilters.education) return false;
+        
+        // Check location filter
+        if (activeFilters.location && !profile.bio.city.toLowerCase().includes(activeFilters.location)) return false;
+        
+        // Check profession filter
+        if (activeFilters.profession && !profile.bio.profession.toLowerCase().includes(activeFilters.profession)) return false;
+        
+        // Check income filter
+        if (activeFilters.incomeMin && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) < activeFilters.incomeMin)) return false;
+        if (activeFilters.incomeMax && (!profile.partner || !profile.partner.income || parseInt(profile.partner.income) > activeFilters.incomeMax)) return false;
+        
+        // Check compatibility filter
+        if (activeFilters.compatibilityMin && (!profile.compatibility || profile.compatibility < activeFilters.compatibilityMin)) return false;
+        
+        return true;
+    });
+    
+    // Sort by current sort option
+    sortProfiles();
+    
+    // Reset to first page
+    currentPage = 1;
+    
+    // Display matches
+    displayMatches();
+    
+    // Update stats
+    updateStats();
+    
+    // Update active filters display
+    updateActiveFiltersDisplay();
+    
+    hideLoading();
+    showNotification('Filters applied successfully!', 'success');
+}
 
         // Sort profiles based on current sort option
         function sortProfiles() {
