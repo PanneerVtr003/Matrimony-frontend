@@ -4,18 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Everlasting Bonds - Find Your Perfect Match</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Playfair Display font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .error-text { color:red; font-size:12px; }
+        .divider { text-align:center; margin:12px 0; font-weight:600; color:#999; }
+        .google-btn { width:100%; padding:10px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+        .auth-links { text-align:right; font-size:13px; margin-top:6px; }
+        .auth-links a { text-decoration:none; color:#ff4b5c; }
+    </style>
 </head>
+
 <body>
-    <!-- Navigation -->
+
+<!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
                 <i class="fas fa-heart"></i>
                 Everlasting Bonds
             </a>
+            
+            <!-- Mobile Menu Toggle Button -->
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
             <div class="nav-links">
                 <a href="#features"><i class="fas fa-star"></i> Features</a>
                 <a href="#stories"><i class="fas fa-users"></i> Success Stories</a>
@@ -30,53 +51,6 @@
             </div>
         </div>
     </nav>
-
-    <script>
-         // Add this to your HTML or JavaScript file
-const menuToggle = document.createElement('button');
-menuToggle.className = 'menu-toggle';
-menuToggle.innerHTML = `
-    <span></span>
-    <span></span>
-    <span></span>
-`;
-menuToggle.style.color = "black";
-menuToggle.setAttribute('aria-label', 'Toggle menu');
-menuToggle.setAttribute('aria-expanded', 'false');
-
-// Insert after logo in navbar container
-const navbarContainer = document.querySelector('.navbar .container');
-const logo = document.querySelector('.logo');
-navbarContainer.insertBefore(menuToggle, logo.nextSibling);
-
-// Mobile menu functionality
-const navLinks = document.querySelector('.nav-links');
-
-menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', !expanded);
-});
-
-// Close menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-    });
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!navbarContainer.contains(e.target)) {
-        menuToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-    }
-});
-    </script>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -176,151 +150,368 @@ document.addEventListener('click', (e) => {
         </div>
     </section>
 
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
-                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
-            </div>
-            <form id="loginForm">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="loginEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword"><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" id="loginPassword" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">
-                        Cancel
-                    </button>
-                </div>
-            </form>
+<!-- ================= LOGIN MODAL ================= -->
+<div class="modal-overlay" id="loginModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Login</h2>
+            <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
         </div>
-    </div>
 
-    <!-- Register Modal -->
-    <div class="modal-overlay" id="registerModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2><i class="fas fa-user-plus"></i> Register</h2>
-                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
+        <form id="loginForm">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                    <small id="loginPasswordError" class="error-text"></small>
+                </div>
+
+                <div class="auth-links">
+                    <a href="#" id="forgotPasswordLink">Forgot password?</a> |
+                    <a href="#" id="openRegisterFromLogin">Register</a>
+                </div>
+
+                <div class="divider">OR</div>
+
+                <button type="button" class="google-btn" id="googleLoginBtn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+
             </div>
-            <form id="registerForm">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="registerEmail"><i class="fas fa-envelope"></i> Email</label>
-                        <input type="email" id="registerEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword"><i class="fas fa-lock"></i> Password</label>
-                        <input type="password" id="registerPassword" class="form-control" required minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label for="registerConfirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
-                        <input type="password" id="registerConfirmPassword" class="form-control" required minlength="6">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-user-plus"></i> Register
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3><i class="fas fa-heart"></i> Everlasting Bonds</h3>
-                    <p>Connecting hearts, creating families since 2010</p>
-                </div>
-                <!-- Add this inside the footer-content div -->
-<div class="footer-section">
-    <h4>Quick Links</h4>
-    <ul>
-        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
-        <li><a href="#stories"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
-        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-        <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-        <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
-    </ul>
-</div>
-
-<div class="footer-section">
-    <h4>Follow Us</h4>
-    <div class="social-links">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('loginModal')">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
-                <div class="footer-section">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-envelope"></i> info@everlastingbonds.com</p>
-                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Everlasting Bonds. All rights reserved.</p>
-            </div>
+
+<!-- ================= REGISTER MODAL ================= -->
+<div class="modal-overlay" id="registerModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Register</h2>
+            <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
         </div>
 
-        <!-- Loading Spinner -->
+        <form id="registerForm">
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" class="form-control" required>
+                    <small id="registerPasswordError" class="error-text"></small>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" class="form-control" required>
+                </div>
+
+                <p class="auth-links">
+                    Already have an account?
+                    <a href="#" id="openLoginLink">Login</a>
+                </p>
+
+                <div class="divider">OR</div>
+
+                <button type="button" class="google-btn" id="googleRegisterBtn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('registerModal')">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contact">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-heart"></i> Everlasting Bonds</h3>
+                <p>Connecting hearts, creating families since 2010</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
+                    <li><a href="#stories"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-envelope"></i> info@everlastingbonds.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Everlasting Bonds. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Loading Spinner -->
 <div class="loading-spinner" id="loadingSpinner">
     <div class="spinner"></div>
 </div>
 
-<style>
-.loading-spinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    backdrop-filter: blur(5px);
+<!-- ================= SCRIPTS ================= -->
+<script>
+/* ================= MOBILE MENU FUNCTIONALITY ================= */
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navbar = document.querySelector('.navbar');
+            if (!navbar.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+    
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+});
+
+/* ================= MODAL CONTROLS ================= */
+const loginBtn = document.getElementById('loginBtn');
+const registerBtn = document.getElementById('registerBtn');
+const getStartedBtn = document.getElementById('getStartedBtn');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const loginPasswordError = document.getElementById('loginPasswordError');
+const registerPasswordError = document.getElementById('registerPasswordError');
+const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+const openRegisterFromLogin = document.getElementById('openRegisterFromLogin');
+const openLoginLink = document.getElementById('openLoginLink');
+const googleLoginBtn = document.getElementById('googleLoginBtn');
+const googleRegisterBtn = document.getElementById('googleRegisterBtn');
+
+function openModal(id){ 
+    document.getElementById(id).style.display="flex";
+    document.getElementById(id).classList.add('active');
+}
+function closeModal(id){ 
+    document.getElementById(id).style.display="none";
+    document.getElementById(id).classList.remove('active');
 }
 
-.loading-spinner.active {
-    display: flex;
+if (loginBtn) loginBtn.onclick = () => openModal("loginModal");
+if (registerBtn) registerBtn.onclick = () => openModal("registerModal");
+if (getStartedBtn) getStartedBtn.onclick = () => openModal("registerModal");
+
+/* ================= PASSWORD VALIDATION ================= */
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$/;
+
+/* ================= LOGIN ================= */
+if (loginForm) {
+    loginForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPassword').value;
+
+        if (!passwordRegex.test(pass)) {
+            if (loginPasswordError) {
+                loginPasswordError.textContent = "Password must contain uppercase, lowercase, number & special character";
+            }
+            return;
+        }
+
+        if (loginPasswordError) loginPasswordError.textContent = "";
+        
+        // Show loading spinner
+        const spinner = document.getElementById('loadingSpinner');
+        if (spinner) spinner.classList.add('active');
+        
+        // Simulate API call
+        setTimeout(() => {
+            localStorage.setItem("token","demo-token");
+            localStorage.setItem("currentUser", JSON.stringify({email: email}));
+            
+            if (spinner) spinner.classList.remove('active');
+            window.location.href="user-dashboard.html";
+        }, 1000);
+    });
 }
 
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+/* ================= REGISTER ================= */
+if (registerForm) {
+    registerForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            if (registerPasswordError) {
+                registerPasswordError.textContent="Passwords do not match";
+            }
+            return;
+        }
+        
+        if (!passwordRegex.test(password)) {
+            if (registerPasswordError) {
+                registerPasswordError.textContent="Password must contain uppercase, lowercase, number & special character";
+            }
+            return;
+        }
+        
+        // Show loading spinner
+        const spinner = document.getElementById('loadingSpinner');
+        if (spinner) spinner.classList.add('active');
+        
+        // Simulate registration
+        setTimeout(() => {
+            if (spinner) spinner.classList.remove('active');
+            alert("Registered successfully!");
+            closeModal("registerModal");
+            openModal("loginModal");
+        }, 1000);
+    });
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* ================= EXTRA FEATURES ================= */
+if (forgotPasswordLink) {
+    forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = prompt("Enter registered email:");
+        if(email) alert("Reset link sent to " + email);
+    });
 }
-</style>
-    </footer>
 
-    <script src="./js/auth.js"></script>
-    <script src="./js/main.js"></script>
+if (openRegisterFromLogin) {
+    openRegisterFromLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal("loginModal");
+        openModal("registerModal");
+    });
+}
+
+if (openLoginLink) {
+    openLoginLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal("registerModal");
+        openModal("loginModal");
+    });
+}
+
+function googleAuth(){
+    // Show loading spinner
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.classList.add('active');
+    
+    setTimeout(() => {
+        localStorage.setItem("token","google-token");
+        localStorage.setItem("currentUser", JSON.stringify({email:"googleuser@gmail.com"}));
+        
+        if (spinner) spinner.classList.remove('active');
+        window.location.href="user-dashboard.html";
+    }, 1000);
+}
+
+if (googleLoginBtn) googleLoginBtn.onclick = googleAuth;
+if (googleRegisterBtn) googleRegisterBtn.onclick = googleAuth;
+
+/* ================= ACTIVE PROFILES COUNT ================= */
+document.addEventListener('DOMContentLoaded', function() {
+    const profileCount = document.getElementById('totalProfilesCount');
+    if (profileCount) {
+        // Simulate loading count
+        let count = 0;
+        const interval = setInterval(() => {
+            count += Math.floor(Math.random() * 100);
+            if (count >= 8562) {
+                count = 8562;
+                clearInterval(interval);
+            }
+            profileCount.textContent = count.toLocaleString();
+        }, 50);
+    }
+});
+
+/* ================= CLOSE MODAL ON ESCAPE ================= */
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal('loginModal');
+        closeModal('registerModal');
+    }
+});
+
+/* ================= CLOSE MODAL ON CLICK OUTSIDE ================= */
+document.addEventListener('click', function(e) {
+    const loginModal = document.getElementById('loginModal');
+    const registerModal = document.getElementById('registerModal');
+    
+    if (loginModal && e.target === loginModal) {
+        closeModal('loginModal');
+    }
+    if (registerModal && e.target === registerModal) {
+        closeModal('registerModal');
+    }
+});
+</script>
+
 </body>
 </html>
