@@ -379,6 +379,10 @@ p {
     line-height: 1.7;
 }
 
+.hero-buttons {
+    margin-bottom: 2rem;
+}
+
 .btn-hero {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: var(--white);
@@ -395,6 +399,7 @@ p {
     box-shadow: var(--shadow);
     position: relative;
     overflow: hidden;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn-hero::before {
@@ -738,6 +743,10 @@ p {
     animation: fadeIn 0.3s ease;
 }
 
+.modal-overlay.active {
+    display: flex !important;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -747,10 +756,6 @@ p {
         opacity: 1;
         backdrop-filter: blur(5px);
     }
-}
-
-.modal-overlay.active {
-    display: flex;
 }
 
 .modal {
@@ -873,8 +878,8 @@ p {
     border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
-.modal-footer .btn {
-    padding: 0.9rem 1.8rem;
+.btn {
+    padding: 0.7rem 1.8rem;
     border: none;
     border-radius: var(--border-radius-sm);
     cursor: pointer;
@@ -886,6 +891,7 @@ p {
     gap: 0.5rem;
     min-width: 120px;
     justify-content: center;
+    font-family: 'Poppins', sans-serif;
 }
 
 .modal-footer .btn-primary {
@@ -908,6 +914,90 @@ p {
 .modal-footer .btn-secondary:hover {
     background: var(--border-color);
     transform: translateY(-2px);
+}
+
+/* Error Text */
+.error-text {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* Divider */
+.divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-weight: 600;
+    color: var(--text-lighter);
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+/* Google Button */
+.google-btn {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    background: var(--white);
+    cursor: pointer;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    transition: var(--transition);
+    color: var(--text-dark);
+    font-family: 'Poppins', sans-serif;
+}
+
+.google-btn:hover {
+    background: var(--light-gray);
+    border-color: var(--text-lighter);
+    transform: translateY(-2px);
+}
+
+.google-btn i {
+    color: #4285F4;
+    font-size: 1.1rem;
+}
+
+/* Auth Links */
+.auth-links {
+    text-align: right;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.auth-links a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.auth-links a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
 }
 
 /* Footer */
