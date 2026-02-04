@@ -1,6 +1,6 @@
 // Authentication System
 const auth = (function() {
-    // Admin credentials (for demo - in production use proper authentication)
+    // Admin credentials
     const ADMIN_EMAIL = 'admin@everlastingbonds.com';
     const ADMIN_PASSWORD = 'Admin@123';
     const ADMIN_ID = 'admin_001';
@@ -11,7 +11,6 @@ const auth = (function() {
     
     // Initialize
     function init() {
-        // Load saved data
         loadUsers();
         loadProfiles();
         
@@ -19,41 +18,113 @@ const auth = (function() {
         const savedUser = localStorage.getItem('currentUser');
         if (savedUser) {
             currentUser = JSON.parse(savedUser);
-            // Load current user's profile
             userProfile = getUserProfile();
         }
+    }
+    
+    // Simple hash function for demo
+    function simpleHash(password) {
+        let hash = 0;
+        for (let i = 0; i < password.length; i++) {
+            hash = ((hash << 5) - hash) + password.charCodeAt(i);
+            hash = hash & hash;
+        }
+        return 'hash_' + Math.abs(hash).toString(16);
     }
     
     // Load users from localStorage
     function loadUsers() {
         if (!localStorage.getItem('users')) {
-            // Create default users
             const users = [
                 {
                     id: 'user_001',
                     email: 'demo1@example.com',
-                    password: 'Demo@123',
-                    name: 'Demo User 1',
+                    name: 'Rajesh Kumar',
                     createdAt: new Date().toISOString(),
                     isAdmin: false
                 },
                 {
                     id: 'user_002',
                     email: 'demo2@example.com',
-                    password: 'Demo@123',
-                    name: 'Demo User 2',
+                    name: 'Priya Sharma',
                     createdAt: new Date().toISOString(),
                     isAdmin: false
                 }
             ];
             localStorage.setItem('users', JSON.stringify(users));
+            
+            // Create default profiles for demo users
+            users.forEach(user => {
+                if (!user.isAdmin) {
+                    createDefaultProfileForUser(user);
+                }
+            });
         }
     }
     
-    // Load profiles from localStorage
+    // Load profiles from localStorage - UPDATED: Centralized storage
     function loadProfiles() {
         if (!localStorage.getItem('allProfiles')) {
             localStorage.setItem('allProfiles', JSON.stringify([]));
+        }
+    }
+    
+    // Create default profile for new user - UPDATED: Now saves to centralized storage
+    function createDefaultProfileForUser(user) {
+        try {
+            const profileId = 'profile_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            const defaultProfile = {
+                _id: profileId,
+                bio: {
+                    fullName: user.name || 'New User',
+                    gender: '',
+                    age: 25,
+                    religion: '',
+                    education: '',
+                    profession: '',
+                    email: user.email,
+                    phone: '',
+                    city: '',
+                    about: 'I\'m new here. Please update your profile information!',
+                    hobbies: ''
+                },
+                partner: {
+                    ageMin: 22,
+                    ageMax: 30,
+                    gender: 'Any',
+                    religion: ['Any'],
+                    education: 'Any',
+                    profession: '',
+                    income: '',
+                    location: '',
+                    values: [],
+                    additional: ''
+                },
+                status: 'active',
+                views: 0,
+                profileCompleteness: 20,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                user: {
+                    userId: user.id,
+                    email: user.email,
+                    name: user.name
+                }
+            };
+            
+            // Save to centralized ALL PROFILES storage
+            let allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+            allProfiles.push(defaultProfile);
+            localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
+            
+            console.log('Default profile created and saved to allProfiles:', user.email);
+            
+            return defaultProfile;
+            
+        } catch (error) {
+            console.error('Error creating default profile:', error);
+            return null;
         }
     }
     
@@ -62,16 +133,30 @@ const auth = (function() {
         return JSON.parse(localStorage.getItem('users') || '[]');
     }
     
-    // Get all profiles - FIXED: Return ALL profiles from ALL users
+    // Get ALL profiles - UPDATED: Returns ALL profiles for ALL users
     function getAllProfiles() {
-        const profiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
-        console.log('All profiles retrieved:', profiles.length);
-        console.log('Profile details:', profiles.map(p => ({
-            id: p._id,
-            email: p.user?.email,
-            name: p.bio?.fullName
-        })));
-        return profiles;
+        let allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+        
+        // If no profiles in centralized storage, check individual user profiles
+        if (allProfiles.length === 0) {
+            console.log('No profiles in allProfiles, checking individual user profiles...');
+            
+            // Get all users
+            const users = getAllUsers();
+            
+            users.forEach(user => {
+                // Check for user-specific profile storage
+                const userProfileKey = `userProfile_${user.id}`;
+                const userProfile = JSON.parse(localStorage.getItem(userProfileKey) || 'null');
+                
+                if (userProfile) {
+                    allProfiles.push(userProfile);
+                }
+            });
+        }
+        
+        console.log('Total profiles available for matching:', allProfiles.length);
+        return allProfiles;
     }
     
     // Get profiles by user ID
@@ -83,6 +168,15 @@ const auth = (function() {
     // Register new user
     function register(email, password, name) {
         const users = getAllUsers();
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return {
+                success: false,
+                error: 'Please enter a valid email address'
+            };
+        }
         
         // Check if user already exists
         if (users.find(u => u.email === email)) {
@@ -96,7 +190,7 @@ const auth = (function() {
         const newUser = {
             id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
             email: email,
-            password: password, // In production, this should be hashed
+            password: simpleHash(password),
             name: name || email.split('@')[0],
             createdAt: new Date().toISOString(),
             isAdmin: false
@@ -105,16 +199,29 @@ const auth = (function() {
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         
+        // AUTOMATICALLY CREATE DEFAULT PROFILE
+        const defaultProfile = createDefaultProfileForUser(newUser);
+        
+        // Set as current user
+        currentUser = newUser;
+        localStorage.setItem('currentUser', JSON.stringify(newUser));
+        
+        // Set user's profile
+        if (defaultProfile) {
+            userProfile = defaultProfile;
+            localStorage.setItem('userProfile', JSON.stringify(defaultProfile));
+        }
+        
         return {
             success: true,
-            user: newUser
+            user: newUser,
+            hasProfile: !!defaultProfile,
+            profile: defaultProfile
         };
     }
     
     // Login user
     function login(email, password) {
-        console.log('Login attempt for:', email);
-        
         // Check if admin login
         if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
             const adminUser = {
@@ -138,22 +245,31 @@ const auth = (function() {
         
         // Regular user login
         const users = getAllUsers();
-        const user = users.find(u => u.email === email && u.password === password);
+        const passwordHash = simpleHash(password);
+        const user = users.find(u => u.email === email && u.password === passwordHash);
         
         if (user) {
             currentUser = user;
             localStorage.setItem('currentUser', JSON.stringify(user));
             
             // Load user profile if exists
-            userProfile = getUserProfile();
+            let profile = getUserProfile();
             
-            console.log('User logged in:', user.email);
-            console.log('User profile loaded:', userProfile ? 'Yes' : 'No');
+            // If no profile exists, create a default one
+            if (!profile) {
+                profile = createDefaultProfileForUser(user);
+                if (profile) {
+                    localStorage.setItem('userProfile', JSON.stringify(profile));
+                }
+            }
+            
+            userProfile = profile;
             
             return {
                 success: true,
                 user: user,
-                isAdmin: false
+                isAdmin: false,
+                hasProfile: !!profile
             };
         }
         
@@ -187,7 +303,7 @@ const auth = (function() {
         return currentUser;
     }
     
-    // Get user profile - FIXED: Return current user's profile
+    // Get user profile
     function getUserProfile() {
         if (!currentUser) return null;
         
@@ -197,11 +313,7 @@ const auth = (function() {
         if (!profile) {
             // Check allProfiles
             const profiles = getAllProfiles();
-            console.log('Looking for profile for user:', currentUser.id);
-            console.log('Available profiles:', profiles.length);
-            
             profile = profiles.find(p => p.user?.userId === currentUser.id);
-            console.log('Found profile:', profile ? 'Yes' : 'No');
             
             // Save to userProfile for future use
             if (profile) {
@@ -213,7 +325,7 @@ const auth = (function() {
         return userProfile;
     }
     
-    // Save user profile - FIXED VERSION
+    // Save user profile - UPDATED: Saves to centralized storage
     function saveUserProfile(profileData) {
         try {
             const user = getCurrentUser();
@@ -253,33 +365,31 @@ const auth = (function() {
             // 1. Save to userProfile (for easy access)
             localStorage.setItem('userProfile', JSON.stringify(profileData));
             
-            // 2. Save to allProfiles (for matching)
+            // 2. Save to allProfiles (CENTRALIZED STORAGE for ALL users)
             const allProfiles = getAllProfiles();
+            
+            // Check if profile already exists
             const existingIndex = allProfiles.findIndex(p => 
                 p.user && p.user.userId === user.id
             );
             
             if (existingIndex >= 0) {
+                // Update existing profile
                 allProfiles[existingIndex] = profileData;
+                console.log('Updated existing profile in allProfiles');
             } else {
+                // Add new profile
                 allProfiles.push(profileData);
+                console.log('Added new profile to allProfiles');
             }
             
             localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
-            
-            // 3. Also update adminProfiles for admin panel
-            const adminProfiles = JSON.parse(localStorage.getItem('adminProfiles') || '[]');
-            const adminProfilesFiltered = adminProfiles.filter(p => 
-                !p.user || p.user.userId !== user.id
-            );
-            adminProfilesFiltered.push(profileData);
-            localStorage.setItem('adminProfiles', JSON.stringify(adminProfilesFiltered));
             
             // Update cache
             userProfile = profileData;
             
             console.log('Profile saved successfully for user:', user.email);
-            console.log('Total profiles now:', allProfiles.length);
+            console.log('Total profiles in allProfiles:', allProfiles.length);
             
             return {
                 success: true,
@@ -312,22 +422,52 @@ const auth = (function() {
         return Math.min(completeness, 100);
     }
     
-    // Save profile to admin system (alias for compatibility)
-    function saveProfileToAdminSystem(profileData) {
-        return saveUserProfile(profileData);
-    }
-    
     // Get profile by ID
     function getProfileById(profileId) {
         const profiles = getAllProfiles();
         return profiles.find(p => p._id === profileId);
     }
     
+    // Get other users' profiles (for matching) - NEW FUNCTION
+    function getOtherUserProfiles() {
+        if (!currentUser) return [];
+        
+        const profiles = getAllProfiles();
+        
+        // Filter out current user's own profile
+        return profiles.filter(profile => 
+            profile.user && profile.user.userId !== currentUser.id
+        );
+    }
+    
+    // Get profiles for matching (excludes current user)
+    function getProfilesForMatching() {
+        return getOtherUserProfiles();
+    }
+    
+    // Check if user should complete profile
+    function shouldCompleteProfile() {
+        if (!currentUser || currentUser.isAdmin) return false;
+        
+        const profile = getUserProfile();
+        if (!profile) return true;
+        
+        // Check if profile completeness is low
+        if (profile.profileCompleteness < 70) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    // Mark profile completion reminder as done
+    function markProfileReminderDone() {
+        // No specific reminder tracking needed
+    }
+    
     // Admin functions
     function adminGetAllProfiles() {
-        const profiles = getAllProfiles();
-        console.log('Admin fetching all profiles:', profiles.length);
-        return profiles;
+        return getAllProfiles();
     }
     
     function adminGetProfileById(profileId) {
@@ -356,7 +496,6 @@ const auth = (function() {
         }
         
         console.log('Profile deleted:', profileId);
-        console.log('Remaining profiles:', profiles.length);
         
         return {
             success: true,
@@ -424,11 +563,16 @@ const auth = (function() {
         
         // Profile functions
         getUserProfile,
-        saveUserProfile, // Use this instead of saveProfileToAdminSystem
-        saveProfileToAdminSystem, // Keep for backward compatibility
-        getAllProfiles,
+        saveUserProfile,
+        getAllProfiles,           // Returns ALL profiles for ALL users
         getProfilesByUserId,
         getProfileById,
+        getOtherUserProfiles,     // Returns other users' profiles (for matching)
+        getProfilesForMatching,   // Alias for getOtherUserProfiles
+        
+        // Profile completion helpers
+        shouldCompleteProfile,
+        markProfileReminderDone,
         
         // Admin functions
         adminGetAllProfiles,
