@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - User Profiles</title>
+    <title>User Profiles Admin - Everlasting Bonds</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ====== ADMIN DASHBOARD CSS ====== */
         :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary: #7209b7;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --dark: #212529;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --gray-light: #e9ecef;
-            --border-radius: 12px;
-            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --primary-color: #1e3a8a;
+            --primary-dark: #1e40af;
+            --secondary-color: #dc2626;
+            --accent-color: #059669;
+            --warning-color: #d97706;
+            --info-color: #0ea5e9;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --gray-color: #64748b;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --border-radius: 16px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -30,547 +33,34 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
             overflow-x: hidden;
-        }
-
-        .admin-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
+            background: var(--light-color);
             min-height: 100vh;
         }
 
-        /* Sidebar */
-        .sidebar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 2rem 1.5rem;
-            border-right: 1px solid rgba(255, 255, 255, 0.2);
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--gray-light);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 1rem 1.2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            color: var(--gray);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-item:hover {
-            background: rgba(67, 97, 238, 0.1);
-            color: var(--primary);
-            transform: translateX(5px);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
-
-        .nav-item i {
-            font-size: 1.1rem;
-            width: 20px;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            backdrop-filter: blur(10px);
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .search-box {
-            position: relative;
-        }
-
-        .search-box input {
-            padding: 0.8rem 1rem 0.8rem 3rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 50px;
-            font-size: 0.95rem;
-            width: 300px;
-            transition: var(--transition);
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Stats Cards */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.8rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .stat-icon.users {
-            background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
-        }
-
-        .stat-icon.male {
-            background: linear-gradient(135deg, #7209b7 0%, #b5179e 100%);
-        }
-
-        .stat-icon.female {
-            background: linear-gradient(135deg, #f72585 0%, #ff9e9e 100%);
-        }
-
-        .stat-icon.active {
-            background: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
-        }
-
-        .stat-info h3 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--gray) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-info p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* Profiles Grid */
-        .profiles-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem 0;
-        }
-
-        .profiles-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .filter-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .filter-select {
-            padding: 0.7rem 1rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            background: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .profiles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .profile-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-        }
-
-        .profile-header {
-            padding: 1.8rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            opacity: 0.5;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .profile-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 0.4rem 0.8rem;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .profile-badge.male {
-            background: rgba(76, 201, 240, 0.2);
-        }
-
-        .profile-badge.female {
-            background: rgba(247, 37, 133, 0.2);
-        }
-
-        .profile-content {
-            padding: 1.8rem;
-        }
-
-        .profile-detail {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .profile-detail:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            color: var(--gray);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            text-align: right;
-            max-width: 60%;
-            word-break: break-word;
-        }
-
-        .profile-actions {
-            padding: 1.2rem 1.8rem;
-            background: var(--gray-light);
-            display: flex;
-            gap: 0.8rem;
-            justify-content: flex-end;
-        }
-
-        .action-btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .action-btn.view {
-            background: var(--primary);
-            color: white;
-        }
-
-        .action-btn.view:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .action-btn.delete {
-            background: white;
-            color: var(--danger);
-            border: 2px solid var(--danger);
-        }
-
-        .action-btn.delete:hover {
-            background: var(--danger);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Empty State */
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            color: var(--gray-light);
-            margin-bottom: 1.5rem;
-        }
-
-        .empty-state h3 {
-            font-size: 1.5rem;
-            color: var(--gray);
-            margin-bottom: 0.8rem;
-        }
-
-        .empty-state p {
-            color: var(--gray);
-            max-width: 400px;
-            margin: 0 auto 1.5rem;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal {
-            background: white;
-            border-radius: var(--border-radius);
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
             width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            animation: modalSlideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes modalSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .modal-header {
-            padding: 1.8rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .close-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 2rem;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .modal-footer {
-            padding: 1.5rem 2rem;
-            background: var(--gray-light);
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-
-        /* Loading */
+        /* ====== LOADING OVERLAY ====== */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
             z-index: 9999;
             display: none;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .loading-overlay.active {
@@ -580,10 +70,11 @@
         .loader {
             width: 60px;
             height: 60px;
-            border: 4px solid var(--gray-light);
-            border-top: 4px solid var(--primary);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
+            position: relative;
         }
 
         @keyframes spin {
@@ -591,21 +82,877 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Notification */
+        /* ====== ADMIN NAVIGATION ====== */
+        .admin-navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .admin-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .admin-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .admin-logo i {
+            font-size: 1.8rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .admin-user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* ====== DASHBOARD HEADER ====== */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--primary-dark));
+        }
+
+        .dashboard-header h1 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0;
+        }
+
+        .dashboard-header h1 i {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+        }
+
+        .refresh-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-dark);
+            transform: rotate(180deg);
+        }
+
+        /* ====== DATA TABLE ====== */
+        .data-table-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            padding: 1.75rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .table-header h3 {
+            color: var(--dark-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+        }
+
+        .table-header h3 i {
+            color: var(--primary-color);
+        }
+
+        .table-filters {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: var(--dark-color);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-table th::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .data-table th:first-child {
+            border-radius: var(--border-radius) 0 0 0;
+        }
+
+        .data-table th:last-child {
+            border-radius: 0 var(--border-radius) 0 0;
+        }
+
+        .data-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .data-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .data-table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(30, 64, 175, 0.03) 100%);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info h4 {
+            color: var(--dark-color);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            color: var(--gray-color);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-active {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--accent-color);
+        }
+
+        .status-pending {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-inactive {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--gray-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--gray-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-icon.view {
+            color: var(--primary-color);
+            border-color: rgba(30, 58, 138, 0.2);
+        }
+
+        .btn-icon.view:hover {
+            background: rgba(30, 58, 138, 0.05);
+        }
+
+        .btn-icon.edit {
+            color: var(--accent-color);
+            border-color: rgba(5, 150, 105, 0.2);
+        }
+
+        .btn-icon.edit:hover {
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .btn-icon.delete {
+            color: var(--secondary-color);
+            border-color: rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-icon.delete:hover {
+            background: rgba(220, 38, 38, 0.05);
+        }
+
+        .table-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+
+        .page-btn:hover:not(.disabled) {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .page-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .records-info {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+        }
+
+        /* ====== ADMIN LOGIN POPUP ====== */
+        .login-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-header {
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .login-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-body {
+            padding: 2.5rem 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.25rem 1rem 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-color);
+            font-size: 1.1rem;
+        }
+
+        .login-error {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 0.75rem;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ====== MODALS ====== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .modal-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .profile-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .profile-column {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray-color);
+            min-width: 150px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-label i {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            width: 16px;
+        }
+
+        .info-value {
+            color: var(--dark-color);
+            flex: 1;
+            word-break: break-word;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .modal-footer {
+            padding: 1.75rem 2rem;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 58, 138, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15);
+        }
+
+        /* ====== NOTIFICATIONS ====== */
         .notification {
             position: fixed;
             top: -100px;
             right: 30px;
-            padding: 1.2rem 1.8rem;
+            padding: 1.25rem 1.75rem;
             border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 99999;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             font-weight: 500;
-            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 400px;
+            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .notification.show {
@@ -613,81 +960,190 @@
         }
 
         .notification.success {
-            background: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.95) 0%, rgba(16, 185, 129, 0.95) 100%);
             color: white;
         }
 
         .notification.error {
-            background: linear-gradient(135deg, #f72585 0%, #ff9e9e 100%);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.95) 0%, rgba(239, 68, 68, 0.95) 100%);
+            color: white;
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(30, 64, 175, 0.95) 100%);
             color: white;
         }
 
         .notification i {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .admin-container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                display: none;
-            }
-
-            .search-box input {
-                width: 250px;
-            }
+        /* ====== EMPTY STATE ====== */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
         }
 
+        .empty-state i {
+            font-size: 5rem;
+            color: #e9ecef;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .empty-state h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .empty-state p {
+            color: var(--gray-color);
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* ====== RESPONSIVE DESIGN ====== */
         @media (max-width: 768px) {
-            .main-content {
-                padding: 1rem;
-            }
-           
-
-            .header {
+            .admin-navbar .container {
                 flex-direction: column;
+                text-align: center;
                 gap: 1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+                justify-content: center;
+            }
+
+            .dashboard-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .table-header {
+                flex-direction: column;
                 align-items: stretch;
             }
 
-            .header-actions {
+            .table-filters {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .filter-select {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .info-label {
+                min-width: auto;
+            }
+
+            .login-modal {
+                max-width: 95%;
+            }
+
+            .login-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-body {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .dashboard-header {
+                padding: 1.25rem;
+            }
+
+            .modal {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-header {
+                padding: 1.5rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .modal-footer {
+                padding: 1.25rem;
                 flex-direction: column;
             }
 
-            .search-box input {
+            .modal-footer .btn {
                 width: 100%;
             }
 
-            .profiles-grid {
-                grid-template-columns: 1fr;
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: none;
             }
 
-            .stats-container {
+            .profile-details-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
 
-        @media (max-width: 2560px){
-             #userEmail{
-                padding: 0%;
-                margin: 0;
-            }
+        /* ====== SCROLLBAR STYLING ====== */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
         }
 
-        /* Utility Classes */
-        .d-none { display: none !important; }
-        .d-flex { display: flex !important; }
-        .text-center { text-align: center; }
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+            border: 2px solid #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
     </style>
 </head>
 <body>
@@ -696,889 +1152,735 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Admin Container -->
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-users-cog"></i>
-                </div>
-                <div class="logo-text">AdminPro</div>
+    <!-- Admin Login Popup -->
+    <div class="login-popup" id="loginPopup">
+        <div class="login-modal">
+            <div class="login-header">
+                <h2>Admin Login</h2>
+                <p>Enter your credentials to access the admin panel</p>
             </div>
-
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active">
-                    <i class="fas fa-users"></i>
-                    <span>All Profiles</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span></span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span></span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span> </span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span></span>
-                </a>
-            </nav>
-
-            <div style="margin-top: auto; padding-top: 2rem;">
-                <div class="user-avatar">
-                    <span>A</span>
-                </div>
-                <div style="margin-top: 1rem;">
-                    <p style="font-weight: 600; margin-bottom: 0.2rem;">Admin User</p>
-                    <p style="color: var(--gray); font-size: 0.9rem;">admin@everlastingbonds.com</p>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div>
-                    <h1>User Profiles Management</h1>
-                    <p style="color: var(--gray); margin-top: 0.5rem;">Manage and view all registered user profiles</p>
-                </div>
-                
-                <div class="header-actions">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchProfiles" placeholder="Search profiles by name, email, or city...">
+            <div class="login-body">
+                <form class="login-form" id="adminLoginForm">
+                    <div class="form-group">
+                        <label for="adminEmail">Admin Email</label>
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="adminEmail" placeholder="admin@gmail.com" required>
                     </div>
                     
-                    <button class="action-btn view" id="refreshBtn">
-                        <i class="fas fa-sync-alt"></i>
-                        <span>Refresh</span>
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="adminPassword" placeholder="Enter password" required>
+                    </div>
+                    
+                    <div class="login-error" id="loginError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Invalid admin credentials
+                    </div>
+                    
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login to Admin Panel
                     </button>
-                </div>
-            </header>
-
-            <!-- Stats Cards -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-icon users">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="totalProfiles">0</h3>
-                        <p>Total Profiles</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon male">
-                        <i class="fas fa-mars"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="maleProfiles">0</h3>
-                        <p>Male Profiles</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon female">
-                        <i class="fas fa-venus"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="femaleProfiles">0</h3>
-                        <p>Female Profiles</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon active">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="activeProfiles">0</h3>
-                        <p>Active Profiles</p>
-                    </div>
-                </div>
+                </form>
             </div>
+        </div>
+    </div>
 
-            <!-- Profiles Section -->
-            <div class="profiles-header">
-                <h2>All User Profiles</h2>
-                
-                <div class="filter-controls">
-                    <select class="filter-select" id="genderFilter">
-                        <option value="all">All Genders</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                    
-                    <select class="filter-select" id="statusFilter">
-                        <option value="all">All Status</option>
+    <!-- Admin Navigation (Hidden until login) -->
+    <nav class="admin-navbar" id="adminNavbar" style="display: none;">
+        <div class="container">
+            <a href="#" class="admin-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>User Profiles Admin</span>
+            </a>
+            
+            <div class="admin-user-info">
+                <div class="admin-avatar" id="adminAvatar">A</div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content (Hidden until login) -->
+    <div class="container" id="mainContent" style="display: none;">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-id-card"></i> All User Profiles</h1>
+            <div class="dashboard-actions">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="profileSearch" placeholder="Search profiles by name, email, or city...">
+                </div>
+                <button class="refresh-btn" id="refreshProfiles">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- User Profiles Table -->
+        <div class="data-table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-address-card"></i> User Profiles Management</h3>
+                <div class="table-filters">
+                    <select class="filter-select" id="profileStatusFilter">
+                        <option value="all">All Profiles</option>
                         <option value="active">Active</option>
                         <option value="pending">Pending</option>
+                        <option value="inactive">Inactive</option>
                     </select>
-                    
-                    <select class="filter-select" id="sortFilter">
+                    <select class="filter-select" id="profileSort">
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>
                         <option value="name">Name A-Z</option>
+                        <option value="age">Age Low to High</option>
                     </select>
                 </div>
             </div>
-
-            <div class="profiles-grid" id="profilesGrid">
-                <!-- Profiles will be loaded here -->
+            
+            <div class="table-responsive">
+                <table class="data-table" id="profilesTable">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>User Email</th>
+                            <th>Age/Gender</th>
+                            <th>Location</th>
+                            <th>Education</th>
+                            <th>Profession</th>
+                            <th>Religion</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="profilesTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
             </div>
-        </main>
+            
+            <div class="table-footer">
+                <div class="records-info">
+                    Showing <span id="profilesStart">1</span>-<span id="profilesEnd">10</span> of <span id="profilesTotal">0</span> profiles
+                </div>
+                <div class="pagination" id="profilesPagination">
+                    <!-- Dynamic pagination will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-user-slash"></i>
+            <h3>No Profiles Found</h3>
+            <p>No user profiles have been created yet. Profiles will appear here when users create them in the system.</p>
+        </div>
     </div>
 
-    <!-- View Profile Modal -->
+    <!-- Profile View Modal -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <div class="modal-header">
                 <h2>
                     <i class="fas fa-user-circle"></i>
-                    <span id="modalProfileName">Profile Details</span>
+                    <span>Profile Details</span>
                 </h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            
-            <div class="modal-body" id="modalProfileContent">
-                <!-- Profile content will be loaded here -->
-            </div>
-            
-            <div class="modal-footer">
-                <button class="action-btn delete" id="deleteProfileBtn">
-                    <i class="fas fa-trash"></i>
-                    <span>Delete Profile</span>
+                <button class="close-btn" onclick="closeModal('profileModal')" aria-label="Close modal">
+                    &times;
                 </button>
-                <button class="action-btn view" id="closeProfileModalBtn">
+            </div>
+            <div id="profileModalContent" class="modal-body">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('profileModal')">
                     <i class="fas fa-times"></i>
-                    <span>Close</span>
+                    Close
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-    // Replace your entire JavaScript with this:
-
-// Admin Dashboard JavaScript
-let allProfiles = [];
-let filteredProfiles = [];
-let currentProfileId = null;
-
-// Utility Functions
-function showLoading() {
-    document.getElementById('loadingOverlay').classList.add('active');
-}
-
-function hideLoading() {
-    document.getElementById('loadingOverlay').classList.remove('active');
-}
-
-function showNotification(message, type = 'success', duration = 3000) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => notification.classList.add('show'), 10);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, duration);
-}
-
-function openModal() {
-    document.getElementById('profileModal').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('profileModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-}
-
-// SIMULATED SHARED DATABASE
-// We'll use localStorage but with a twist - we'll simulate profiles from different users
-class SharedProfileDatabase {
-    constructor() {
-        this.dbKey = 'MATRIMONY_SHARED_DATABASE';
-        this.syncKey = 'MATRIMONY_LAST_SYNC';
-    }
-    
-    // Get all profiles from shared database
-    getAllProfiles() {
-        try {
-            const data = localStorage.getItem(this.dbKey);
-            if (!data) return this.initializeWithDemoData();
+        // ===== SIMPLIFIED ADMIN DASHBOARD WITH POPUP LOGIN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin Dashboard loaded');
             
-            const profiles = JSON.parse(data);
-            return Array.isArray(profiles) ? profiles : this.initializeWithDemoData();
-        } catch (error) {
-            console.error('Error reading shared database:', error);
-            return this.initializeWithDemoData();
-        }
-    }
-    
-    // Save profiles to shared database
-    saveAllProfiles(profiles) {
-        try {
-            localStorage.setItem(this.dbKey, JSON.stringify(profiles));
-            localStorage.setItem(this.syncKey, new Date().toISOString());
-            return true;
-        } catch (error) {
-            console.error('Error saving to shared database:', error);
-            return false;
-        }
-    }
-    
-    // Initialize with demo data
-    initializeWithDemoData() {
-        const demoProfiles = this.generateDemoProfiles(20);
-        this.saveAllProfiles(demoProfiles);
-        return demoProfiles;
-    }
-    
-    // Add a new profile from any user
-    addProfile(profileData) {
-        const allProfiles = this.getAllProfiles();
+            // Check if admin is already logged in
+            checkAdminAuth();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        // ===== CONSTANTS =====
+        const ADMIN_EMAIL = "admin@gmail.com";
+        const ADMIN_PASSWORD = "admin123";
         
-        // Check if profile already exists (by email)
-        const email = profileData.bio?.email || profileData.user?.email;
-        if (email) {
-            const exists = allProfiles.some(p => 
-                (p.bio?.email === email) || (p.user?.email === email)
-            );
+        // ===== STATE MANAGEMENT =====
+        let currentAdmin = null;
+        let allProfiles = [];
+
+        // ===== AUTHENTICATION =====
+        function checkAdminAuth() {
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            const adminSession = localStorage.getItem("adminSession");
             
-            if (exists) {
-                // Update existing profile
-                const index = allProfiles.findIndex(p => 
-                    (p.bio?.email === email) || (p.user?.email === email)
-                );
-                allProfiles[index] = {
-                    ...allProfiles[index],
-                    ...profileData,
-                    updatedAt: new Date().toISOString()
-                };
+            // Check if admin is logged in via either method
+            if ((loggedInUser && loggedInUser.role === "admin") || adminSession) {
+                try {
+                    currentAdmin = adminSession ? JSON.parse(adminSession) : loggedInUser;
+                    showAdminDashboard();
+                    initAdminDashboard();
+                } catch (error) {
+                    showLoginPopup();
+                }
             } else {
-                // Add new profile
-                const newProfile = {
-                    _id: `profile_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                    ...profileData,
-                    status: 'active',
-                    views: 0,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                };
-                allProfiles.push(newProfile);
+                showLoginPopup();
             }
-        } else {
-            // Profile without email - add as new
-            const newProfile = {
-                _id: `profile_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                ...profileData,
-                status: 'active',
-                views: 0,
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            allProfiles.push(newProfile);
         }
-        
-        this.saveAllProfiles(allProfiles);
-        return allProfiles;
-    }
-    
-    // Generate diverse demo profiles
-    generateDemoProfiles(count = 10) {
-        const firstNames = {
-            male: ['Rajesh', 'Arun', 'Karthik', 'Suresh', 'Vikram', 'Anand', 'Praveen', 'Gopal', 'Ravi', 'Manoj', 'Ashok', 'Dinesh', 'Harish', 'Jagan', 'Kumar'],
-            female: ['Priya', 'Anjali', 'Divya', 'Keerthana', 'Sneha', 'Meena', 'Lakshmi', 'Geetha', 'Swathi', 'Pooja', 'Ranjani', 'Shalini', 'Vandana', 'Bhavana', 'Chitra']
-        };
-        
-        const lastNames = ['Kumar', 'Sharma', 'Patel', 'Reddy', 'Nair', 'Menon', 'Iyer', 'Pillai', 'Singh', 'Verma', 'Jain', 'Gupta', 'Malhotra', 'Choudhary', 'Mehta'];
-        
-        const cities = [
-            'Chennai, Tamil Nadu', 
-            'Bangalore, Karnataka', 
-            'Mumbai, Maharashtra', 
-            'Delhi', 
-            'Hyderabad, Telangana',
-            'Kolkata, West Bengal',
-            'Pune, Maharashtra',
-            'Ahmedabad, Gujarat',
-            'Jaipur, Rajasthan',
-            'Coimbatore, Tamil Nadu',
-            'Madurai, Tamil Nadu',
-            'Salem, Tamil Nadu',
-            'Trichy, Tamil Nadu'
-        ];
-        
-        const professions = [
-            'Software Engineer', 'Doctor', 'Teacher', 'Business Analyst', 'Accountant',
-            'Marketing Manager', 'Architect', 'Lawyer', 'CA', 'Bank Manager',
-            'Pharmacist', 'Nurse', 'Professor', 'Entrepreneur', 'Government Officer',
-            'Engineer', 'Business Owner', 'Consultant', 'Designer', 'Developer'
-        ];
-        
-        const educations = [
-            'B.Tech', 'MBA', 'MBBS', 'M.Sc', 'B.Sc',
-            'CA', 'B.Com', 'M.Com', 'PhD', 'BA',
-            'MS', 'BE', 'MCA', 'BBA', 'MA'
-        ];
-        
-        const demoProfiles = [];
-        const usedEmails = new Set();
-        
-        for (let i = 0; i < count; i++) {
-            const isMale = Math.random() > 0.5;
-            const gender = isMale ? 'Male' : 'Female';
-            const firstName = isMale ? 
-                firstNames.male[Math.floor(Math.random() * firstNames.male.length)] :
-                firstNames.female[Math.floor(Math.random() * firstNames.female.length)];
-            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            const fullName = `${firstName} ${lastName}`;
-            
-            // Generate unique email
-            let email;
-            do {
-                const emailNum = Math.floor(Math.random() * 1000);
-                const domains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'rediffmail.com'];
-                const domain = domains[Math.floor(Math.random() * domains.length)];
-                email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${emailNum}@${domain}`;
-            } while (usedEmails.has(email));
-            usedEmails.add(email);
-            
-            const age = 22 + Math.floor(Math.random() * 15);
-            const city = cities[Math.floor(Math.random() * cities.length)];
-            const profession = professions[Math.floor(Math.random() * professions.length)];
-            const education = educations[Math.floor(Math.random() * educations.length)];
-            
-            demoProfiles.push({
-                _id: `profile_${Date.now()}_${i}`,
-                bio: {
-                    fullName: fullName,
-                    gender: gender,
-                    age: age,
-                    religion: Math.random() > 0.3 ? 'Hindu' : (Math.random() > 0.5 ? 'Christian' : 'Muslim'),
-                    education: education,
-                    profession: profession,
-                    email: email,
-                    phone: `+91 ${Math.floor(9000000000 + Math.random() * 1000000000)}`,
-                    about: `I am a ${profession.toLowerCase()} from ${city}. Looking for a compatible partner who shares similar values and interests for a happy married life.`,
-                    hobbies: ['Reading', 'Traveling', 'Music', 'Cooking', 'Sports', 'Yoga', 'Dancing', 'Photography'][Math.floor(Math.random() * 8)],
-                    city: city,
-                    state: city.split(', ')[1] || 'Tamil Nadu'
-                },
-                partner: {
-                    ageMin: age - 3,
-                    ageMax: age + 5,
-                    gender: isMale ? 'Female' : 'Male',
-                    religion: [Math.random() > 0.3 ? 'Hindu' : (Math.random() > 0.5 ? 'Christian' : 'Muslim')],
-                    education: 'Graduate or higher',
-                    profession: 'Professional',
-                    location: 'India',
-                    income: `${Math.floor(300000 + Math.random() * 700000)}`,
-                    values: ['family', 'honesty', 'respect', 'trust', 'loyalty'].slice(0, 3),
-                    additional: 'Looking for someone with good family values and educational background'
-                },
-                user: {
-                    userId: `user_${Math.random().toString(36).substr(2, 9)}`,
-                    email: email,
-                    name: fullName,
-                    registeredAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                status: Math.random() > 0.2 ? 'active' : 'pending',
-                views: Math.floor(Math.random() * 200),
-                profileCompleteness: Math.floor(Math.random() * 30) + 70,
-                isVerified: Math.random() > 0.7,
-                lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
-                createdAt: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString(),
-                updatedAt: new Date().toISOString(),
-                source: 'demo'
-            });
+
+        function showLoginPopup() {
+            // Show login popup, hide everything else
+            document.getElementById('loginPopup').style.display = 'flex';
+            document.getElementById('adminNavbar').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
         }
-        
-        return demoProfiles;
-    }
-    
-    // Check and import profiles from individual user localStorage
-    importUserProfiles() {
-        const importedProfiles = [];
-        
-        // Common keys where users might store their profile
-        const profileKeys = [
-            'userProfile', 'currentProfile', 'profileData', 'matrimonyProfile',
-            'myProfile', 'userData', 'biodata', 'weddingProfile'
-        ];
-        
-        profileKeys.forEach(key => {
-            try {
-                const data = localStorage.getItem(key);
-                if (data) {
-                    const profile = JSON.parse(data);
-                    if (profile && (profile.bio || profile.email)) {
-                        importedProfiles.push(profile);
-                    }
+
+        function showAdminDashboard() {
+            // Hide login popup, show admin dashboard
+            document.getElementById('loginPopup').style.display = 'none';
+            document.getElementById('adminNavbar').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'block';
+            
+            // Update admin avatar
+            if (currentAdmin) {
+                const adminAvatar = document.getElementById('adminAvatar');
+                if (adminAvatar && currentAdmin.name) {
+                    adminAvatar.textContent = currentAdmin.name.charAt(0).toUpperCase();
                 }
-            } catch (e) {
-                // Ignore errors
+            }
+        }
+
+        // ===== INITIALIZATION =====
+        function initAdminDashboard() {
+            console.log('Initializing admin dashboard...');
+            
+            // Load all profiles from user system
+            loadAllProfiles();
+            
+            // Load profiles data
+            loadProfilesData();
+        }
+
+        function loadAllProfiles() {
+    console.log('Loading all user profiles...');
+    
+    // Method 1: Load from allProfiles
+    allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
+    console.log('Loaded from allProfiles:', allProfiles.length);
+    
+    // Method 2: Also check for user-specific profiles
+    if (allProfiles.length === 0) {
+        // Try to load individual user profiles
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        users.forEach(user => {
+            const userProfileKey = `userProfile_${user.id}`;
+            const userProfile = JSON.parse(localStorage.getItem(userProfileKey) || 'null');
+            if (userProfile) {
+                allProfiles.push(userProfile);
             }
         });
-        
-        // Also check for profiles in the current page (simulate)
-        try {
-            // Check if there's a profile form on this page
-            const profileForms = document.querySelectorAll('form');
-            profileForms.forEach(form => {
-                // Simulate extracting profile data from form
-                if (form.querySelector('input[type="email"]')) {
-                    const email = form.querySelector('input[type="email"]')?.value;
-                    const name = form.querySelector('input[name="name"]')?.value || 
-                                form.querySelector('input[name="fullName"]')?.value;
+        console.log('Loaded user-specific profiles:', allProfiles.length);
+    }
+    
+    // Method 3: Check MATRIMONY_SHARED_DATABASE
+    if (allProfiles.length === 0) {
+        const sharedDB = JSON.parse(localStorage.getItem('MATRIMONY_SHARED_DATABASE') || '[]');
+        if (sharedDB.length > 0) {
+            allProfiles = sharedDB;
+            console.log('Loaded from MATRIMONY_SHARED_DATABASE:', allProfiles.length);
+        }
+    }
+    
+    // Log all profiles for debugging
+    console.log('All profiles found:');
+    allProfiles.forEach((profile, index) => {
+        console.log(`${index + 1}. Name: ${profile.bio?.fullName || 'Unknown'}, Email: ${profile.bio?.email || profile.user?.email || 'No email'}, UserID: ${profile.user?.userId || 'No user ID'}`);
+    });
+}
+
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Login form submission
+            const loginForm = document.getElementById('adminLoginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
+            
+            // Logout button
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logoutAdmin);
+            }
+            
+            // Refresh button
+            const refreshBtn = document.getElementById('refreshProfiles');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', refreshData);
+            }
+            
+            // Search functionality
+            const searchInput = document.getElementById('profileSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(handleSearch, 300));
+            }
+            
+            // Filter changes
+            const filters = ['profileStatusFilter', 'profileSort'];
+            filters.forEach(id => {
+                const filter = document.getElementById(id);
+                if (filter) {
+                    filter.addEventListener('change', handleFilterChange);
+                }
+            });
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const loginError = document.getElementById('loginError');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Disable login button and show loading
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                    // Login successful
+                    currentAdmin = {
+                        role: "admin",
+                        email: email,
+                        name: "Administrator",
+                        loginTime: new Date().toISOString()
+                    };
                     
-                    if (email && name) {
-                        importedProfiles.push({
-                            bio: {
-                                email: email,
-                                fullName: name,
-                                // Add more fields if available
-                            },
-                            source: 'current_page_form'
-                        });
-                    }
+                    // Save admin session
+                    localStorage.setItem("adminSession", JSON.stringify(currentAdmin));
+                    localStorage.setItem("loggedInUser", JSON.stringify(currentAdmin));
+                    
+                    // Hide error if shown
+                    loginError.classList.remove('show');
+                    
+                    // Show admin dashboard
+                    showAdminDashboard();
+                    initAdminDashboard();
+                    
+                    // Show success notification
+                    showNotification('Login successful! Welcome to Admin Panel', 'success');
+                } else {
+                    // Login failed
+                    loginError.classList.add('show');
+                    showNotification('Invalid admin credentials', 'error');
+                }
+                
+                // Re-enable login button
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Admin Panel';
+                
+                // Clear password field
+                document.getElementById('adminPassword').value = '';
+            }, 1000);
+        }
+
+        // ===== DATA LOADING FUNCTIONS =====
+        function loadProfilesData() {
+            const tableBody = document.getElementById('profilesTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (!tableBody) return;
+            
+            // Clear existing rows
+            tableBody.innerHTML = '';
+            
+            // Get filters
+            const statusFilter = document.getElementById('profileStatusFilter').value;
+            const sortBy = document.getElementById('profileSort').value;
+            const searchQuery = document.getElementById('profileSearch').value.toLowerCase();
+            
+            // Filter profiles
+            let filteredProfiles = [...allProfiles];
+            
+            // Apply search filter
+            if (searchQuery) {
+                filteredProfiles = filteredProfiles.filter(profile => 
+                    (profile.bio?.fullName || '').toLowerCase().includes(searchQuery) ||
+                    (profile.bio?.email || '').toLowerCase().includes(searchQuery) ||
+                    (profile.user?.email || '').toLowerCase().includes(searchQuery) ||
+                    (profile.bio?.city || '').toLowerCase().includes(searchQuery) ||
+                    (profile.bio?.profession || '').toLowerCase().includes(searchQuery)
+                );
+            }
+            
+            // Apply status filter
+            if (statusFilter !== 'all') {
+                filteredProfiles = filteredProfiles.filter(profile => 
+                    (profile.status || 'active') === statusFilter
+                );
+            }
+            
+            // Apply sorting
+            filteredProfiles.sort((a, b) => {
+                switch(sortBy) {
+                    case 'newest':
+                        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+                    case 'oldest':
+                        return new Date(a.createdAt || 0) - new Date(b.createdAt || 0);
+                    case 'name':
+                        return (a.bio?.fullName || '').localeCompare(b.bio?.fullName || '');
+                    case 'age':
+                        return (a.bio?.age || 0) - (b.bio?.age || 0);
+                    default:
+                        return 0;
                 }
             });
-        } catch (e) {
-            // Ignore errors
-        }
-        
-        return importedProfiles;
-    }
-}
-
-// Initialize shared database
-const sharedDB = new SharedProfileDatabase();
-
-// Load profiles from shared database
-function loadProfiles() {
-    try {
-        showLoading();
-        
-        // Get profiles from shared database
-        allProfiles = sharedDB.getAllProfiles();
-        
-        // Also try to import any profiles from current user's localStorage
-        const importedProfiles = sharedDB.importUserProfiles();
-        if (importedProfiles.length > 0) {
-            importedProfiles.forEach(profile => {
-                allProfiles = sharedDB.addProfile(profile);
-            });
-        }
-        
-        filterAndDisplayProfiles();
-        updateStats();
-        
-        const uniqueEmails = new Set(allProfiles.map(p => p.bio?.email || p.user?.email));
-        showNotification(`Loaded ${allProfiles.length} profiles from ${uniqueEmails.size} different users`, 'success');
-        
-    } catch (error) {
-        console.error('Error loading profiles:', error);
-        showNotification('Error loading profiles', 'error');
-    } finally {
-        hideLoading();
-    }
-}
-
-// Add a function to simulate profile creation from different users
-function simulateProfileCreation() {
-    const newProfile = {
-        bio: {
-            fullName: `Test User ${Math.floor(Math.random() * 1000)}`,
-            gender: Math.random() > 0.5 ? 'Male' : 'Female',
-            age: 25 + Math.floor(Math.random() * 10),
-            email: `testuser${Date.now()}@example.com`,
-            profession: 'Software Engineer',
-            city: 'Bangalore',
-            phone: `+91 ${Math.floor(9000000000 + Math.random() * 1000000000)}`
-        },
-        user: {
-            userId: `user_${Date.now()}`,
-            email: `testuser${Date.now()}@example.com`,
-            name: `Test User ${Math.floor(Math.random() * 1000)}`
-        }
-    };
-    
-    allProfiles = sharedDB.addProfile(newProfile);
-    filterAndDisplayProfiles();
-    updateStats();
-    
-    showNotification(`New profile created: ${newProfile.bio.fullName} (${newProfile.bio.email})`, 'success');
-}
-
-// Filter and display profiles
-function filterAndDisplayProfiles() {
-    const genderFilter = document.getElementById('genderFilter').value;
-    const statusFilter = document.getElementById('statusFilter').value;
-    const sortFilter = document.getElementById('sortFilter').value;
-    const searchTerm = document.getElementById('searchProfiles').value.toLowerCase();
-    
-    // Apply filters
-    filteredProfiles = allProfiles.filter(profile => {
-        const matchesGender = genderFilter === 'all' || profile.bio?.gender === genderFilter;
-        const matchesStatus = statusFilter === 'all' || profile.status === statusFilter;
-        const matchesSearch = searchTerm === '' || 
-            profile.bio?.fullName?.toLowerCase().includes(searchTerm) ||
-            profile.bio?.email?.toLowerCase().includes(searchTerm) ||
-            profile.bio?.city?.toLowerCase().includes(searchTerm) ||
-            profile.bio?.profession?.toLowerCase().includes(searchTerm) ||
-            (profile.user?.email && profile.user.email.toLowerCase().includes(searchTerm));
-        
-        return matchesGender && matchesStatus && matchesSearch;
-    });
-    
-    // Apply sorting
-    filteredProfiles.sort((a, b) => {
-        switch (sortFilter) {
-            case 'oldest':
-                return new Date(a.createdAt) - new Date(b.createdAt);
-            case 'name':
-                return (a.bio?.fullName || '').localeCompare(b.bio?.fullName || '');
-            case 'newest':
-            default:
-                return new Date(b.createdAt) - new Date(a.createdAt);
-        }
-    });
-    
-    displayProfiles();
-}
-
-// Display profiles in grid
-function displayProfiles() {
-    const grid = document.getElementById('profilesGrid');
-    
-    if (!filteredProfiles || filteredProfiles.length === 0) {
-        grid.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="fas fa-user-slash"></i>
-                </div>
-                <h3>No Profiles Found</h3>
-                <p>No user profiles match your search criteria. Try adjusting your filters or adding more users.</p>
-                <button class="action-btn view mt-2" id="addDemoBtn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Add Demo Profiles</span>
-                </button>
-                <button class="action-btn view mt-2" id="simulateUserBtn">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Simulate New User</span>
-                </button>
-            </div>
-        `;
-        return;
-    }
-
-    grid.innerHTML = filteredProfiles.map(profile => {
-        const initials = profile.bio?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || '??';
-        const isMale = profile.bio?.gender === 'Male';
-        const email = profile.bio?.email || profile.user?.email || 'No email';
-        
-        return `
-            <div class="profile-card" data-id="${profile._id}">
-                <div class="profile-header">
-                    <div class="profile-avatar">${initials}</div>
-                    <div class="profile-name">${profile.bio?.fullName || 'Unknown User'}</div>
-                    <div class="profile-badge ${isMale ? 'male' : 'female'}">
-                        <i class="fas fa-${isMale ? 'mars' : 'venus'}"></i>
-                        <span>${profile.bio?.gender || 'Unknown'}, ${profile.bio?.age || '?'} yrs</span>
-                    </div>
-                    ${profile.source === 'demo' ? '<div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.3); color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.7rem;">DEMO</div>' : ''}
-                </div>
-                
-                <div class="profile-content">
-                    <div class="profile-detail">
-                        <span class="detail-label">Email:</span>
-                        <span class="detail-value" style="font-size: 0.8rem;">${email}</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Profession:</span>
-                        <span class="detail-value">${profile.bio?.profession || 'Not specified'}</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Location:</span>
-                        <span class="detail-value">${profile.bio?.city || 'Unknown'}</span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Status:</span>
-                        <span class="detail-value" style="color: ${profile.status === 'active' ? '#4cc9f0' : '#f8961e'}">
-                            ${profile.status === 'active' ? 'Active' : 'Pending'}
-                        </span>
-                    </div>
-                    <div class="profile-detail">
-                        <span class="detail-label">Source:</span>
-                        <span class="detail-value">${profile.source || 'User'}</span>
-                    </div>
-                </div>
-                
-                <div class="profile-actions">
-                    <button class="action-btn view" onclick="viewProfile('${profile._id}')">
-                        <i class="fas fa-eye"></i>
-                        <span>View Details</span>
-                    </button>
-                    <button class="action-btn delete" onclick="deleteProfilePrompt('${profile._id}')">
-                        <i class="fas fa-trash"></i>
-                        <span>Delete</span>
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// Update statistics
-function updateStats() {
-    const totalProfiles = allProfiles.length;
-    const maleProfiles = allProfiles.filter(p => p.bio?.gender === 'Male').length;
-    const femaleProfiles = allProfiles.filter(p => p.bio?.gender === 'Female').length;
-    const activeProfiles = allProfiles.filter(p => p.status === 'active').length;
-    
-    document.getElementById('totalProfiles').textContent = totalProfiles;
-    document.getElementById('maleProfiles').textContent = maleProfiles;
-    document.getElementById('femaleProfiles').textContent = femaleProfiles;
-    document.getElementById('activeProfiles').textContent = activeProfiles;
-}
-
-// View profile details (same as before, but shortened for brevity)
-function viewProfile(profileId) {
-    const profile = allProfiles.find(p => p._id === profileId);
-    if (!profile) return;
-    
-    currentProfileId = profileId;
-    
-    const modalContent = document.getElementById('modalProfileContent');
-    const modalTitle = document.getElementById('modalProfileName');
-    
-    modalTitle.textContent = profile.bio?.fullName || 'Profile Details';
-    
-    // ... (same modal content generation as before)
-    // For brevity, I'm showing a shortened version
-    const initials = profile.bio?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || '??';
-    
-    modalContent.innerHTML = `
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: white; margin: 0 auto 1rem;">
-                ${initials}
-            </div>
-            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${profile.bio?.fullName || 'Unknown User'}</h3>
-            <p style="color: var(--gray);">${profile.bio?.email || profile.user?.email || 'No email'}</p>
-            <p style="color: var(--gray); margin-top: 0.5rem;">Created: ${formatDate(profile.createdAt)}</p>
-        </div>
-        
-        <div style="background: var(--gray-light); padding: 1.5rem; border-radius: var(--border-radius);">
-            <h4 style="color: var(--gray); margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Quick Info</h4>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Gender</p>
-                    <p style="font-weight: 600;">${profile.bio?.gender || 'Unknown'}</p>
-                </div>
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Age</p>
-                    <p style="font-weight: 600;">${profile.bio?.age || '?'} years</p>
-                </div>
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Profession</p>
-                    <p style="font-weight: 600;">${profile.bio?.profession || 'Not specified'}</p>
-                </div>
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Location</p>
-                    <p style="font-weight: 600;">${profile.bio?.city || 'Unknown'}</p>
-                </div>
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Status</p>
-                    <p style="font-weight: 600; color: ${profile.status === 'active' ? '#4cc9f0' : '#f8961e'}">
-                        ${profile.status === 'active' ? 'Active' : 'Pending'}
-                    </p>
-                </div>
-                <div>
-                    <p style="color: var(--gray); font-size: 0.9rem; margin-bottom: 0.3rem;">Source</p>
-                    <p style="font-weight: 600;">${profile.source || 'User Registered'}</p>
-                </div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 1.5rem;">
-            <button class="action-btn view" onclick="viewFullProfile('${profile._id}')" style="width: 100%;">
-                <i class="fas fa-external-link-alt"></i>
-                <span>View Full Profile Details</span>
-            </button>
-        </div>
-    `;
-    
-    openModal();
-}
-
-// View full profile
-function viewFullProfile(profileId) {
-    const profile = allProfiles.find(p => p._id === profileId);
-    if (!profile) return;
-    
-    // ... (full profile details - same as your existing viewProfile function)
-    // For brevity, using the same detailed view
-}
-
-// Delete profile prompt
-function deleteProfilePrompt(profileId) {
-    const profile = allProfiles.find(p => p._id === profileId);
-    if (!profile) return;
-    
-    const profileName = profile.bio?.fullName || 'this profile';
-    const profileEmail = profile.bio?.email || profile.user?.email || '';
-    
-    if (confirm(`Are you sure you want to delete "${profileName}" (${profileEmail})? This action cannot be undone.`)) {
-        deleteProfile(profileId);
-    }
-}
-
-// Delete profile
-function deleteProfile(profileId) {
-    const index = allProfiles.findIndex(p => p._id === profileId);
-    if (index === -1) return;
-    
-    const deletedProfile = allProfiles.splice(index, 1)[0];
-    sharedDB.saveAllProfiles(allProfiles);
-    
-    showNotification(`Profile "${deletedProfile.bio?.fullName || 'Unknown'}" deleted successfully`, 'success');
-    
-    if (currentProfileId === profileId) {
-        closeModal();
-        currentProfileId = null;
-    }
-    
-    filterAndDisplayProfiles();
-    updateStats();
-}
-
-// Setup Event Listeners
-function setupEventListeners() {
-    // Refresh button
-    const refreshBtn = document.getElementById('refreshBtn');
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', () => {
-            loadProfiles();
-            showNotification('Profiles refreshed from shared database', 'success');
-        });
-    }
-    
-    // Search input
-    const searchInput = document.getElementById('searchProfiles');
-    if (searchInput) {
-        searchInput.addEventListener('input', filterAndDisplayProfiles);
-    }
-    
-    // Filter selects
-    document.querySelectorAll('.filter-select').forEach(select => {
-        select.addEventListener('change', filterAndDisplayProfiles);
-    });
-    
-    // Modal close buttons
-    document.getElementById('closeModal').addEventListener('click', closeModal);
-    document.getElementById('closeProfileModalBtn').addEventListener('click', closeModal);
-    
-    // Delete profile button in modal
-    document.getElementById('deleteProfileBtn').addEventListener('click', () => {
-        if (currentProfileId) {
-            deleteProfilePrompt(currentProfileId);
-        }
-    });
-    
-    // Close modal on overlay click
-    document.getElementById('profileModal').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('profileModal')) {
-            closeModal();
-        }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
-    
-    // Add Simulate User button to header
-    const headerActions = document.querySelector('.header-actions');
-    if (headerActions && !document.getElementById('simulateUserHeaderBtn')) {
-        const simulateBtn = document.createElement('button');
-        simulateBtn.id = 'simulateUserHeaderBtn';
-        simulateBtn.className = 'action-btn view';
-        simulateBtn.innerHTML = '<i class="fas fa-user-plus"></i> <span>Simulate User</span>';
-        simulateBtn.addEventListener('click', simulateProfileCreation);
-        headerActions.appendChild(simulateBtn);
-    }
-    
-    // Add Import Profiles button
-    const importBtn = document.createElement('button');
-    importBtn.id = 'importProfilesBtn';
-    importBtn.className = 'action-btn view';
-    importBtn.innerHTML = '<i class="fas fa-download"></i> <span>Import Profiles</span>';
-    importBtn.addEventListener('click', () => {
-        const imported = sharedDB.importUserProfiles();
-        if (imported.length > 0) {
-            imported.forEach(profile => {
-                allProfiles = sharedDB.addProfile(profile);
-            });
-            filterAndDisplayProfiles();
-            updateStats();
-            showNotification(`Imported ${imported.length} profile(s) from local storage`, 'success');
-        } else {
-            showNotification('No profiles found to import', 'warning');
-        }
-    });
-    
-    if (headerActions && !document.getElementById('importProfilesBtn')) {
-        headerActions.appendChild(importBtn);
-    }
-}
-
-// Initialize Admin Dashboard
-document.addEventListener('DOMContentLoaded', () => {
-    setupEventListeners();
-    loadProfiles();
-    
-    // Auto-refresh every 30 seconds
-    setInterval(() => {
-        const lastSync = localStorage.getItem('MATRIMONY_LAST_SYNC');
-        if (lastSync) {
-            const lastSyncDate = new Date(lastSync);
-            const now = new Date();
-            const diffMinutes = (now - lastSyncDate) / (1000 * 60);
             
-            if (diffMinutes > 1) {
-                // Check for updates
-                loadProfiles();
+            // Show empty state if no profiles
+            if (filteredProfiles.length === 0) {
+                if (tableBody.parentElement) {
+                    tableBody.parentElement.style.display = 'none';
+                }
+                if (emptyState) {
+                    emptyState.style.display = 'block';
+                }
+                updatePaginationInfo('profiles', 0, 0, 0);
+                return;
+            }
+            
+            // Show table if profiles exist
+            if (tableBody.parentElement) {
+                tableBody.parentElement.style.display = 'block';
+            }
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+            
+            // Populate table
+            filteredProfiles.forEach((profile, index) => {
+                const initials = profile.bio?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || '??';
+                const status = profile.status || 'active';
+                const statusClass = status === 'active' ? 'status-active' : 
+                                   status === 'pending' ? 'status-pending' : 'status-inactive';
+                
+                // Get user email (from bio or user object)
+                const userEmail = profile.bio?.email || profile.user?.email || 'No email';
+                
+                // Create table row
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="user-cell">
+                            <div class="user-avatar">${initials}</div>
+                            <div class="user-info">
+                                <h4>${profile.bio?.fullName || 'Unknown User'}</h4>
+                                <p>ID: ${profile._id?.substring(0, 8) || 'N/A'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${userEmail}</td>
+                    <td>${profile.bio?.age || '?'} / ${profile.bio?.gender || 'Unknown'}</td>
+                    <td>${profile.bio?.city || 'Unknown'}</td>
+                    <td>${profile.bio?.education || 'Not specified'}</td>
+                    <td>${profile.bio?.profession || 'Not specified'}</td>
+                    <td>${profile.bio?.religion || 'Not specified'}</td>
+                    <td><span class="status-badge ${statusClass}">${status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon view" onclick="viewProfile('${profile._id}')" title="View Profile">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon delete" onclick="deleteProfile('${profile._id}')" title="Delete Profile">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Update pagination info
+            updatePaginationInfo('profiles', filteredProfiles.length, 1, Math.min(10, filteredProfiles.length));
+        }
+
+        // ===== UTILITY FUNCTIONS =====
+        function updatePaginationInfo(type, total, start, end) {
+            const startEl = document.getElementById(`${type}Start`);
+            const endEl = document.getElementById(`${type}End`);
+            const totalEl = document.getElementById(`${type}Total`);
+            
+            if (startEl) startEl.textContent = start;
+            if (endEl) endEl.textContent = Math.min(end, total);
+            if (totalEl) totalEl.textContent = total;
+        }
+
+        // ===== ACTION FUNCTIONS =====
+        function viewProfile(profileId) {
+            const profile = allProfiles.find(p => p._id === profileId);
+            if (!profile) {
+                showNotification('Profile not found', 'error');
+                return;
+            }
+            
+            showProfileDetails(profile);
+        }
+
+        function deleteProfile(profileId) {
+            if (confirm('Are you sure you want to delete this profile? This action cannot be undone.')) {
+                // Remove from allProfiles
+                allProfiles = allProfiles.filter(p => p._id !== profileId);
+                localStorage.setItem('allProfiles', JSON.stringify(allProfiles));
+                
+                // Also remove from MATRIMONY_SHARED_DATABASE if exists
+                const sharedDB = JSON.parse(localStorage.getItem('MATRIMONY_SHARED_DATABASE') || '[]');
+                const updatedSharedDB = sharedDB.filter(p => p._id !== profileId);
+                localStorage.setItem('MATRIMONY_SHARED_DATABASE', JSON.stringify(updatedSharedDB));
+                
+                showNotification('Profile deleted successfully', 'success');
+                refreshData();
             }
         }
-    }, 30000);
-});
+
+        function showProfileDetails(profile) {
+            const content = document.getElementById('profileModalContent');
+            if (!content) return;
+            
+            const initials = profile.bio?.fullName?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || '??';
+            
+            content.innerHTML = `
+                <div class="profile-details-grid">
+                    <div class="profile-column">
+                        <div style="text-align: center; margin-bottom: 2rem;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; color: white; margin: 0 auto 1rem;">
+                                ${initials}
+                            </div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${profile.bio?.fullName || 'Unknown User'}</h3>
+                            <p style="color: var(--gray-color);">
+                                <i class="fas fa-${profile.bio?.gender === 'Male' ? 'mars' : 'venus'}"></i>
+                                ${profile.bio?.gender || 'Unknown'}, ${profile.bio?.age || '?'} years
+                            </p>
+                        </div>
+                        
+                        <h4 class="section-title"><i class="fas fa-user"></i> Personal Information</h4>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-user"></i> Full Name:</span>
+                                <span class="info-value">${profile.bio?.fullName || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-venus-mars"></i> Gender:</span>
+                                <span class="info-value">${profile.bio?.gender || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-birthday-cake"></i> Age:</span>
+                                <span class="info-value">${profile.bio?.age || 'Not specified'} years</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-envelope"></i> Email:</span>
+                                <span class="info-value">${profile.bio?.email || profile.user?.email || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-phone"></i> Phone:</span>
+                                <span class="info-value">${profile.bio?.phone || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-map-marker-alt"></i> City:</span>
+                                <span class="info-value">${profile.bio?.city || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-place-of-worship"></i> Religion:</span>
+                                <span class="info-value">${profile.bio?.religion || 'Not specified'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-column">
+                        <h4 class="section-title"><i class="fas fa-graduation-cap"></i> Education & Career</h4>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-graduation-cap"></i> Education:</span>
+                                <span class="info-value">${profile.bio?.education || 'Not specified'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-briefcase"></i> Profession:</span>
+                                <span class="info-value">${profile.bio?.profession || 'Not specified'}</span>
+                            </div>
+                            ${profile.bio?.about ? `
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-edit"></i> About:</span>
+                                    <span class="info-value" style="white-space: pre-line;">${profile.bio.about}</span>
+                                </div>
+                            ` : ''}
+                            ${profile.bio?.hobbies ? `
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-heart"></i> Hobbies:</span>
+                                    <span class="info-value">${profile.bio.hobbies}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <h4 class="section-title"><i class="fas fa-info-circle"></i> Profile Information</h4>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-calendar"></i> Created:</span>
+                                <span class="info-value">${profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'Unknown'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-sync-alt"></i> Updated:</span>
+                                <span class="info-value">${profile.updatedAt ? new Date(profile.updatedAt).toLocaleDateString() : 'Unknown'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-eye"></i> Views:</span>
+                                <span class="info-value">${profile.views || 0}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-chart-bar"></i> Completeness:</span>
+                                <span class="info-value">${profile.profileCompleteness || 0}%</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-circle"></i> Status:</span>
+                                <span class="info-value">${profile.status || 'active'}</span>
+                            </div>
+                            ${profile.user ? `
+                                <div class="info-item">
+                                    <span class="info-label"><i class="fas fa-id-card"></i> User ID:</span>
+                                    <span class="info-value">${profile.user.userId || 'N/A'}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            openModal('profileModal');
+        }
+
+        // ===== HELPER FUNCTIONS =====
+        function refreshData() {
+            showLoading();
+            
+            // Reload all profiles
+            loadAllProfiles();
+            
+            // Reload profiles data
+            loadProfilesData();
+            
+            setTimeout(() => {
+                hideLoading();
+                showNotification('Data refreshed successfully', 'success');
+            }, 500);
+        }
+
+        function handleSearch(e) {
+            const searchQuery = e.target.value.toLowerCase();
+            
+            // Reload profiles with search filter
+            loadProfilesData();
+        }
+
+        function handleFilterChange(e) {
+            // Reload profiles with new filters
+            loadProfilesData();
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        function logoutAdmin() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem("adminSession");
+                localStorage.removeItem("loggedInUser");
+                currentAdmin = null;
+                showLoginPopup();
+            }
+            window.location.href = "index.html";
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function showNotification(message, type = 'success', duration = 3000) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, duration);
+        }
+
+        function showLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.add('active');
+            }
+        }
+
+        function hideLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.remove('active');
+            }
+        }
+
+        // Initialize modal close buttons
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            if (!btn.onclick) {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal-overlay');
+                    if (modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
