@@ -30,6 +30,49 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+
+/* Add this to your CSS */
+.profile-incomplete-notice {
+    background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.profile-incomplete-notice i {
+    font-size: 1.5rem;
+}
+
+.profile-completion-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+}
+
+.profile-completion-fill {
+    height: 100%;
+    background: white;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+
 /* Global Styles */
 * {
     margin: 0;
@@ -1965,6 +2008,25 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
 });
 
+if (auth.shouldCompleteProfile()) {
+    // Show profile completion prompt
+    const emptyState = document.getElementById('emptyState');
+    if (emptyState) {
+        emptyState.innerHTML = `
+            <i class="fas fa-user-edit"></i>
+            <h3>Complete Your Profile</h3>
+            <p>Please complete your profile to get better matches and recommendations.</p>
+            <button class="btn-primary mt-2" id="completeProfileBtn">
+                <i class="fas fa-check-circle"></i>
+                <span>Complete Profile Now</span>
+            </button>
+        `;
+        
+        document.getElementById('completeProfileBtn')?.addEventListener('click', openEditProfile);
+        auth.markProfileReminderDone();
+    }
+}
+
 // Global state
 let currentTab = 0;
 let isEditMode = false;
@@ -1991,6 +2053,7 @@ function removeDuplicateProfiles(profiles) {
 }
 
 // Initialize dashboard
+// Update initDashboard function
 function initDashboard() {
     // Load user profile
     userProfile = auth.getUserProfile();
@@ -2001,20 +2064,22 @@ function initDashboard() {
     console.log('Current user profile:', userProfile);
     console.log('Total profiles found:', allProfiles.length);
     
-    if (userProfile) {
-        // User has a profile
+    // Check if user has a profile and if it's complete
+    const hasProfile = userProfile && userProfile._id;
+    const profileComplete = userProfile && userProfile.profileCompleteness > 50;
+    
+    if (hasProfile && profileComplete) {
+        // User has a complete profile
         document.getElementById('createProfileBtn').style.display = 'none';
         document.getElementById('createProfileNavBtn').style.display = 'none';
         document.getElementById('emptyState').style.display = 'none';
         document.getElementById('profileActionsHeader').style.display = 'flex';
         document.getElementById('matchesSection').style.display = 'block';
         
-        // Check if we need demo profiles (only load if total profiles are less than 6 including user)
+        // Check if we need demo profiles
         if (allProfiles.length < 6) {
             console.log('Few profiles found. Loading demo profiles...');
             loadDemoProfiles();
-            
-            // Re-load all profiles after demo profiles are added
             allProfiles = JSON.parse(localStorage.getItem('allProfiles') || '[]');
         }
         
@@ -2027,10 +2092,44 @@ function initDashboard() {
         // Update stats
         updateStats();
         
-        // Store matched profiles in localStorage for Find Matches page
+        // Store matched profiles
         localStorage.setItem('matchedProfiles', JSON.stringify(matchedProfiles));
+        
+    } else if (hasProfile && !profileComplete) {
+        // User has an incomplete profile
+        document.getElementById('createProfileBtn').style.display = 'flex';
+        document.getElementById('createProfileNavBtn').style.display = 'flex';
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('profileActionsHeader').style.display = 'none';
+        document.getElementById('matchesSection').style.display = 'none';
+        
+        // Show special message for incomplete profile
+        const emptyState = document.getElementById('emptyState');
+        if (emptyState) {
+            emptyState.innerHTML = `
+                <i class="fas fa-user-edit"></i>
+                <h3>Complete Your Profile</h3>
+                <p>Your profile is only ${userProfile?.profileCompleteness || 0}% complete. Complete your profile to start finding your perfect match.</p>
+                <button class="btn-primary mt-2" id="completeProfileBtn">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Complete Profile</span>
+                </button>
+            `;
+            
+            document.getElementById('completeProfileBtn')?.addEventListener('click', openEditProfile);
+        }
+        
+        // Show notification if it's first login
+        const showReminder = localStorage.getItem('showProfileReminder');
+        if (showReminder === 'true') {
+            setTimeout(() => {
+                showNotification('Please complete your profile to find better matches!', 'info', 5000);
+                localStorage.removeItem('showProfileReminder');
+            }, 1000);
+        }
+        
     } else {
-        // User doesn't have a profile
+        // User doesn't have any profile
         document.getElementById('createProfileBtn').style.display = 'flex';
         document.getElementById('createProfileNavBtn').style.display = 'flex';
         document.getElementById('emptyState').style.display = 'block';
@@ -2567,6 +2666,7 @@ function refreshMatches() {
 }
 
 // Calculate matches based on user preferences
+// Update the calculateMatches function
 function calculateMatches() {
     const user = auth.getCurrentUser();
     if (!userProfile || !user) {
@@ -2577,15 +2677,18 @@ function calculateMatches() {
     console.log('Current user ID:', user.id);
     console.log('Current user email:', user.email);
     
-    // Get all profiles except current user's profile
+    // Get ALL profiles from centralized storage
+    const allProfiles = auth.getAllProfiles();
+    console.log('Total profiles in system:', allProfiles.length);
+    
+    // Filter out current user's own profile
     const otherProfiles = allProfiles.filter(profile => {
         // Skip profiles without user data
         if (!profile.user) {
-            console.log('Skipping profile - no user data:', profile.bio?.fullName);
             return false;
         }
         
-        // Skip current user's own profile by comparing userId
+        // Skip current user's own profile
         if (profile.user.userId === user.id) {
             console.log('Skipping own profile:', profile.bio?.fullName);
             return false;
@@ -2593,7 +2696,6 @@ function calculateMatches() {
         
         // Skip if profile is not active
         if (profile.status !== 'active') {
-            console.log('Skipping inactive profile:', profile.bio?.fullName);
             return false;
         }
         
@@ -2602,7 +2704,7 @@ function calculateMatches() {
     
     console.log('Other profiles (excluding current user):', otherProfiles.length);
     
-    // Remove duplicates from otherProfiles
+    // Remove duplicates
     const uniqueProfiles = removeDuplicateProfiles(otherProfiles);
     
     // Filter profiles based on bidirectional compatibility
@@ -2610,13 +2712,12 @@ function calculateMatches() {
         const isCompatible = isBidirectionalCompatible(profile);
         return isCompatible;
     }).sort((a, b) => {
-        // Sort by compatibility score (highest first)
         const scoreA = calculateCompatibilityScore(a);
         const scoreB = calculateCompatibilityScore(b);
         return scoreB - scoreA;
     });
     
-    console.log('Found unique matches:', matchedProfiles.length);
+    console.log('Found matches:', matchedProfiles.length);
     
     // Remove duplicates from matchedProfiles too
     matchedProfiles = removeDuplicateProfiles(matchedProfiles);
